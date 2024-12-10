@@ -1,2 +1,2 @@
-# Pony-Server
-Server code that will hold the Pony game servers
+# Pony-Client
+Connects to Pony-Server for a client connection.

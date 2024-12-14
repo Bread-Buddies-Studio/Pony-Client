@@ -13,4 +13,4 @@ public class Player(RectangleF Hitbox) : Entity(Hitbox)
         this.Size = Size;
     }
     // Base Methods //
-}
+} 

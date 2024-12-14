@@ -1,5 +1,5 @@
 // Directory //
-namespace ServerSpace;
+namespace ClientSpace;
 // Class //
 public static class Constants
 {

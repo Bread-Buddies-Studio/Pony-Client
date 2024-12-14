@@ -1,9 +1,10 @@
 ﻿// Directory //
-namespace ServerSpace;
+namespace ClientSpace;
 // Imports //
 using System;
 using System.Net;
 using static Constants;
+using static Entities;
 // Classes //
 public static class NetworkData
 {
@@ -35,9 +36,8 @@ public static class NetworkData
     // Base Methods //
     static async Task Main(string[] args)
     {
-        // Init Server //
-        Console.WriteLine("Setting up Server!");
-        var serverThread = Task.Run(() => Server.Setup());
+        // Init Network //
+        await NetworkData.Setup();
         // Init Client //
         Console.WriteLine("Setting up Client");
         await Client.Setup();

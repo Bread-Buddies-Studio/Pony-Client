@@ -1,5 +1,5 @@
 // Directory //
-namespace ServerSpace;
+namespace ClientSpace;
 // Imports //
 using System;
 using System.Text;

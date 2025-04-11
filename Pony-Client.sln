@@ -1,22 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+VisualStudioVersion = 17.13.35825.156 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pony-Server", "Pony-Server\Pony-Server.csproj", "{4805F304-8B6E-498F-9999-471EE4B32EEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pony-Client", "Pony-Client\Pony-Client.csproj", "{625D6774-B681-42E0-848B-BD8F33FA131E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{625D6774-B681-42E0-848B-BD8F33FA131E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{625D6774-B681-42E0-848B-BD8F33FA131E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{625D6774-B681-42E0-848B-BD8F33FA131E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{625D6774-B681-42E0-848B-BD8F33FA131E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4805F304-8B6E-498F-9999-471EE4B32EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4805F304-8B6E-498F-9999-471EE4B32EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4805F304-8B6E-498F-9999-471EE4B32EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4805F304-8B6E-498F-9999-471EE4B32EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB280837-F4D4-43D5-8E26-A095306CB570}
 	EndGlobalSection
 EndGlobal

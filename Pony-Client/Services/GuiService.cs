@@ -62,6 +62,8 @@ public abstract class Renderable : IComparable<Renderable>
             Renderables[this] = value;
         }
     }
+    /// <summary> Position Based Layering </summary>
+    public bool PBL = false;
     // Base Methods //
     public void PushTransform(DrawingContext context, Matrix transform)
     {
@@ -96,7 +98,7 @@ public abstract class Renderable : IComparable<Renderable>
 public partial class GuiService : UserControl
 {
     public static GuiService? Window;
-    LocalPlayer? localPlayer => WorldService.localPlayer;
+    private LocalPlayer? localPlayer => WorldService.localPlayer;
     // Constructor //
     public GuiService()
     {
@@ -157,7 +159,6 @@ public partial class GuiService : UserControl
             case Key.Escape:
                 TopLevel.GetTopLevel(this)?.FocusManager?.ClearFocus();
                 break;
-
             default:
                 break;
         }

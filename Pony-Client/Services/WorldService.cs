@@ -22,8 +22,7 @@ public static class WorldService
         {
             Debug.WriteLine("Creating Structure!");
             _ = new Structure(new(500 * i, 0, 400, 400))
-            { Layer = (byte)i };
-        }
+            { Layer = (byte)i };        }
 
         NPC testNPC = new(
                 Name: "Fredrick",
@@ -81,7 +80,15 @@ public class Structure : Renderable
             return;
         // Camera Transform //
         PushTransform(context, localPlayer.AttachedCamera.OffsetMatrix);
+        // Draw //
         context.DrawRectangle(Brushes.White, null, Hitbox);
+        // Reset Matrix //
         PopMatrix();
+    }
+    // Disposal Methods //
+    public override void Delete()
+    {
+        Structures.Remove(this);
+        base.Delete();
     }
 }

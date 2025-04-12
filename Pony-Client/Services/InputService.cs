@@ -32,7 +32,9 @@ public static class InputService
     public static bool IsKeyDown(string key) => IsKeyDown(Controls[key]);
     public static int GetAxis(InputAxis axisType)
     {
-        int axis = 0;
+        // Initialize Axis //
+        int axis = default;
+        // Check Horizontal //
         if (axisType is InputAxis.Horizontal)
         {
             if (IsKeyDown("left"))
@@ -40,7 +42,7 @@ public static class InputService
             if (IsKeyDown("right"))
                 axis++;
         }
-
+        // Check Vertical //
         else
         {
             if (IsKeyDown("up"))
@@ -48,7 +50,7 @@ public static class InputService
             if (IsKeyDown("down"))
                 axis++;
         }
-
+        // Finish //
         return axis;
     }
     // Event Methods //

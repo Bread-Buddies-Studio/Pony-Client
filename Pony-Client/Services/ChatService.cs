@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pony_Client.Extensions;
+using Avalonia.Controls.Templates;
 
 namespace Pony_Client.Services;
 
@@ -52,6 +53,7 @@ public abstract class OverheadText : Renderable
 {
     // Lists //
     public List<OverheadText> OverheadTexts => Speaker.OverheadTexts;
+    public Camera? AttachedCamera => Speaker.AttachedCamera;
     // Required Data //
     public required Entity Speaker;
     public required string Message;
@@ -70,10 +72,9 @@ public abstract class OverheadText : Renderable
             Point basePosition = Speaker.Hitbox.Center - new Point(0, Speaker.Size.Height / 2);
             Point offset = GetOffset();
             // Offset //
-            offset -= new Point(formattedText.Width / 2, -formattedText.Height);
-            offset += basePosition;
+            offset -= new Point(formattedText.Width / 2, formattedText.Height);
             // Return //
-            return offset;
+            return basePosition + offset;
         }
     }
     public new Size Size
@@ -89,8 +90,11 @@ public abstract class OverheadText : Renderable
     #region Constructors
     public OverheadText(Entity Speaker, string Message) : base()
     {
+        // Initialize //
         this.Speaker = Speaker;
         this.Message = Message;
+        // Reference //
+        OverheadTexts.Add(this);
     }
     #endregion
     #region Public Methods
@@ -130,13 +134,19 @@ public abstract class OverheadText : Renderable
     #region Override Methods
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
+        // Conditions //
+        if (AttachedCamera is null)
+            return;
         // Format Message //
         FormattedText formattedText = GetText();
+        PushTransform(context, AttachedCamera.OffsetMatrix);
         // Draw //
         context.DrawText(formattedText, Position);
+        PopMatrix();
     }
     public override void Delete()
     {
+        Debug.WriteLine("Deleting!");
         Speaker.OverheadTexts.Remove(this);
         base.Delete();
     }
@@ -186,33 +196,33 @@ public class Speech : OverheadText
             Delete(); // Delete //
         }
     }
-    public override void OnRender(GuiService guiService, DrawingContext context)
-    {
-        // Conditions //
-        if (Speaker.AttachedCamera is null)
-            return;
-        // Get Text //
-        FormattedText formattedText = GetText();
-        // Positions //
-        Point offset = new(-formattedText.Width / 2, -formattedText.Height);
-        // Get Height //
-        foreach (Speech otherSpeech in Speaker.Speeches.Reverse<Speech>())
-        {
-            // Data //
-            FormattedText otherText = otherSpeech.GetText();
-            double otherHeight = otherText.Height;
-            // Settings //
-            offset = offset.WithY(offset.Y - otherHeight);
-            // Conditions //
-            if (this == otherSpeech)
-                break;
-        }
-        // Checks //
-        using (context.PushTransform(Speaker.AttachedCamera.OffsetMatrix))
-        {
-            context.DrawText(formattedText, Position + offset);
-        }
-    }
+    //public override void OnRender(GuiService guiService, DrawingContext context)
+    //{
+    //    // Conditions //
+    //    if (Speaker.AttachedCamera is null)
+    //        return;
+    //    // Get Text //
+    //    FormattedText formattedText = GetText();
+    //    // Positions //
+    //    Point offset = new(-formattedText.Width / 2, -formattedText.Height);
+    //    // Get Height //
+    //    foreach (Speech otherSpeech in Speaker.Speeches.Reverse<Speech>())
+    //    {
+    //        // Data //
+    //        FormattedText otherText = otherSpeech.GetText();
+    //        double otherHeight = otherText.Height;
+    //        // Settings //
+    //        offset = offset.WithY(offset.Y - otherHeight);
+    //        // Conditions //
+    //        if (this == otherSpeech)
+    //            break;
+    //    }
+    //    // Checks //
+    //    using (context.PushTransform(Speaker.AttachedCamera.OffsetMatrix))
+    //    {
+    //        context.DrawText(formattedText, Position + offset);
+    //    }
+    //}
     // Inherited Methods //
     public override void Delete()
     {

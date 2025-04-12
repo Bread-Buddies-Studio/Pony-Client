@@ -17,16 +17,11 @@ public class NPC : Entity
     public Point? TargetPosition;
     public override Point MovementDirection { get; set; }
     public override float Speed { get; set; }
-
-    public Animator animationController = new()
-    {
-        Looped = true
-    };
     // Constructor //
     [SetsRequiredMembers]
     public NPC(string Name, Point Position, Size Size) : base(Position, Size) 
     {
-        _ = animationController.Play(State.ToString().ToLower());
+        _ = AnimController.Play(State.ToString().ToLower());
         this.Name = Name;
     }
     #region Network Methods
@@ -42,7 +37,7 @@ public class NPC : Entity
     #region Event Methods
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
-        IImage? frame = animationController.Frame;
+        IImage? frame = AnimController.Frame;
         // Condtitions //
         if (AttachedCamera is null)
         {
@@ -70,7 +65,7 @@ public class NPC : Entity
     public override void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state)
     {
         // Play Animation //
-        _ = animationController.Play(state.newState.ToString());
+        _ = AnimController.Play(state.newState.ToString());
     }
 
     public override void OnUpdate(long deltaTime)

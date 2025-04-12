@@ -20,7 +20,7 @@ public enum EntityState
     Moving,
 }
 // Classes //
-public abstract class Entity : Renderable, INetSerializable
+public abstract partial class Entity : Renderable, INetSerializable
 {
     // Static Data //
     public static readonly HashSet<Entity> Entities = [];
@@ -62,6 +62,8 @@ public abstract class Entity : Renderable, INetSerializable
         // Connections //
         RunService.Update += OnUpdate;
         StateChanged += OnStateChange;
+        // Initialize State //
+        StateChanged?.Invoke(this, (State, State));
     }
 
     [SetsRequiredMembers]
@@ -94,9 +96,10 @@ public abstract class Entity : Renderable, INetSerializable
     {
         ChatService.AddLog(this, message);
     }
-    // Network Methods //
+    #region Network Methods
     public abstract void Serialize(NetDataWriter writer);
     public abstract void Deserialize(NetDataReader reader);
+    #endregion
     #region Event Methods
     private void OnUpdate(object? sender, UpdateEventArgs eventData)
     {
@@ -116,3 +119,35 @@ public abstract class Entity : Renderable, INetSerializable
     public abstract void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state);
     #endregion
 }
+// Animation //
+public abstract partial class Entity
+{
+    // Controller //
+    public readonly Animator AnimController = new()
+    {
+        Looped = true
+    };
+    // Event Methods //
+    public override void OnRender(GuiService guiservice, DrawingContext context)
+    {
+        IImage? frame = AnimController.Frame;
+        // Condtitions //
+        if (frame is null)
+            return;
+        // Data //
+        Point position = Position;
+        // Transformations //
+        if (AttachedCamera is not null)
+            PushTransform(context, AttachedCamera.OffsetMatrix);
+        if (!Direction)
+        {
+            position = new Point(-position.X, position.Y);
+            PushTransform(context, new Matrix(-1, 0, 0, 1, Size.Width, 0));
+        }
+        // Draw Image //
+        context.DrawImage(frame, new(position.X, position.Y, Size.Width, Size.Height));
+        // Reset Matrix //
+        PopMatrix();
+    }
+}
+// Other //

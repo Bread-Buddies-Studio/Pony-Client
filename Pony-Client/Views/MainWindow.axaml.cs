@@ -15,7 +15,7 @@ using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace Pony_Client.Views;
-#region Menu
+
 public partial class MainWindow : Window
 {
     // Private Data //
@@ -92,4 +92,3 @@ public partial class MainWindow : Window
     private void OnKeyDown(object? sender, KeyEventArgs eventData) => InputService.OnKeyDown(sender, eventData);
     private void OnKeyUp(object? sender, KeyEventArgs eventData) => InputService.OnKeyUp(sender, eventData);
 }
-#endregion

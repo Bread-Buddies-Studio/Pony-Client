@@ -21,8 +21,12 @@ public static class WorldService
         for (int i = 1; i <= 5; i++)
         {
             Debug.WriteLine("Creating Structure!");
-            _ = new Structure(new(500 * i, 0, 400, 400))
-            { Layer = (byte)i };        }
+            _ = new Structure(new(500 * i, 0, 400, 400), "tree")
+            {
+                Layer = (byte)i,
+                PBL = true
+            };        
+        }
 
         NPC testNPC = new(
                 Name: "Fredrick",
@@ -50,19 +54,29 @@ public class Structure : Renderable
     public readonly static List<Structure> Structures = [];
     // Render Data //
     public readonly List<DrawingContext.PushedState> Matrixes = [];
+    // Animation Data //
+    public Animator AnimController = new()
+    {
+        Looped = true
+    };
+    public required string? AnimationName;
     // Constructors //
     [SetsRequiredMembers]
-    public Structure(Rect Hitbox) : base(Hitbox)
+    public Structure(Rect Hitbox, string? AnimationName = null) : base(Hitbox)
     {
-        // Settings //
+        // Initialize //
         this.Hitbox = Hitbox;
+        this.AnimationName = AnimationName;
+        // Checks //
+        if (AnimationName is not null)
+            _ = AnimController.Play(AnimationName);
         // Add Reference //
         Structures.Add(this);
         // Connections //
         RunService.Update += OnUpdate;
     }
     [SetsRequiredMembers]
-    public Structure(Point Position, Size Size) : this(new Rect())
+    public Structure(Point Position, Size Size, string? AnimationName = null) : this(new Rect(), AnimationName)
     {
         this.Position = Position;
         this.Size = Size;
@@ -81,7 +95,17 @@ public class Structure : Renderable
         // Camera Transform //
         PushTransform(context, localPlayer.AttachedCamera.OffsetMatrix);
         // Draw //
-        context.DrawRectangle(Brushes.White, null, Hitbox);
+        if (AnimationName is not null)
+        {
+            IImage? frame = AnimController.Frame;
+            // Condtitions //
+            if (frame is null)
+                return;
+            // Draw //
+            context.DrawImage(frame, Hitbox);
+        }
+        else
+            context.DrawRectangle(Brushes.White, null, Hitbox);
         // Reset Matrix //
         PopMatrix();
     }

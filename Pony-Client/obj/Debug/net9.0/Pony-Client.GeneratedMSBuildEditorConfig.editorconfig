@@ -20,26 +20,26 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Pony-Client
-build_property.ProjectDir = C:\Users\Bread\source\repos\Pony-Client\Pony-Client\
+build_property.ProjectDir = C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Bread/source/repos/Pony-Client/Pony-Client/App.axaml]
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Pony-Client/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/source/repos/Pony-Client/Pony-Client/Views/AccountWindow.axaml]
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Pony-Client/Views/AccountWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/source/repos/Pony-Client/Pony-Client/Views/CreditsWindow.axaml]
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Pony-Client/Views/CreditsWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/source/repos/Pony-Client/Pony-Client/Views/GuiService.axaml]
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Pony-Client/Views/GuiService.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/source/repos/Pony-Client/Pony-Client/Views/MainWindow.axaml]
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Pony-Client/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/source/repos/Pony-Client/Pony-Client/Views/OptionsWindow.axaml]
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Pony-Client/Views/OptionsWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

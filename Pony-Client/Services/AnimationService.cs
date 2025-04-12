@@ -114,7 +114,7 @@ public class Animator
     {
         // Directory //
         Uri directoryPath = new("avares://Pony-Client/Assets/Animations/");
-        // Order The Animations Alphabetically & Numerically //
+        // Order The Animation Frames Alphabetically & Numerically //
         IOrderedEnumerable<Uri> enumerator = AssetLoader.GetAssets(directoryPath, null).OrderBy(frame => 
         {
             string imagePath = frame.AbsoluteUri;

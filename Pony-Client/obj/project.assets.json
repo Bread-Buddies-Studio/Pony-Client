@@ -1535,11 +1535,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Bread\\source\\repos\\Pony-Client\\Pony-Client\\Pony-Client.csproj",
+      "projectUniqueName": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Pony-Client.csproj",
       "projectName": "Pony-Client",
-      "projectPath": "C:\\Users\\Bread\\source\\repos\\Pony-Client\\Pony-Client\\Pony-Client.csproj",
+      "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Pony-Client.csproj",
       "packagesPath": "C:\\Users\\Bread\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Bread\\source\\repos\\Pony-Client\\Pony-Client\\obj\\",
+      "outputPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

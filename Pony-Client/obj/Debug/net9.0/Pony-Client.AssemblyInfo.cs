@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pony-Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ed82473ec55b8c4be0de42c44604a58e255e855")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pony-Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pony-Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

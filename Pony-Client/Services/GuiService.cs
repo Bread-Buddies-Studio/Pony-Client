@@ -22,18 +22,12 @@ namespace Pony_Client.Services;
 public abstract class Renderable : IComparable<Renderable>
 {
     // Static Data //
-    public static readonly SortedDictionary<Renderable, byte> Renderables = [];
+    public static SortedDictionary<Renderable, byte> Renderables 
+    {
+        get;
+        private set;
+    } = [];
     private readonly List<DrawingContext.PushedState> Matrixes = [];
-    // Constructor //
-    public Renderable() : base()
-    {
-        Renderables[this] = Layer;
-    }
-    public Renderable(Rect Hitbox) : this()
-    {
-        // Initialize //
-        this.Hitbox = Hitbox;
-    }
     // Identifier //
     public readonly Guid UniqueIdentifier = Guid.NewGuid();
     // Hitbox //
@@ -64,6 +58,20 @@ public abstract class Renderable : IComparable<Renderable>
     }
     /// <summary> Position Based Layering </summary>
     public bool PBL = false;
+    // Constructor //
+    static Renderable()
+    {
+        RunService.Update += StaticUpdate;
+    }
+    public Renderable() : base()
+    {
+        Renderables[this] = Layer;
+    }
+    public Renderable(Rect Hitbox) : this()
+    {
+        // Initialize //
+        this.Hitbox = Hitbox;
+    }
     // Base Methods //
     public void PushTransform(DrawingContext context, Matrix transform)
     {
@@ -77,21 +85,36 @@ public abstract class Renderable : IComparable<Renderable>
         Matrixes.Clear();
     }
     // Event Methods //
+    private static void StaticUpdate(object? sender, UpdateEventArgs eventData)
+    {
+        var _renderables = Renderables.ToList();
+        Renderables.Clear();
+        
+        foreach (var pair in _renderables)
+            Renderables[pair.Key] = pair.Value;
+    }
     public abstract void OnRender(GuiService guiService, DrawingContext context);
     // Deletion Methods //
     public virtual void Delete() => Renderables.Remove(this);
     // Ancestor Methods //
     public int CompareTo(Renderable? renderable)
     {
-        // Conditions //
+        // Pre-Conditions //
         if (renderable is null)
             return -1;
         if (this.UniqueIdentifier == renderable.UniqueIdentifier)
             return 0;
-        if (renderable.Layer == Layer)
+
+        // PBL //
+        if (PBL || renderable.PBL)
+            return renderable.Hitbox.Bottom > Hitbox.Bottom ? -1 : 1;
+
+        // Post-Conditions //
+        if (renderable.Layer == Layer) // Now depends on load in time //
             return -1;
+
         // Return //
-        return renderable.Layer > Layer ? 1 : -1;
+        return renderable.Layer < Layer ? -1 : 1;
     }
 }
 // Service //

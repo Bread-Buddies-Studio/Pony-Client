@@ -46,21 +46,7 @@ public class Camera
         RunService.Update += OnUpdate;
     }
     // Base Methods //
-    /// <summary>
-    /// Returns a point between <paramref name="p1"/> and <paramref name="p2"/>
-    /// from <paramref name="alpha"/>. 0 is <paramref name="p1"/>, 1 is <paramref name="p2"/>
-    /// </summary>
-    /// <param name="p1">First Point</param>
-    /// <param name="p2">Second Point</param>
-    /// <param name="alpha">Distance travelled between points.</param>
-    /// <returns></returns>
-    private static Point Lerp(Point p1, Point p2, double alpha)
-    {
-        double xPos = (p2.X - p1.X) * alpha; // 2.5
-        double yPos = (p2.Y - p1.Y) * alpha; // 0
-
-        return new (p1.X + xPos, p1.Y + yPos);
-    }
+    public void ApplyCamera(DrawingContext context) => Subject?.PushTransform(context, OffsetMatrix);
     // Conversion Methods //
     public Point GlobalToLocal(Point globalPosition)
     {

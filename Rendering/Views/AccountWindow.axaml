@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		x:Class="Rendering.Views.AccountWindow"
+		Title="Account"
+		RequestedThemeVariant="Dark">
+	<StackPanel Margin="20">
+		<Label HorizontalAlignment="Center" FontSize="30" Margin="0 5">Account Information</Label>
+
+		<TextBlock Margin="0 10" >User Name:</TextBlock>
+		<Grid HorizontalAlignment="Stretch" ColumnDefinitions="Auto,*">
+			<NumericUpDown Grid.Column="0"
+							Name="TagLine"
+							Value="000"
+							ButtonSpinnerLocation="Left"
+							FormatString="000"
+							Minimum="0"
+							Maximum="999"
+							/>
+			<TextBox Grid.Column="1" Watermark="Enter your User Name" Name="UserName"/>
+		</Grid>
+
+		<TextBlock Margin="0 10" >Password:</TextBlock>
+		<Grid HorizontalAlignment="Stretch" ColumnDefinitions="*,Auto">
+			<TextBox Grid.Column="0" PasswordChar="*" Watermark="Enter Your Password" Name="Password"/>
+			<ToggleButton Grid.Column="1" IsChecked="False" Name="PasswordVisible">
+				<Image Source="/Assets/visible.png" Width="20" Height="20"/>
+			</ToggleButton>
+		</Grid>
+
+		<Button HorizontalAlignment="Center" Margin="0 50 0 0" Name="ActivateLogIn" >Log In</Button>
+		<Button HorizontalAlignment="Center" Margin="0 10" Name="ActivateSignUp" >Sign Up</Button>
+
+		<TextBlock HorizontalAlignment="Center" Margin="0 10" Name="Success"></TextBlock>
+		<TextBlock HorizontalAlignment="Center" Margin="0 10" Name="Disconnect"></TextBlock>
+
+		<Label HorizontalAlignment="Center" Margin="0 10" >Username Format: (3 Digit Number)(Name)</Label>
+		<Label HorizontalAlignment="Center" Margin="0 10">Example: 000|Username</Label>
+	</StackPanel>
+</Window>

@@ -14,17 +14,12 @@ public static class Global
 {
     // Client //
     public static Client? client;
-    public static readonly DispatcherTimer updateLoop = new()
-    {
-        Interval = TimeSpan.FromMilliseconds(16),
-        IsEnabled = true
-    };
     // Account //
     public static byte? TagLine;
     public static string? UserName;
     public static string? PassWord;
     // Constants //
-    public const int FPS = 144;
+    public const int FPS = 165;
     public const int PortNum = 11_000;
     public const string HostName = "";
     // Data //

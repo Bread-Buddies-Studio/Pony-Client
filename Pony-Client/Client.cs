@@ -1,7 +1,9 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using LiteNetLib;
 using LiteNetLib.Utils;
+using Pony_Client.Extensions;
 using Pony_Client.Services;
 using Pony_Client.Views;
 using System;
@@ -17,6 +19,7 @@ namespace Pony_Client;
 // API //
 public enum ConnectionFail
 {
+    // Log In //
     IncorrectPassword,
     AccountNotFound,
     InvalidTagLine,
@@ -33,6 +36,7 @@ public enum API
 {
     LogIn,
     SignUp,
+    Update,
     Message
 }
 // Class //
@@ -67,6 +71,33 @@ public class Client : INetEventListener
         writer.Put(connectionData);
         // Connect //
         server = client.Connect("localhost", PortNum, writer);
+    }
+    // Sub-Class //
+    class NetworkData(API Reason) : INetSerializable
+    {
+        // API //
+        public required API Reason = Reason;
+        // Data //
+        public required string Message = string.Empty;
+        public required Point Position = new();
+        #region Constructors
+        #endregion
+        #region Network Methods
+        public void Serialize(NetDataWriter writer)
+        {
+            writer.Put((int)Reason);
+            writer.Put(Message);
+            writer.PutArray([Position.X, Position.Y]);
+        }
+        public void Deserialize(NetDataReader reader)
+        {
+            this.Reason = (API)reader.GetInt();
+            this.Message = reader.GetString();
+
+            double[] Position = reader.GetDoubleArray();
+            this.Position = new(Position[0], Position[1]);
+        }
+        #endregion
     }
     #region Network Methods
     #endregion

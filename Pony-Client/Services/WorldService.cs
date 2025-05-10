@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Pony_Client.Entities;
 using Pony_Client.Views;
 using System;
@@ -18,14 +19,13 @@ public static class WorldService
     // Constructor //
     static WorldService()
     {
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= 1000; i++)
         {
-            Debug.WriteLine("Creating Structure!");
-            _ = new Structure(new(500 * i, 0, 400, 400), "tree")
+            _ = new Structure(new(1100 * i, 0, 1000, 1000), "tree")
             {
                 Layer = (byte)i,
                 PBL = true
-            };        
+            };
         }
 
         NPC testNPC = new(

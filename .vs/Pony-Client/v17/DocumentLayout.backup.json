@@ -3,40 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\services\\animationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\services\\animationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\rendering\\services\\guiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|solutionrelative:rendering\\services\\guiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\services\\cameraservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\services\\cameraservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\rendering\\visible\\renderable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|solutionrelative:rendering\\visible\\renderable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\universal\\globalimports.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\universal\\globalimports.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A407FE41-E454-44EE-973F-B8839AC3BED4}|Core\\Core.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\core\\extensions\\sortedsetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A407FE41-E454-44EE-973F-B8839AC3BED4}|Core\\Core.csproj|solutionrelative:core\\extensions\\sortedsetextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\services\\runservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\services\\runservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\rendering\\entities\\structure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|solutionrelative:rendering\\entities\\structure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\universal\\global.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\universal\\global.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\rendering\\services\\worldservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|solutionrelative:rendering\\services\\worldservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\services\\guiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\services\\guiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\entities\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\entities\\entity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\entities\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\entities\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\pony-client\\services\\worldservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625D6774-B681-42E0-848B-BD8F33FA131E}|Pony-Client\\Pony-Client.csproj|solutionrelative:pony-client\\services\\worldservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|c:\\users\\bread\\onedrive\\documents\\github\\pony-client\\rendering\\services\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}|Rendering\\Rendering.csproj|solutionrelative:rendering\\services\\chatservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,120 +42,77 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GlobalImports.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Universal\\GlobalImports.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Universal\\GlobalImports.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Universal\\GlobalImports.cs",
-              "RelativeToolTip": "Pony-Client\\Universal\\GlobalImports.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GuiService.cs",
+              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Services\\GuiService.cs",
+              "RelativeDocumentMoniker": "Rendering\\Services\\GuiService.cs",
+              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Services\\GuiService.cs",
+              "RelativeToolTip": "Rendering\\Services\\GuiService.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAA0wHYAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T18:11:55.149Z",
+              "WhenOpened": "2025-05-10T00:10:39.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SortedSetExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Extensions\\SortedSetExtensions.cs",
+              "RelativeDocumentMoniker": "Core\\Extensions\\SortedSetExtensions.cs",
+              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Extensions\\SortedSetExtensions.cs",
+              "RelativeToolTip": "Core\\Extensions\\SortedSetExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T21:27:16.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Structure.cs",
+              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Entities\\Structure.cs",
+              "RelativeDocumentMoniker": "Rendering\\Entities\\Structure.cs",
+              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Entities\\Structure.cs",
+              "RelativeToolTip": "Rendering\\Entities\\Structure.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAUwEAAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T02:42:12.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Renderable.cs",
+              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Visible\\Renderable.cs",
+              "RelativeDocumentMoniker": "Rendering\\Visible\\Renderable.cs",
+              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Visible\\Renderable.cs",
+              "RelativeToolTip": "Rendering\\Visible\\Renderable.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAIwE4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T02:41:51.507Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Global.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Universal\\Global.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Universal\\Global.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Universal\\Global.cs",
-              "RelativeToolTip": "Pony-Client\\Universal\\Global.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "WorldService.cs",
+              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Services\\WorldService.cs",
+              "RelativeDocumentMoniker": "Rendering\\Services\\WorldService.cs",
+              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Services\\WorldService.cs",
+              "RelativeToolTip": "Rendering\\Services\\WorldService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T18:11:49.35Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RunService.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\RunService.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Services\\RunService.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\RunService.cs",
-              "RelativeToolTip": "Pony-Client\\Services\\RunService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T18:11:31.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T01:41:01.783Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "GuiService.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\GuiService.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Services\\GuiService.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\GuiService.cs",
-              "RelativeToolTip": "Pony-Client\\Services\\GuiService.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAA/wEIAAAAFAAAAAAAAAA==",
+              "Title": "ChatService.cs",
+              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Services\\ChatService.cs",
+              "RelativeDocumentMoniker": "Rendering\\Services\\ChatService.cs",
+              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Services\\ChatService.cs",
+              "RelativeToolTip": "Rendering\\Services\\ChatService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T17:41:05.784Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Entity.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Entities\\Entity.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Entities\\Entity.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Entities\\Entity.cs",
-              "RelativeToolTip": "Pony-Client\\Entities\\Entity.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAYwIkAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T17:34:37.788Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Entities\\Player.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Entities\\Player.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Entities\\Player.cs",
-              "RelativeToolTip": "Pony-Client\\Entities\\Player.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T17:34:38.596Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "WorldService.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\WorldService.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Services\\WorldService.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\WorldService.cs",
-              "RelativeToolTip": "Pony-Client\\Services\\WorldService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAFQAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T17:28:44.748Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CameraService.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\CameraService.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Services\\CameraService.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\CameraService.cs",
-              "RelativeToolTip": "Pony-Client\\Services\\CameraService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T16:56:24.717Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AnimationService.cs",
-              "DocumentMoniker": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\AnimationService.cs",
-              "RelativeDocumentMoniker": "Pony-Client\\Services\\AnimationService.cs",
-              "ToolTip": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Pony-Client\\Services\\AnimationService.cs",
-              "RelativeToolTip": "Pony-Client\\Services\\AnimationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAI0AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-12T16:54:16.067Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-09T01:39:57.325Z"
             }
           ]
         }

@@ -13,6 +13,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Tmds.DBus.Protocol;
@@ -59,14 +60,8 @@ public abstract class Renderable : IComparable<Renderable>
     /// <summary> Position Based Layering </summary>
     public bool PBL = false;
     // Constructor //
-    static Renderable()
-    {
-        RunService.Update += StaticUpdate;
-    }
-    public Renderable() : base()
-    {
-        Renderables[this] = Layer;
-    }
+    static Renderable() => RunService.Update += StaticUpdate;
+    public Renderable() : base() => Renderables[this] = Layer;
     public Renderable(Rect Hitbox) : this()
     {
         // Initialize //
@@ -106,7 +101,7 @@ public abstract class Renderable : IComparable<Renderable>
             return 0;
 
         // PBL //
-        if (PBL || renderable.PBL)
+        if (PBL && renderable.PBL)
             return renderable.Hitbox.Bottom > Hitbox.Bottom ? -1 : 1;
 
         // Post-Conditions //
@@ -215,6 +210,14 @@ public partial class GuiService : UserControl
         // Invoke Events //
         foreach (Renderable renderable in Renderable.Renderables.Keys)
         {
+            if (localPlayer is null)
+                return;
+            if (localPlayer.AttachedCamera is null)
+                return;
+            // Conditions //
+            if (!localPlayer.AttachedCamera.IsWithinSight(renderable))
+                continue;
+            // Render //
             renderable.OnRender(this, context);
         }
     }

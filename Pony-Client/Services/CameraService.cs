@@ -46,6 +46,18 @@ public class Camera
         RunService.Update += OnUpdate;
     }
     // Base Methods //
+    public bool IsWithinSight(Rect otherObject)
+    {
+        
+        // Conditions //
+        if (GuiService.Window is null)
+            return false;
+        // Sight //
+        Rect sight = new(Position.X, Position.Y, GuiService.Window.Width, GuiService.Window.Height);
+        //
+        return sight.Intersects(otherObject);
+    }
+    public bool IsWithinSight(Renderable otherObject) => IsWithinSight(otherObject.Hitbox);
     public void ApplyCamera(DrawingContext context) => Subject?.PushTransform(context, OffsetMatrix);
     // Conversion Methods //
     public Point GlobalToLocal(Point globalPosition)

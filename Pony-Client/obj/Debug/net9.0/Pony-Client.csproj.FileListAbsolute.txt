@@ -135,3 +135,6 @@ C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.0\Pony-Cli.ACCF85ED.Up2Date
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.0\Pony-Client.genruntimeconfig.cache
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.0\ref\Pony-Client.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.0\Pony-Client.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.0\refint\Pony-Client.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Pony-Client\obj\Debug\net9.0\Pony-Client.pdb

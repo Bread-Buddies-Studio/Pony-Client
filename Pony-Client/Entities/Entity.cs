@@ -56,6 +56,7 @@ public abstract partial class Entity : Renderable, INetSerializable
     public Entity(Rect Hitbox) : base(Hitbox)
     {
         // Settings //
+        this.PBL = true;
         this.Hitbox = Hitbox;
         // Add Reference //
         Entities.Add(this);

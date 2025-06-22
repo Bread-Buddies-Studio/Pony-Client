@@ -15,6 +15,12 @@ using Rendering.Visible;
 using Core.Services;
 using Rendering.Services;
 using Rendering.Views;
+using Core.Extensions;
+using Network.Services;
+using Network;
+using LiteNetLib;
+using Core.Structs;
+using Core.Interfaces;
 
 // Enumerations //
 public enum EntityState
@@ -23,7 +29,7 @@ public enum EntityState
     Moving,
 }
 // Classes //
-public abstract partial class Entity : Renderable, INetSerializable
+public abstract partial class Entity : Renderable, ICollidable, INetSerializable
 {
     // Static Data //
     public static readonly HashSet<Entity> Entities = [];
@@ -33,25 +39,30 @@ public abstract partial class Entity : Renderable, INetSerializable
     public Camera? AttachedCamera;
     public readonly List<DrawingContext.PushedState> Matrixes = [];
     // Movement //
-    private EntityState _state = EntityState.Idle;
-    public EntityState State { 
-        get => _state;
+    public EntityState State
+    {
+        get => field;
 
-        private set
+        internal set
         {
             // Conditions //
-            if (_state == value)
+            if (field == value)
                 return;
             // Invoke Event //
-            StateChanged?.Invoke(this, (_state, value));
+            StateChanged?.Invoke(this, (field, value));
             // Settings //
-            _state = value;
+            field = value;
         }
-    }
+    } = EntityState.Idle;
     public bool Moving => MovementDirection != new Point();
     public abstract Point MovementDirection { get; set; }
     public abstract float Speed { get; set; }
     public bool Direction { get; set; }
+    // ICollidable Data //
+    public required ICollidable CollManager { get; init; }
+    public bool IsCollidable { get; set; }
+    public bool IsAnchored { get; set; }
+
     // Events //
     public event EventHandler<(EntityState, EntityState)>? StateChanged;
     // Constructors //
@@ -61,6 +72,7 @@ public abstract partial class Entity : Renderable, INetSerializable
         // Settings //
         this.PBL = true;
         this.Hitbox = Hitbox;
+        this.CollManager = this;
         // Add Reference //
         Entities.Add(this);
         // Connections //
@@ -86,7 +98,6 @@ public abstract partial class Entity : Renderable, INetSerializable
     }
     public Point MoveTo(float x, float y) => MoveTo(new(x, y));
     public Point MoveTo(double x, double y) => MoveTo(new(x, y));
-
     public Point Translate(Point Offset)
     {
         // Settings //
@@ -96,30 +107,35 @@ public abstract partial class Entity : Renderable, INetSerializable
     }
     public Point Translate(float x, float y) => Translate(new(x, y));
     public Point Translate(double x, double y) => Translate(new(x, y));
-    public void Speak(string message)
-    {
-        ChatService.AddLog(this, message);
-    }
+    public virtual void Speak(string message) => ChatService.AddLog(this, message);
     #region Network Methods
-    public abstract void Serialize(NetDataWriter writer);
-    public abstract void Deserialize(NetDataReader reader);
+    public virtual void Serialize(NetDataWriter writer)
+    {
+        writer.Put(Name);
+        writer.Put((byte)State);
+        writer.Put(Direction);
+        writer.PutArray(Position.ToDoubleArray());
+        writer.PutArray(Size.ToDoubleArray());
+    }
+    public virtual void Deserialize(NetDataReader reader)
+    {
+        Name = reader.GetString();
+        State = (EntityState)reader.GetByte();
+        Direction = reader.GetBool();
+        Position = PointExtensions.FromDoubleArray(reader.GetDoubleArray());
+        Size = SizeExtensions.FromDoubleArray(reader.GetDoubleArray());
+    }
     #endregion
     #region Event Methods
-    private void OnUpdate(object? sender, UpdateEventArgs eventData)
+    private void OnUpdate(object? sender, UpdateEventArgs eventData) => OnUpdate(eventData.DeltaTime);
+    public virtual void OnUpdate(long deltaTime)
     {
-        // Extract Data //
-        long deltaTime = eventData.DeltaTime;
         // Conditions //
         if (deltaTime is 0)
             return;
         // Movement //
         Translate(MovementDirection / 20 * deltaTime);
-        // Change State //
-        State = Moving ? EntityState.Moving : EntityState.Idle;
-        // Call Real //
-        OnUpdate(eventData.DeltaTime);
     }
-    public abstract void OnUpdate(long deltaTime);
     public abstract void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state);
     #endregion
 }
@@ -138,12 +154,13 @@ public abstract partial class Entity
         // Condtitions //
         if (frame is null)
             return;
+        if (AttachedCamera is null)
+            return;
         // Data //
         Point position = Position;
         // Transformations //
-        if (AttachedCamera is not null)
-            PushTransform(context, AttachedCamera.OffsetMatrix);
-        if (!Direction)
+        PushTransform(context, AttachedCamera.OffsetMatrix); // Camera Offset //
+        if (!Direction) // Direction Offset //
         {
             position = new Point(-position.X, position.Y);
             PushTransform(context, new Matrix(-1, 0, 0, 1, Size.Width, 0));

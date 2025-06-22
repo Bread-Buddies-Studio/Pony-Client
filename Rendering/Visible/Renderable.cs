@@ -9,79 +9,79 @@ using Core.Services;
 using Rendering.Services;
 using Rendering.Views;
 using Core.Extensions;
+using System.Net.Http.Headers;
+using Rendering.Entities;
+using Core.Interfaces;
+using System.Diagnostics;
 
 namespace Rendering.Visible;
 
-public abstract class Renderable : IComparable<Renderable>
+public abstract class Renderable : IPhysical, IComparable<Renderable>
 {
     // Static Data //
-    public static SortedSet<Renderable> Renderables
-    {
+    public static SortedSet<Renderable> Renderables {
         get;
         private set;
     } = [];
-    private readonly List<DrawingContext.PushedState> Matrixes = [];
+    private readonly HashSet<DrawingContext.PushedState> Matrixes = [];
     // Identifier //
-    public readonly Guid UniqueIdentifier = Guid.NewGuid();
+    public Guid UniqueIdentifier = Guid.NewGuid();
     // Hitbox //
-    public Rect Hitbox { get; set; }
-    public Point Position
+    public virtual Rect Hitbox { get; set; }
+    public virtual Point Position
     {
         get => Hitbox.Position;
         set => Hitbox = new(value, Size);
     }
-    public Size Size
+    public virtual Size Size
     {
         get => Hitbox.Size;
         set => Hitbox = new(Position, value);
     }
     // Render Data //
-    private byte _layer;
-    public byte Layer
-    {
-        get => _layer;
-
-        set
-        {
-            // Settings //
-            _layer = value;
-            // Update //
-            Renderables.UpdateElement(this);
-        }
-    }
+    public virtual bool IsAlwaysOnTop { get; set; } = false; // If true, this will be rendered on top of other renderables
+    public byte Layer { get; set; }
     /// <summary> Position Based Layering </summary>
     public bool PBL = false;
     // Constructor //
-    static Renderable() => RunService.Update += StaticUpdate;
+    static Renderable() => RunService.Update += OnUpdateStatic;
     public Renderable() : base() => Renderables.Add(this);
-    public Renderable(Rect Hitbox) : this()
-    {
-        // Initialize //
-        this.Hitbox = Hitbox;
-    }
+    public Renderable(Rect Hitbox) : this() => this.Hitbox = Hitbox;
     // Base Methods //
-    public void PushTransform(DrawingContext context, Matrix transform)
-    {
-        Matrixes.Insert(0, context.PushTransform(transform));
-    }
+    public bool IsSeenByLocalPlayer() => WorldService.CurrentCamera?.IsWithinSight(this) ?? false;
+    // Matrix //
+    public void PushTransform(DrawingContext context, Matrix transform) => Matrixes.Add(context.PushTransform(transform));
+    public void PushOpacity(DrawingContext context, double opacity) => Matrixes.Add(context.PushOpacity(opacity));
     public void PopMatrix()
     {
-        foreach (var matrix in Matrixes)
+        foreach (var matrix in Matrixes.Reverse())
             matrix.Dispose();
 
         Matrixes.Clear();
     }
     // Event Methods //
-    private static void StaticUpdate(object? sender, UpdateEventArgs eventData)
+    private static void OnUpdateStatic(object? sender, UpdateEventArgs eventData)
     {
-        foreach (var renderable in Renderables.Reverse())
+        // Get Camera //
+        LocalPlayer? localPlayer = WorldService.LocalPlayer;
+        Camera? localCamera = WorldService.LocalPlayer?.AttachedCamera;
+        // Conditions //
+        if (localPlayer is null)
+            return;
+        if (localCamera is null)
+            return;
+        // Update //
+        foreach (var renderable in Renderables.Reverse<Renderable>())
         {
             // Conditions //
             if (!renderable.PBL)
                 continue;
-            // Update Ordering //
+            if (!localCamera.IsWithinSight(renderable))
+                continue;
+            // Render //
             Renderables.UpdateElement(renderable);
         }
+        //Renderables.Update();
     }
     public abstract void OnRender(GuiService guiService, DrawingContext context);
     // Deletion Methods //
@@ -98,9 +98,17 @@ public abstract class Renderable : IComparable<Renderable>
         if (UniqueIdentifier == renderable.UniqueIdentifier)
             return 0;
 
+        // Always On Top Conditions //
+        if (IsAlwaysOnTop)
+            return 1;
+        if (renderable.IsAlwaysOnTop)
+            return -1;
+
         // PBL //
-        if (PBL && renderable.PBL)
+        if (PBL)
             return renderable.Hitbox.Bottom > Hitbox.Bottom ? -1 : 1;
+        else if (renderable.PBL)
+            return renderable.Hitbox.Bottom < Hitbox.Bottom ? -1 : 1;
 
         // Post-Conditions //
         if (renderable.Layer == Layer) // Now depends on load in time //

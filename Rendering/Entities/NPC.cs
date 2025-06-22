@@ -18,33 +18,43 @@ public class NPC : Entity
     public Point? TargetPosition;
     public override Point MovementDirection { get; set; }
     public override float Speed { get; set; }
+    // Events //
+    public event EventHandler<EventArgs>? ReachedTarget;
     // Constructor //
     [SetsRequiredMembers]
     public NPC(string Name, Point Position, Size Size) : base(Position, Size) 
     {
-        _ = AnimController.Play(State.ToString().ToLower());
         this.Name = Name;
+        AnimController.Play(State.ToString().ToLower());
     }
-    #region Network Methods
-    public override void Serialize(NetDataWriter writer)
+    #region Base Methods
+    public void UpdateMoveDirection()
     {
-        throw new NotImplementedException();
-    }
-    public override void Deserialize(NetDataReader reader)
-    {
-        throw new NotImplementedException();
+        // Checks //
+        if (Position == TargetPosition)
+            TargetPosition = null;
+        // Conditions //
+        if (TargetPosition is null)
+            return;
+        // Calculations //
+        Point direction = Position.ToDirectional((Point)TargetPosition);
+        // Settings //
+        MovementDirection = direction;
     }
     #endregion
     #region Event Methods
+    public override void OnUpdate(long deltaTime)
+    {
+        UpdateMoveDirection();
+        // Move //
+        base.OnUpdate(deltaTime);
+    }
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
         IImage? frame = AnimController.Frame;
         // Condtitions //
-        if (AttachedCamera is null)
-        {
-            AttachedCamera = WorldService.LocalPlayer?.AttachedCamera;
+        if (WorldService.CurrentCamera is null)
             return;
-        }
         if (frame is null)
             return;
         // Data //
@@ -66,20 +76,7 @@ public class NPC : Entity
     public override void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state)
     {
         // Play Animation //
-        _ = AnimController.Play(state.newState.ToString());
-    }
-
-    public override void OnUpdate(long deltaTime)
-    {
-        // Conditions //
-        if (Position == TargetPosition)
-            TargetPosition = null;
-        if (TargetPosition is null)
-            return;
-        // Calculations //
-        Point direction = Position.ToDirectional((Point)TargetPosition);
-        // Settings //
-        MovementDirection = direction;
+        AnimController.Play(state.newState.ToString());
     }
     #endregion
 }

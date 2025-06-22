@@ -37,6 +37,8 @@ public static class RunService
         Interval = TimeSpan.FromMilliseconds(1000f / FPS),
         IsEnabled = true
     };
+    // Public Data //
+    public static long CurrentMillis => DateTimeOffset.Now.ToUnixTimeMilliseconds();
     // Public Events //
     public static event EventHandler<UpdateEventArgs>? Update;
     public static event EventHandler<DrawingContext>? Render;

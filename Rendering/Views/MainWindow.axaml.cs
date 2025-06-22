@@ -60,6 +60,7 @@ public partial class MainWindow : Window
             //if (!AccountService.SignedIn)
             //    return;
             // Settings //
+            PlayButton.IsEnabled = false;
             MenuPanel.IsVisible = false;
             Service.IsVisible = true;
 
@@ -72,7 +73,12 @@ public partial class MainWindow : Window
                 Name: userName,
                 Position: new Point(200, 200),
                 Size: new Size(200, 200)
-            ) { Layer = 2 };
+            )
+            {
+                Layer = 2,
+                PBL = true,
+                IsCollidable = true
+            };
 
             Debug.WriteLine($"UserName: {WorldService.LocalPlayer.Name}");
 

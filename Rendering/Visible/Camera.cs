@@ -11,6 +11,7 @@ using Core.Services;
 using Rendering.Services;
 using Core.Extensions;
 using Rendering.Views;
+using System.Diagnostics;
 
 namespace Rendering.Visible;
 
@@ -44,9 +45,14 @@ public class Camera
         RunService.Update += OnUpdate;
     }
     // Base Methods //
+    public IEnumerable<Renderable> GetWithinSight() => Renderable.Renderables.Where(IsWithinSight);
+    public IEnumerable<Renderable> GetWithinSight(Action<Renderable> action)
+    {
+        // Warning: Linq makes this slower, somebody please fix it...
+        return Renderable.Renderables.Where(IsWithinSight);
+    }
     public bool IsWithinSight(Rect otherObject)
     {
-
         // Conditions //
         if (GuiService.Window is null)
             return false;

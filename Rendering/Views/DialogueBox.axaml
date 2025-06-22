@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Rendering.Views.DialogueBox"
+			 Background="Black"
+			 BorderThickness="10"
+			 CornerRadius="20"
+			 >
+
+	<Border Background="Black"
+		BorderBrush="Gainsboro"
+		BorderThickness="2"
+		CornerRadius="10"
+		Padding="10" Margin="10">
+		<StackPanel>
+			<Label 
+				VerticalAlignment="Top" 
+				HorizontalAlignment="Left" 
+				Foreground="White" 
+				Margin="-17.5 -17.5" 
+				BorderThickness="20" 
+				FontSize="50">
+				TestName
+			</Label>
+
+			<TextBlock
+				Foreground="Gainsboro"
+				FontSize="25"
+				>
+				Test Dialogue, this is a test of the dialogue box functionality. It should display text clearly and be visually appealing.
+			</TextBlock>
+		</StackPanel>
+	</Border>
+</UserControl>

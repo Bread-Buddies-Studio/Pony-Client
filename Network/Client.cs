@@ -1,6 +1,9 @@
-﻿using LiteNetLib;
+﻿using Core.Services;
+using LiteNetLib;
 using LiteNetLib.Utils;
 using Network.Enums;
+using Network.Services;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 
@@ -8,6 +11,7 @@ namespace Network;
 // Class //
 public class Client : EventBasedNetListener, INetEventListener
 {
+    public static Client? Singleton { get; private set; }
     public readonly NetManager client;
     public readonly NetPeer server;
     // Data //
@@ -38,11 +42,13 @@ public class Client : EventBasedNetListener, INetEventListener
         writer.Put((int)connectionType);
         writer.Put(connectionData);
         // Connect //
+        Debug.WriteLine("Attempting Connection?");
         server = client.Connect("localhost", PortNum, writer);
         // Add Reference //
         CurrentClient = this;
     }
-    #region Inherited Network Methods
+    #region Event Methods
+    #region Network Methods
     void INetEventListener.OnNetworkError(IPEndPoint endPoint, SocketError socketError)
     {
         failReason = ConnectionFail.IncorrectPassword;
@@ -55,15 +61,16 @@ public class Client : EventBasedNetListener, INetEventListener
     void INetEventListener.OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
     {
         // Receive Data //
-        API dataType = (API)reader.GetInt();
+        NetworkService.InvokeNetworkReceive(this, peer, reader, channelNumber, deliveryMethod);
+        //API dataType = (API)reader.GetInt();
         
-        switch(dataType)
-        {
-            case API.Message:
-                string message = reader.GetString();
-                //ChatService.AddLog(message);
-                break;
-        }
+        //switch(dataType)
+        //{
+        //    case API.Message:
+        //        string message = reader.GetString();
+        //        //ChatService.AddLog(message);
+        //        break;
+        //}
     }
 
     void INetEventListener.OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
@@ -86,5 +93,6 @@ public class Client : EventBasedNetListener, INetEventListener
         if (reader.TryGetInt(out int failData))
             failReason = (ConnectionFail)failData;
     }
+    #endregion
     #endregion
 }

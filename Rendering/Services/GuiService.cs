@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Core.Services;
+using Rendering.Entities;
 using Rendering.Services;
 using Rendering.Visible;
 using System;
@@ -24,7 +25,7 @@ namespace Rendering.Views;
 // Service //
 public partial class GuiService : UserControl
 {
-    public static GuiService? Window;
+    public static GuiService? Window { get; private set; }
     // Constructor //
     public GuiService()
     {
@@ -38,6 +39,16 @@ public partial class GuiService : UserControl
         Window = this;
     }
     // Static Methods //
+    public static void ClearFocus()
+    {
+        // Conditions //
+        if (Window is null)
+            return;
+        // Settings //
+        Window.Focusable = true;
+        Window.Focus();
+        Window.Focusable = false;
+    }
     public static Bitmap LoadFromResource(Uri resourceUri)
     {
         return new Bitmap(AssetLoader.Open(resourceUri));
@@ -76,14 +87,21 @@ public partial class GuiService : UserControl
                 // Success //
                 WorldService.LocalPlayer.Speak(ChatInput.Text);
                 ChatInput.Clear();
+                ClearFocus();
                 break;
             case Key.OemQuestion:
+                // Conditions //
+                if (ChatInput.IsFocused)
+                    break;
+                // Focus Text Input //
                 ChatInput.Focus();
-                await RunService.UntilNextUpdate();
+                // Delay //
+                await Task.Yield();
+                // Delete Slash //
                 ChatInput.Clear();
                 break;
             case Key.Escape:
-                TopLevel.GetTopLevel(this)?.FocusManager?.ClearFocus();
+                ClearFocus();
                 break;
             default:
                 break;
@@ -98,7 +116,8 @@ public partial class GuiService : UserControl
             Log += $"{message}\n";
         // Show Text //
         ChatLog.Text = Log;
-        TopLevel.GetTopLevel(this)?.FocusManager?.ClearFocus();
+        Focus();
+        //TopLevel.GetTopLevel(this)?.FocusManager?.ClearFocus();
     }
     public void OnUpdate(object? _, UpdateEventArgs eventData)
     {
@@ -115,15 +134,19 @@ public partial class GuiService : UserControl
         base.Render(context);
         // Invoke //
         RunService.InvokeRender(this, context);
+        // Get Camera //
+        LocalPlayer? localPlayer = WorldService.LocalPlayer;
+        Camera? localCamera = WorldService.LocalPlayer?.AttachedCamera;
+        // Conditions //
+        if (localPlayer is null)
+            return;
+        if (localCamera is null)
+            return;
         // Invoke Events //
-        foreach (Renderable renderable in Renderable.Renderables)
+        foreach (var renderable in Renderable.Renderables)
         {
-            if (WorldService.LocalPlayer is null)
-                return;
-            if (WorldService.LocalPlayer.AttachedCamera is null)
-                return;
             // Conditions //
-            if (!WorldService.LocalPlayer.AttachedCamera.IsWithinSight(renderable))
+            if (!localCamera.IsWithinSight(renderable))
                 continue;
             // Render //
             renderable.OnRender(this, context);

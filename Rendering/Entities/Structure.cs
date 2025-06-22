@@ -11,10 +11,11 @@ using Core.Services;
 using Rendering.Services;
 using Rendering.Views;
 using Rendering.Visible;
+using Core.Interfaces;
 
 namespace Rendering.Entities;
 
-public class Structure : Renderable
+public class Structure : Renderable, ICollidable
 {
     // Static Data //
     public readonly static List<Structure> Structures = [];
@@ -26,6 +27,12 @@ public class Structure : Renderable
         Looped = true
     };
     public required string? AnimationName;
+    // Collisions //
+    public bool IsCollidable { get; set; }
+    public bool IsAnchored { get; set; }
+
+    // Conversions //
+    public ICollidable CollManager;
     // Constructors //
     [SetsRequiredMembers]
     public Structure(Rect Hitbox, string? AnimationName = null) : base(Hitbox)
@@ -33,22 +40,22 @@ public class Structure : Renderable
         // Initialize //
         this.Hitbox = Hitbox;
         this.AnimationName = AnimationName;
+        this.CollManager = this;
         // Checks //
         if (AnimationName is not null)
-            _ = AnimController.Play(AnimationName);
+            AnimController.Play(AnimationName);
         // Add Reference //
         Structures.Add(this);
-        // Connections //
-        RunService.Update += OnUpdate;
     }
     [SetsRequiredMembers]
     public Structure(Point Position, Size Size, string? AnimationName = null) : this(new Rect(), AnimationName)
     {
         this.Position = Position;
         this.Size = Size;
+        
     }
     // Event Methods //
-    public void OnUpdate(object? sender, UpdateEventArgs eventData) { }
+    
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
         // Data //
@@ -57,8 +64,6 @@ public class Structure : Renderable
         if (localPlayer is null)
             return;
         if (localPlayer.AttachedCamera is null)
-            return;
-        if (!localPlayer.AttachedCamera.IsWithinSight(Hitbox))
             return;
         // Camera Transform //
         PushTransform(context, localPlayer.AttachedCamera.OffsetMatrix);
@@ -72,8 +77,8 @@ public class Structure : Renderable
             // Draw //
             context.DrawImage(frame, Hitbox);
         }
-        else
-            context.DrawRectangle(Brushes.White, null, Hitbox);
+
+        else context.DrawRectangle(Brushes.White, null, Hitbox);
         // Reset Matrix //
         PopMatrix();
     }

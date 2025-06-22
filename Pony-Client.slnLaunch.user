@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Core\\Core.csproj",
+        "Action": "Start",
+        "DebugTarget": "Core"
+      }
+    ]
+  }
+]

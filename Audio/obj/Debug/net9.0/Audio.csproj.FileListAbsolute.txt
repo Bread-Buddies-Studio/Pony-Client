@@ -1,0 +1,14 @@
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.csproj.AssemblyReference.cache
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.AssemblyInfoInputs.cache
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.AssemblyInfo.cs
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.csproj.CoreCompileInputs.cache
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.sourcelink.json
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\bin\Debug\net9.0\Audio\Pinkie-Promise.wav
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\bin\Debug\net9.0\Audio.deps.json
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\bin\Debug\net9.0\Audio.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\bin\Debug\net9.0\Audio.pdb
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\refint\Audio.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.pdb
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\ref\Audio.dll

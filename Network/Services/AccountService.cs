@@ -23,6 +23,8 @@ public class IncorrectPasswordException(string message = "Incorrect Password") :
 // Service //
 public static class AccountService
 {
+    // Constants //
+    public const char DataSeperator = '|';
     // Public Data //
     public static Client? Client { get; set; }
     public static bool SignedIn 
@@ -37,7 +39,7 @@ public static class AccountService
     public static void SignUp(string accountData)
     {
         // Data Source //
-        ReadOnlySpan<string> data = accountData.Split('|').AsSpan();
+        ReadOnlySpan<string> data = accountData.Split(DataSeperator).AsSpan();
         // Extract Data //
         if (!byte.TryParse(data[0], out byte tagLine))
             throw new InvalidTaglineException();
@@ -56,7 +58,7 @@ public static class AccountService
     public static void LogIn(string accountData)
     {
         // Data Source //
-        ReadOnlySpan<string> data = accountData.Split('|').AsSpan();
+        ReadOnlySpan<string> data = accountData.Split(DataSeperator).AsSpan();
         // Extract Data //
         if (!byte.TryParse(data[0], out byte tagLine))
             throw new InvalidTaglineException();
@@ -70,7 +72,7 @@ public static class AccountService
         Client?.server.Disconnect();
         // Create Connection //
         if (Client is null || Client.server.ConnectionState is ConnectionState.Disconnected)
-            Client = new Client(accountData, API.SignUp);
+            Client = new Client(accountData, API.LogIn);
     }
     public static void LogOut()
     {
@@ -83,4 +85,5 @@ public static class AccountService
     }
     // Getters //
     public static string? GetUserName() => UserName;
+    public static string? GetAccountData() => string.Join(DataSeperator, [TagLine, UserName, Password]);
 }

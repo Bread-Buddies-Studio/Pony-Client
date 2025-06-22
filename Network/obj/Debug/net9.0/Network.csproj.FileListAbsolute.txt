@@ -15,3 +15,6 @@ C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Ne
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\refint\Network.dll
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.pdb
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\ref\Network.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\bin\Debug\net9.0\Audio\Pinkie-Promise.wav
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\bin\Debug\net9.0\Audio.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\bin\Debug\net9.0\Audio.pdb

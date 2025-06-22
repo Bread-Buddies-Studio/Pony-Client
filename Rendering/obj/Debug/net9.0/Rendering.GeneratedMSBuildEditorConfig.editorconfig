@@ -35,6 +35,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/CreditsWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/DialogueBox.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/GuiService.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

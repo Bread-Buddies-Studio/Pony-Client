@@ -12,3 +12,7 @@ C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\obj\Debug\net9.0\Core.
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\obj\Debug\net9.0\refint\Core.dll
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\obj\Debug\net9.0\Core.pdb
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\obj\Debug\net9.0\ref\Core.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\bin\Debug\net9.0\Audio\Pinkie-Promise.wav
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\bin\Debug\net9.0\Audio.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\bin\Debug\net9.0\Audio.pdb
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Core\obj\Debug\net9.0\Core.csproj.Up2Date

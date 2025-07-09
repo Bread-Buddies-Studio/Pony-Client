@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 x:Class="Rendering.Views.GuiService"
+			 xmlns:Views="clr-namespace:Rendering.Views;assembly=Rendering"
 			 >
 
 	<Grid ColumnDefinitions="*,*,*" RowDefinitions="*,Auto">
 		<TextBlock Name="ChatLog" TextWrapping="Wrap" Grid.Row="0" Margin="10" VerticalAlignment="Stretch"/>
-		<TextBox Name="ChatInput" IsTabStop="False" Grid.Row="1" Margin="10, 0, 10, 10" Watermark="Press / to Chat" />
+		<TextBox Name="ChatInput" IsTabStop="False" Grid.Row="1" Margin="10, 0, 5, 10" Watermark="Press / to Chat" />
 	</Grid>
 </UserControl>

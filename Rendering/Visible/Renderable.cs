@@ -40,6 +40,8 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
     }
     // Render Data //
     public virtual bool IsAlwaysOnTop { get; set; } = false; // If true, this will be rendered on top of other renderables
+    public virtual bool AlwaysShows { get; set; } = false; // If true, this will always be rendered, even if not within sight
+    public bool IsVisible { get; set; } = true;
     public byte Layer { get; set; }
     /// <summary> Position Based Layering </summary>
     public bool PBL = false;
@@ -51,6 +53,16 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
     public bool IsSeenByLocalPlayer() => WorldService.CurrentCamera?.IsWithinSight(this) ?? false;
     // Matrix //
     public void PushTransform(DrawingContext context, Matrix transform) => Matrixes.Add(context.PushTransform(transform));
+    public DrawingContext.PushedState[] PushTransform(DrawingContext context, Matrix[] transforms)
+    {
+        // Init Array //
+        DrawingContext.PushedState[] pushedStates = new DrawingContext.PushedState[transforms.Length];
+        // Add Matrixes //
+        foreach ((int index, Matrix transform) in transforms.Index())
+            Matrixes.Add(pushedStates[index] = context.PushTransform(transform));
+        // Return Array //
+        return pushedStates;
+    }
     public void PushOpacity(DrawingContext context, double opacity) => Matrixes.Add(context.PushOpacity(opacity));
     public void PopMatrix()
     {
@@ -58,6 +70,19 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
             matrix.Dispose();
 
         Matrixes.Clear();
+    }
+    public void PopMatrix(DrawingContext.PushedState[] pushedStates)
+    {
+        foreach (var matrix in Matrixes.Reverse())
+        {
+            // Conditions //
+            if (!pushedStates.Contains(matrix))
+                continue;
+            // Delete //
+            matrix.Dispose();
+            // Remove Matrix //
+            Matrixes.Remove(matrix);
+        }
     }
     // Event Methods //
     private static void OnUpdateStatic(object? sender, UpdateEventArgs eventData)
@@ -113,7 +138,7 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
         // Post-Conditions //
         if (renderable.Layer == Layer) // Now depends on load in time //
             return -1;
-
+        
         // Return //
         return renderable.Layer < Layer ? -1 : 1;
     }

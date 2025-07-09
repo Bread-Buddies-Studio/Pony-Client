@@ -5,7 +5,6 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Rendering.Views.DialogueBox"
 			 Background="Black"
-			 BorderThickness="10"
 			 CornerRadius="20"
 			 >
 
@@ -13,23 +12,24 @@
 		BorderBrush="Gainsboro"
 		BorderThickness="2"
 		CornerRadius="10"
-		Padding="10" Margin="10">
+		Padding="10">
 		<StackPanel>
 			<Label 
 				VerticalAlignment="Top" 
 				HorizontalAlignment="Left" 
-				Foreground="White" 
+				Foreground="White"
 				Margin="-17.5 -17.5" 
 				BorderThickness="20" 
-				FontSize="50">
+				FontSize="25">
 				TestName
 			</Label>
 
-			<TextBlock
+			<TextBlock Name="DialogueBlock"
 				Foreground="Gainsboro"
-				FontSize="25"
+				FontSize="11"
+				TextWrapping="Wrap"
 				>
-				Test Dialogue, this is a test of the dialogue box functionality. It should display text clearly and be visually appealing.
+				Test Dialogue, this is a test of the dialogue box functionality. It should display text clearly and be visually appealing. Test Dialogue, this is a test of the dialogue box functionality. It should display text clearly and be visually appealing. Test Dialogue, this is a test of the dialogue box functionality. It should display text clearly and be visually appealing.
 			</TextBlock>
 		</StackPanel>
 	</Border>

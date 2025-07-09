@@ -49,26 +49,6 @@ public partial class GuiService : UserControl
         Window.Focus();
         Window.Focusable = false;
     }
-    public static Bitmap LoadFromResource(Uri resourceUri)
-    {
-        return new Bitmap(AssetLoader.Open(resourceUri));
-    }
-    public static async Task<Bitmap?> LoadFromWeb(Uri url)
-    {
-        using var httpClient = new HttpClient();
-        try
-        {
-            var response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-            var data = await response.Content.ReadAsByteArrayAsync();
-            return new Bitmap(new MemoryStream(data));
-        }
-        catch (HttpRequestException ex)
-        {
-            Console.WriteLine($"An error occurred while downloading image '{url}' : {ex.Message}");
-            return null;
-        }
-    }
     // Event Methods //
     public async void OnKeyDown(object? sender, KeyEventArgs eventData)
     {
@@ -130,7 +110,7 @@ public partial class GuiService : UserControl
     }
     public override void Render(DrawingContext context)
     {
-        // Conditions //
+        // Pre-Conditions //
         base.Render(context);
         // Invoke //
         RunService.InvokeRender(this, context);
@@ -146,7 +126,9 @@ public partial class GuiService : UserControl
         foreach (var renderable in Renderable.Renderables)
         {
             // Conditions //
-            if (!localCamera.IsWithinSight(renderable))
+            if (!renderable.AlwaysShows && !localCamera.IsWithinSight(renderable))
+                continue;
+            if (!renderable.IsVisible)
                 continue;
             // Render //
             renderable.OnRender(this, context);

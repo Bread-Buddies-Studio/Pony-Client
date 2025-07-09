@@ -22,4 +22,6 @@ C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\obj\Debug\net9
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\obj\Debug\net9.0\refint\Experimental.dll
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\obj\Debug\net9.0\Experimental.pdb
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\obj\Debug\net9.0\ref\Experimental.dll
-C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\bin\Debug\net9.0\Assets\Audio\Pinkie-Promise.wav
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\bin\Debug\net9.0\Audio\Pinkie-Promise.wav
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\bin\Debug\net9.0\Audio.dll
+C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Experimental\bin\Debug\net9.0\Audio.pdb

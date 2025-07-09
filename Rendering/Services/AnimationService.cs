@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
+using Core.Services;
 
 namespace Rendering.Services;
 
@@ -108,7 +109,7 @@ public class Animator
         if (!Animations.TryGetValue(animationName, out Animation? animation))
             return;
         // Load Frame //
-        IImage frame = GuiService.LoadFromResource(framePath);
+        IImage frame = StorageService.LoadBitmapResource(framePath);
         // Save //
         animation.frames = [.. animation.frames, frame];
     }

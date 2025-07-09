@@ -8,8 +8,8 @@
     ".NETCoreApp,Version=v9.0": {
       "Network/1.0.0": {
         "dependencies": {
-          "Avalonia": "11.3.1",
-          "Avalonia.Desktop": "11.3.1",
+          "Avalonia": "11.3.2",
+          "Avalonia.Desktop": "11.3.2",
           "Core": "1.0.0",
           "LiteNetLib": "1.3.1"
         },
@@ -17,56 +17,56 @@
           "Network.dll": {}
         }
       },
-      "Avalonia/11.3.1": {
+      "Avalonia/11.3.2": {
         "dependencies": {
           "Avalonia.BuildServices": "0.0.31",
-          "Avalonia.Remote.Protocol": "11.3.1",
+          "Avalonia.Remote.Protocol": "11.3.2",
           "MicroCom.Runtime": "0.11.0"
         },
         "runtime": {
           "lib/net8.0/Avalonia.Base.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.Controls.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.DesignerSupport.dll": {
             "assemblyVersion": "0.7.0.0",
             "fileVersion": "0.7.0.0"
           },
           "lib/net8.0/Avalonia.Dialogs.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.Markup.Xaml.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.Markup.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.Metal.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.MicroCom.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.OpenGL.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.Vulkan.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
@@ -90,41 +90,41 @@
         }
       },
       "Avalonia.BuildServices/0.0.31": {},
-      "Avalonia.Desktop/11.3.1": {
+      "Avalonia.Desktop/11.3.2": {
         "dependencies": {
-          "Avalonia": "11.3.1",
-          "Avalonia.Native": "11.3.1",
-          "Avalonia.Skia": "11.3.1",
-          "Avalonia.Win32": "11.3.1",
-          "Avalonia.X11": "11.3.1"
+          "Avalonia": "11.3.2",
+          "Avalonia.Native": "11.3.2",
+          "Avalonia.Skia": "11.3.2",
+          "Avalonia.Win32": "11.3.2",
+          "Avalonia.X11": "11.3.2"
         },
         "runtime": {
           "lib/net8.0/Avalonia.Desktop.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
-      "Avalonia.FreeDesktop/11.3.1": {
+      "Avalonia.FreeDesktop/11.3.2": {
         "dependencies": {
-          "Avalonia": "11.3.1",
+          "Avalonia": "11.3.2",
           "Tmds.DBus.Protocol": "0.21.2"
         },
         "runtime": {
           "lib/net8.0/Avalonia.FreeDesktop.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
-      "Avalonia.Native/11.3.1": {
+      "Avalonia.Native/11.3.2": {
         "dependencies": {
-          "Avalonia": "11.3.1"
+          "Avalonia": "11.3.2"
         },
         "runtime": {
           "lib/net8.0/Avalonia.Native.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         },
         "runtimeTargets": {
@@ -135,17 +135,17 @@
           }
         }
       },
-      "Avalonia.Remote.Protocol/11.3.1": {
+      "Avalonia.Remote.Protocol/11.3.2": {
         "runtime": {
           "lib/net8.0/Avalonia.Remote.Protocol.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
-      "Avalonia.Skia/11.3.1": {
+      "Avalonia.Skia/11.3.2": {
         "dependencies": {
-          "Avalonia": "11.3.1",
+          "Avalonia": "11.3.2",
           "HarfBuzzSharp": "8.3.1.1",
           "HarfBuzzSharp.NativeAssets.Linux": "8.3.1.1",
           "HarfBuzzSharp.NativeAssets.WebAssembly": "8.3.1.1",
@@ -155,37 +155,37 @@
         },
         "runtime": {
           "lib/net8.0/Avalonia.Skia.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
-      "Avalonia.Win32/11.3.1": {
+      "Avalonia.Win32/11.3.2": {
         "dependencies": {
-          "Avalonia": "11.3.1",
+          "Avalonia": "11.3.2",
           "Avalonia.Angle.Windows.Natives": "2.1.25547.20250602"
         },
         "runtime": {
           "lib/net8.0/Avalonia.Win32.Automation.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           },
           "lib/net8.0/Avalonia.Win32.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
-      "Avalonia.X11/11.3.1": {
+      "Avalonia.X11/11.3.2": {
         "dependencies": {
-          "Avalonia": "11.3.1",
-          "Avalonia.FreeDesktop": "11.3.1",
-          "Avalonia.Skia": "11.3.1"
+          "Avalonia": "11.3.2",
+          "Avalonia.FreeDesktop": "11.3.2",
+          "Avalonia.Skia": "11.3.2"
         },
         "runtime": {
           "lib/net8.0/Avalonia.X11.dll": {
-            "assemblyVersion": "11.3.1.0",
-            "fileVersion": "11.3.1.0"
+            "assemblyVersion": "11.3.2.0",
+            "fileVersion": "11.3.2.0"
           }
         }
       },
@@ -482,8 +482,8 @@
       "Core/1.0.0": {
         "dependencies": {
           "Audio": "1.0.0",
-          "Avalonia": "11.3.1",
-          "Avalonia.Desktop": "11.3.1",
+          "Avalonia": "11.3.2",
+          "Avalonia.Desktop": "11.3.2",
           "LiteNetLib": "1.3.1",
           "NAudio": "2.2.1"
         },
@@ -502,12 +502,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Avalonia/11.3.1": {
+    "Avalonia/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XHZAj64Ywp3su68NBckeccY1N4Cig8J/iTzMEszWDnAWQbH8xgHftcr+DhS7PrANM/uXyFGP9n4+4v3vhJDeWA==",
-      "path": "avalonia/11.3.1",
-      "hashPath": "avalonia.11.3.1.nupkg.sha512"
+      "sha512": "sha512-3w1v4/wEpHFq6WWVNyyrne2Jyz5bdQvnK3AW36rCto42L+AtdbnO/SG2SIqJ7ObXJl+Y3LXz2XDGx9Blzqduow==",
+      "path": "avalonia/11.3.2",
+      "hashPath": "avalonia.11.3.2.nupkg.sha512"
     },
     "Avalonia.Angle.Windows.Natives/2.1.25547.20250602": {
       "type": "package",
@@ -523,54 +523,54 @@
       "path": "avalonia.buildservices/0.0.31",
       "hashPath": "avalonia.buildservices.0.0.31.nupkg.sha512"
     },
-    "Avalonia.Desktop/11.3.1": {
+    "Avalonia.Desktop/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-uFldiNKdZIGGR49CglbWW1xx9aSfJBDf0Yx2jtntZxXQlew1edF8/JEja8tmDgcFjdsrz2HZtIpDbg4ilCjcZQ==",
-      "path": "avalonia.desktop/11.3.1",
-      "hashPath": "avalonia.desktop.11.3.1.nupkg.sha512"
+      "sha512": "sha512-b2ZPZ60UN0Uib3ZxFrf+ixYiJTBFaXrpQAcXTSUKTDw0nAU29sbfjvdtpBkBd6+idWpNtI+GhOjf0Mw0v1ncQg==",
+      "path": "avalonia.desktop/11.3.2",
+      "hashPath": "avalonia.desktop.11.3.2.nupkg.sha512"
     },
-    "Avalonia.FreeDesktop/11.3.1": {
+    "Avalonia.FreeDesktop/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OXR5lDGz0ACWrvyJPisiLk6j97L8keDxKXFbSI6t4gfM9QiqIcBF7aATbEMx1d4oiey3tH5DgcpzVmop5jmvFA==",
-      "path": "avalonia.freedesktop/11.3.1",
-      "hashPath": "avalonia.freedesktop.11.3.1.nupkg.sha512"
+      "sha512": "sha512-8laGOvPM83kB4xUqXGIRxN61Q5Ux/97URL7CU2Dizh4Nm7Ydj9+urKLTylk6dxWG7kZlo4e4k9G2aVUPkxTBGA==",
+      "path": "avalonia.freedesktop/11.3.2",
+      "hashPath": "avalonia.freedesktop.11.3.2.nupkg.sha512"
     },
-    "Avalonia.Native/11.3.1": {
+    "Avalonia.Native/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Ts4PWrpql5mowsxAks/WBI/VheU329CwPE12grEZD46moOhmrQ/tuX8ge8lyAhhVy8h8LFC5KImdDIkhlbeVzQ==",
-      "path": "avalonia.native/11.3.1",
-      "hashPath": "avalonia.native.11.3.1.nupkg.sha512"
+      "sha512": "sha512-dv3PVUcClxeDlNSoBjTdNuRYXdbzT3BgtpjEX/fv3pVreKfbh39wWQ+n4ecGh0FUKIlcj0X8BEaQ83t5eRsLnA==",
+      "path": "avalonia.native/11.3.2",
+      "hashPath": "avalonia.native.11.3.2.nupkg.sha512"
     },
-    "Avalonia.Remote.Protocol/11.3.1": {
+    "Avalonia.Remote.Protocol/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IujOppxgsmjNP2oCas++LWNUTqwzSko7ey60+0tHfy7Q6vnTmtL+0vQidtmoKYea/NYvWqIw+YxLUY3XRwYhSQ==",
-      "path": "avalonia.remote.protocol/11.3.1",
-      "hashPath": "avalonia.remote.protocol.11.3.1.nupkg.sha512"
+      "sha512": "sha512-my6aXePR+N7tl3xDKdYNH2ZFZWUSNmyeU37HIgYJX2fQ4IOBv7SeaWBEd1F/qVsIbOlYxaqE7qOPfeFFtdYq/A==",
+      "path": "avalonia.remote.protocol/11.3.2",
+      "hashPath": "avalonia.remote.protocol.11.3.2.nupkg.sha512"
     },
-    "Avalonia.Skia/11.3.1": {
+    "Avalonia.Skia/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VSBecGRgd3xtBwFzWNuoSVP1gUO+BV9zX1zTUrw/ftdZKmtOe8m3VT7u2TCBvUSD6nJrSNe6JXHE585kCQFjcQ==",
-      "path": "avalonia.skia/11.3.1",
-      "hashPath": "avalonia.skia.11.3.1.nupkg.sha512"
+      "sha512": "sha512-PJIPSqkWbQpKyWPMEIDAWYQaJ8xpJASg2H75sGWCkthLj+mCG/DZxdHI6UsDAcxKu/ppSRkX88RGo117bRYfFg==",
+      "path": "avalonia.skia/11.3.2",
+      "hashPath": "avalonia.skia.11.3.2.nupkg.sha512"
     },
-    "Avalonia.Win32/11.3.1": {
+    "Avalonia.Win32/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-H0jcthY+CHXJq/l/uVLG1SloNowp/6buIxuIv3J8RKiVW6L2XD2uv89KP/n1c2SMQrklvRdwPzOV8WGsYNv85w==",
-      "path": "avalonia.win32/11.3.1",
-      "hashPath": "avalonia.win32.11.3.1.nupkg.sha512"
+      "sha512": "sha512-CpM6zBwDwMFKw9/iyj0d8jxXKLZena/HFblS9Oc7BmLH8qxe8icr7ZBI5rElebrxDA5O590dAtfWdtOvB1/AZQ==",
+      "path": "avalonia.win32/11.3.2",
+      "hashPath": "avalonia.win32.11.3.2.nupkg.sha512"
     },
-    "Avalonia.X11/11.3.1": {
+    "Avalonia.X11/11.3.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Ldr9zW6BFlHvPUpc9UYUKtrtUJzgfZ8ggnp8NWBBZEs0iqIQmZbk9cYJcAxpsL9P1w1MKiaaOBYAKeSxHUJgJA==",
-      "path": "avalonia.x11/11.3.1",
-      "hashPath": "avalonia.x11.11.3.1.nupkg.sha512"
+      "sha512": "sha512-MEMXOIaAr6jMtl9BhJ8sj7Vz+z19dWfcryWksV35LsolQhQmjmzJPVcCppdnvm5HxkohUXB1qN1RqWN1cqRwBQ==",
+      "path": "avalonia.x11/11.3.2",
+      "hashPath": "avalonia.x11.11.3.2.nupkg.sha512"
     },
     "HarfBuzzSharp/8.3.1.1": {
       "type": "package",

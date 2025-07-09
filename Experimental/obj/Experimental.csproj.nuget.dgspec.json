@@ -127,11 +127,11 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "LiteNetLib": {
               "target": "Package",
@@ -217,11 +217,11 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             }
           },
           "imports": [
@@ -296,11 +296,11 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "LiteNetLib": {
               "target": "Package",
@@ -385,23 +385,23 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Diagnostics": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Fonts.Inter": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "Avalonia.Themes.Fluent": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.2, )"
             },
             "CommunityToolkit.Mvvm": {
               "target": "Package",

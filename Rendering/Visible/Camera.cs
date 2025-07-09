@@ -21,11 +21,8 @@ public class Camera
     public Entity? Subject;
     public required Point Position;
     public double Speed = .05;
-    public Matrix OffsetMatrix
-    {
-        get
-        {
-            return new Matrix(
+    public Matrix OffsetMatrix =>
+        new(
                 scaleX: 1,
                 skewY: 0,
                 skewX: 0,
@@ -33,8 +30,6 @@ public class Camera
                 offsetX: -Position.X,
                 offsetY: -Position.Y
             );
-        }
-    }
     // Constructor //
     [SetsRequiredMembers]
     public Camera(Entity Subject)

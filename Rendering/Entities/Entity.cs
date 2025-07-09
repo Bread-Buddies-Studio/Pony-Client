@@ -38,6 +38,11 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     public readonly List<OverheadText> OverheadTexts = [];
     public Camera? AttachedCamera;
     public readonly List<DrawingContext.PushedState> Matrixes = [];
+    // Dialogue //
+    public Dictionary<char, int> CharacterDelays = new()
+    { 
+        {' ', 50} 
+    };
     // Movement //
     public EntityState State
     {

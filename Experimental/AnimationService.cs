@@ -3,6 +3,7 @@ using Avalonia.Controls.Platform;
 using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Reactive;
+using Core.Services;
 using Rendering.Views;
 using System.Diagnostics;
 using System.Text.Json;
@@ -114,7 +115,7 @@ public class Animator
         if (animation is null)
             return;
         // Load Frame //
-        IImage frame = GuiService.LoadFromResource(framePath);
+        IImage frame = StorageService.LoadBitmapResource(framePath);
         // Save //
         animation.frames = [.. animation.frames, frame];
     }

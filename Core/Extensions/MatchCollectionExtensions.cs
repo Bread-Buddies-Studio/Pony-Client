@@ -13,47 +13,34 @@ public static class MatchCollectionExtensions
     public static bool IsIndexWithin(this MatchCollection matchCollection, int index, string code)
     {
         // Find Start and End Matches //
-        var startMatches = matchCollection.Where(match => match.Value.StartsWith('[' + code));
-        var endMatches = matchCollection.Where(match => match.Value.StartsWith("[\\" + code));
+        var startMatch = matchCollection
+            .LastOrDefault(match =>
+            (match.Value == $"[{code}]" || match.Value.StartsWith($"[{code}="))
+                && match.Index < index);
+
+        var previousEndMatch = matchCollection
+            .LastOrDefault(match =>
+            (match.Value == $"[\\{code}]" || match.Value.StartsWith($"[{code}="))
+                && match.Index < index);
+        
+        var endMatch = matchCollection
+            .FirstOrDefault(match => 
+            (match.Value == $"[\\{code}]" || match.Value.StartsWith($"[{code}="))
+                && match.Index > index);
+        
+        var nextStartMatch = matchCollection
+            .FirstOrDefault(match => 
+            (match.Value == $"[{code}]" || match.Value.StartsWith($"[{code}="))
+                && match.Index > index);
         // Conditions //
-        if (!startMatches.Any() || !endMatches.Any())
+        if (startMatch is null || endMatch is null)
             return false; // If no start or end matches found, return false //
-        // Sub-Methods //
-        Match? findClosestStartMatch(int givenIndex)
-        {
-            foreach ((int index, Match match) in startMatches.Index())
-            {
-                // Conditions //
-                if (match.Index < givenIndex)
-                    continue;
-                // Found Closest //
-                return startMatches.ElementAt((index - 1).Clamp0(startMatches.Count() - 1));
-            }
-            return startMatches.FirstOrDefault();
-        }
-        Match? findClosestEndMatch(int givenIndex)
-        {
-            foreach ((int index, Match match) in endMatches.Index().Reverse())
-            {
-                // Conditions //
-                if (match.Index > givenIndex)
-                    continue;
-                // Found Closest //
-                return endMatches.ElementAt((index - 1).Clamp0(endMatches.Count() - 1));
-            }
-            return endMatches.FirstOrDefault();
-        }
-        // Data //
-        Match? startMatch = findClosestStartMatch(index);
-        Match? endMatch = findClosestEndMatch(index);
-        // Conditions //
-        if (startMatch is null)
-            return false; // If both matches are null, return false //
-        if (startMatch is not null && endMatch is null)
-            return true;
-        if (startMatch is not null && endMatch is null)
-            return false;
-        return startMatch?.Index <= index && index <= endMatch?.Index + endMatch?.Length - 1;
+        if (previousEndMatch is not null && startMatch.Index < previousEndMatch.Index)
+            return false; // If the start match is before the previous end match, return false //
+        if (nextStartMatch is not null && nextStartMatch.Index < endMatch.Index)
+            return false; // If the next start match is before the end match, return false //
+        // Success //
+        return true;
     }
 
     public static Match? FindClosestPreviousMatch(this MatchCollection matchCollection, int givenIndex)
@@ -61,13 +48,11 @@ public static class MatchCollectionExtensions
         return matchCollection
             .LastOrDefault(match => match.Index < givenIndex);
     }
-
     public static Match? FindClosestNextMatch(this MatchCollection matchCollection, int givenIndex)
     {
         return matchCollection
             .FirstOrDefault(match => match.Index > givenIndex);
     }
-
     public static Match? FindClosestPreviousStartingMatch(this MatchCollection matchCollection, int givenIndex, string code)
     {
         return matchCollection
@@ -78,12 +63,15 @@ public static class MatchCollectionExtensions
         return matchCollection
             .FirstOrDefault(match => match.Index > givenIndex && match.Value.StartsWith("[\\" + code));
     }
+    
     public static bool IsIndexInMatch(this MatchCollection matchCollection, int index)
     {
         // Iterate Matches //
         foreach (Match match in matchCollection)
         {
             // Conditions //
+            if (match is null)
+                return false;
             if (match.Index > index)
                 return false; // If Start Index is past Index //
             if (match.Index + match.Length - 1 < index)

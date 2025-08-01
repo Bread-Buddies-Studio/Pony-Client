@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Network.Enums;
+using System.ComponentModel.Design;
 
 namespace Rendering.Entities;
 
@@ -49,18 +50,24 @@ public class LocalPlayer : Player
             .SetMagnitude(Speed);
         // Set Magnitude to prevent faster diagonal speeds //
         MovementDirection = MovementDirection.SetMagnitude(Speed);
-        // Facing Direction //
-        if (InputService.GetAxis(InputAxis.Horizontal) is not 0)
-            Direction = InputService.GetAxis(InputAxis.Horizontal) > 0;
     }
     #endregion
     #region Event Methods
     public override void OnUpdate(long deltaTime)
     {
+        if (Moving)
+        {
+            if (InputService.IsKeyDown("fly"))
+                State = EntityState.Flying;
+            else if (InputService.IsKeyDown("run"))
+                State = EntityState.Running;
+            else
+                State = EntityState.Moving;
+        }
+
+        else State = EntityState.Idle;
         // Local Player Update //
         UpdateMovement(deltaTime);
-        // Change State //
-        State = Moving ? EntityState.Moving : EntityState.Idle;
         // Regular Update //
         base.OnUpdate(deltaTime);
         // Send Network Packet //

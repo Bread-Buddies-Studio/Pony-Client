@@ -10,6 +10,7 @@ using System.Linq;
 using Core.Services;
 using System.Diagnostics.CodeAnalysis;
 using Tmds.DBus.Protocol;
+using Rendering.Services;
 
 namespace Rendering.Visible;
 
@@ -25,7 +26,7 @@ public abstract class OverheadText : Renderable
     public required double Opacity = 1;
     public required double FontSize = 20;
     // Properties //
-    private SolidColorBrush Brush
+    protected SolidColorBrush Brush
     {
         get
         {
@@ -36,9 +37,9 @@ public abstract class OverheadText : Renderable
             return field;
         }
     } = new();
-    public FormattedText FormattedText => new(Message, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, Typeface.Default, FontSize, Brush)
+    public virtual FormattedText FormattedText => new(Message, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, Typeface.Default, FontSize, Brush)
     {
-        TextAlignment = TextAlignment.Center 
+        TextAlignment = TextAlignment.Center,
     };
     #region Constructors
     [SetsRequiredMembers]
@@ -52,17 +53,22 @@ public abstract class OverheadText : Renderable
         // Connections //
         RunService.Update += OnUpdate;
     }
+
+    [SetsRequiredMembers]
+    public OverheadText(Entity Speaker, char Message) : this(Speaker, Message.ToString()) {}
     #endregion
     #region Public Methods
     #endregion
     #region Private Methods
     public Point GetOffset()
     {
-        Point offset = new();
+        Point offset = new(0, -Size.Height);
 
         foreach (var overheadText in OverheadTexts)
         {
             // Conditions //
+            if (!overheadText.IsVisible)
+                continue;
             if (this == overheadText)
                 break;
             // Settings //
@@ -75,6 +81,8 @@ public abstract class OverheadText : Renderable
     #region Event Methods
     public virtual void OnUpdate(object? sender, UpdateEventArgs eventData)
     {
+        // Init //
+        Size = new(FormattedText.Width, FormattedText.Height);
         // Positions //
         Point basePosition = Speaker.Hitbox.Center - new Point(0, Speaker.Size.Height / 2);
         Point offset = GetOffset();
@@ -82,30 +90,28 @@ public abstract class OverheadText : Renderable
         offset -= new Point(FormattedText.Width / 2, 0);
         // Return //
         Position = basePosition + offset;
-        Size = new(FormattedText.Width, FormattedText.Height);
     }
 
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
         // Conditions //
-        if (AttachedCamera is null)
+        if (WorldService.CurrentCamera is null)
             return;
         // Format Message //
-        PushTransform(context, AttachedCamera.OffsetMatrix);
+        PushTransform(context, WorldService.CurrentCamera.OffsetMatrix);
         // Draw //
         context.DrawText(FormattedText, Position);
+        // Reset the Matrix //
         PopMatrix();
     }
     #endregion
     // Disposal Methods //
-    public override void Delete()
+    public override void Dispose()
     {
-        // Delete //
-        Debug.WriteLine("Deleting!");
         // Remove Reference //
         Speaker.OverheadTexts.Remove(this);
         // Disconnections //
         RunService.Update -= OnUpdate;
-        base.Delete();
+        base.Dispose();
     }
 }

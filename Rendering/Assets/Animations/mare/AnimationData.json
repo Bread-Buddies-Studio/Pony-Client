@@ -1,0 +1,179 @@
+{
+    "ColumnAmount": 30,
+    "RowAmount": 12,
+
+    "EdgePixelPadding": 1,
+    "FramePixelPadding": 2,
+
+    "Directions": {
+        "90": [
+            {
+                "Name": "Idle",
+                "Length": 1,
+                "StartIndex": 4,
+                "Looped": true,
+                "FPS": 0
+            },
+
+            {
+                "Name": "Moving",
+                "Length": 6,
+                "StartIndex": 54,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Running",
+                "Length": 6,
+                "StartIndex": 114,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Flying",
+                "Length": 6,
+                "StartIndex": 174,
+                "Looped": true,
+                "FPS": 12
+            }
+        ],
+
+        "45": [
+            {
+                "Name": "Idle",
+                "Length": 1,
+                "StartIndex": 3,
+                "Looped": true,
+                "FPS": 0
+            },
+
+            {
+                "Name": "Moving",
+                "Length": 6,
+                "StartIndex": 48,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Running",
+                "Length": 6,
+                "StartIndex": 108,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Flying",
+                "Length": 6,
+                "StartIndex": 168,
+                "Looped": true,
+                "FPS": 12
+            }
+        ],
+
+        "0": [
+            {
+                "Name": "Idle",
+                "Length": 1,
+                "StartIndex": 2,
+                "Looped": true,
+                "FPS": 0
+            },
+
+            {
+                "Name": "Moving",
+                "Length": 6,
+                "StartIndex": 42,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Running",
+                "Length": 6,
+                "StartIndex": 102,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Flying",
+                "Length": 6,
+                "StartIndex": 162,
+                "Looped": true,
+                "FPS": 12
+            }
+        ],
+
+        "-45": [
+            {
+                "Name": "Idle",
+                "Length": 1,
+                "StartIndex": 1,
+                "Looped": true,
+                "FPS": 0
+            },
+
+            {
+                "Name": "Moving",
+                "Length": 6,
+                "StartIndex": 36,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Running",
+                "Length": 6,
+                "StartIndex": 96,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Flying",
+                "Length": 6,
+                "StartIndex": 156,
+                "Looped": true,
+                "FPS": 12
+            }
+        ],
+
+        "-90": [
+            {
+                "Name": "Idle",
+                "Length": 1,
+                "StartIndex": 0,
+                "Looped": true,
+                "FPS": 0
+            },
+
+            {
+                "Name": "Moving",
+                "Length": 6,
+                "StartIndex": 30,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Running",
+                "Length": 6,
+                "StartIndex": 90,
+                "Looped": true,
+                "FPS": 12
+            },
+
+            {
+                "Name": "Flying",
+                "Length": 6,
+                "StartIndex": 150,
+                "Looped": true,
+                "FPS": 12
+            }
+        ]
+    }
+}

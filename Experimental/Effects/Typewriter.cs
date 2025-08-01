@@ -79,69 +79,6 @@ public class Typewriter(
         }
         // Formatting //
         FormattedText formattedText = GetFormat(Text[characterIndex]);
-        // BBCode Calculations //
-        bool bolded = BBCodeMatches.IsIndexWithin(characterIndex, "b");
-        bool italicized = BBCodeMatches.IsIndexWithin(characterIndex, "i");
-        bool underlined = BBCodeMatches.IsIndexWithin(characterIndex, "u");
-        bool customSize = BBCodeMatches.IsIndexWithin(characterIndex, "size");
-        // BBCode Formatting //
-        if (bolded)
-            formattedText.SetFontWeight(FontWeight.Bold);
-        if (italicized)
-            formattedText.SetFontStyle(FontStyle.Italic);
-        if (underlined)
-            formattedText.SetTextDecorations(TextDecorations.Underline);
-        if (customSize)
-        {
-            Match? closestPreviousMatch = BBCodeMatches.FindClosestPreviousStartingMatch(characterIndex, "size");
-            double fontSize;
-            if (closestPreviousMatch is not null)
-            {
-                string? internalString = closestPreviousMatch.GetInternalString();
-                if (internalString is not null)
-                    fontSize = double.Parse(internalString);
-                else
-                    fontSize = TextSize; // Default to TextSize if no size is found
-            }
-            else
-                fontSize = TextSize; // Default to TextSize if no size is found
-            // Set Font Size //
-            formattedText.SetFontSize(fontSize);
-        }
-        // Success //
-        return formattedText;
-    }
-    private FormattedText GetFormat(int characterIndex, int length)
-    {
-        string text = Text[characterIndex..(characterIndex + length)].RemoveBBCode();
-        FormattedText formattedText = GetFormat(text);
-
-        int letterIndex = 0;
-        for (int index = 0; index < length - 1; index++)
-        {
-            // Conditions //
-            if (BBCodeMatches.IsIndexInMatch(characterIndex + index))
-                continue; // Skip if index is in a BBCode match
-            // BBCode Calculations //
-            bool bolded = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "b");
-            bool italicized = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "i");
-            bool underlined = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "u");
-            bool customSize = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "size");
-            // BBCode Formatting //
-            if (bolded)
-                formattedText.SetFontWeight(FontWeight.Bold, letterIndex, 1);
-            if (italicized)
-                formattedText.SetFontStyle(FontStyle.Italic, letterIndex, 1);
-            if (underlined)
-                formattedText.SetTextDecorations(TextDecorations.Underline, letterIndex, 1);
-            if (customSize)
-            {
-                double fontSize = double.Parse(BBCodeMatches.FindClosestPreviousStartingMatch(characterIndex, "size")?.GetInternalString() ?? "12");
-                formattedText.SetFontSize(fontSize, letterIndex, 1);
-            }
-            // Increment //
-            letterIndex++;
-        }
         // Success //
         return formattedText;
     }
@@ -339,7 +276,7 @@ public class Typewriter(
                 lineStart = characterIndex;
             }
             // Offset //
-            PushTransform(context, new Matrix(1, 0, 0, 1, xOffset, yOffset));
+            PushTransform(context, Matrix.CreateTranslation(xOffset, yOffset));
             // Draw Word //
             DrawWord(context, wordIndex, characterIndex, word);
             // Reset Matrixes //

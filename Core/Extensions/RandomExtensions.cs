@@ -18,8 +18,6 @@ public static class RandomExtensions
         // Checks //
         if (MaxValue is 1)
             return Generator.NextDouble();
-        if (MaxValue < 1 && MaxValue > 0)
-            return Generator.NextDouble();
         if (MaxValue < 0)
             return NextDouble(Generator, MaxValue, 0);
         // From 0 to Max //

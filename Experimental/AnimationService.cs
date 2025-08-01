@@ -86,7 +86,6 @@ public class Animator
         foreach (Uri imagePath in frames)
             CacheAnimationFrame(imagePath);
     }
-
     private static void CacheAnimationData(Uri dataPath)
     {
         string pathString = dataPath.AbsolutePath.Replace(directoryPath.AbsolutePath, "");
@@ -103,7 +102,6 @@ public class Animator
         // Save //
         Animations[animationName] = animation;
     }
-
     private static void CacheAnimationFrame(Uri framePath)
     {
         string pathString = framePath.AbsolutePath.Replace(directoryPath.AbsolutePath, "");
@@ -125,6 +123,7 @@ public class Animation
 {
     // File Data //
     public IImage[] frames = [];
+    public required string Name { get; set; }
     public required bool looped;
     public required int fps;
     // Properties //

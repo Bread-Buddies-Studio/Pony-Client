@@ -29,6 +29,7 @@ public static class PointExtensions
     /// <param name="p2">Destination</param>
     /// <returns>Directional Vector</returns>
     public static Point ToDirectional(this Point p1, Point p2) => p2 - p1;
+    public static double ToDegrees(this Point position) => Math.Atan2(position.Y, position.X) * 180.0 / Math.PI;
     /// <summary>
     /// Gets the directional vector between 2 points and normalises it
     /// </summary>
@@ -140,6 +141,7 @@ public static class PointExtensions
     /// <param name="position"></param>
     /// <returns></returns>
     public static Vector ToVector(this Point position) => (Vector)position;
+    public static double DistanceFrom(this Point position, Point other) => Point.Distance(position, other);
     public static Point Translate(this Point position, Point offset) => position + offset;
     public static Point Translate(this Point position, double x, double y) => position.Translate(new(x, y));
     public static Point TranslateX(this Point position, double x) => position.Translate(x, 0);

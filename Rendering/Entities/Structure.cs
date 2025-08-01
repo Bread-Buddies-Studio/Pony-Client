@@ -47,15 +47,14 @@ public class Structure : Renderable, ICollidable
         // Add Reference //
         Structures.Add(this);
     }
+
     [SetsRequiredMembers]
     public Structure(Point Position, Size Size, string? AnimationName = null) : this(new Rect(), AnimationName)
     {
         this.Position = Position;
         this.Size = Size;
-        
     }
     // Event Methods //
-    
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
         // Data //
@@ -83,9 +82,9 @@ public class Structure : Renderable, ICollidable
         PopMatrix();
     }
     // Disposal Methods //
-    public override void Delete()
+    public override void Dispose()
     {
         Structures.Remove(this);
-        base.Delete();
+        base.Dispose();
     }
 }

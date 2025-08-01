@@ -5,11 +5,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Markup;
 using Avalonia;
 using Avalonia.Media;
 using Core.Extensions;
+using Rendering.Services;
 using Rendering.Views;
 using Rendering.Visible;
+using Core.Services;
 
 namespace Rendering.Effects;
 
@@ -19,29 +22,39 @@ public class Typewriter(
     Typeface BaseTypeface,
     Rect Hitbox,
     FlowDirection BaseFlowDirection = FlowDirection.LeftToRight,
-    double TextSize = 12
+    double TextSize = 12,
+    Thickness Padding = default
     ) : Renderable(Hitbox)
 {
     // Matrixes //
-    public readonly List<Matrix> WordMatrixes = [];
-    public readonly List<Matrix> LetterMatrixes = [];
+    public readonly List<DrawingContext.PushedState> WordMatrixes = [];
+    public readonly List<DrawingContext.PushedState> LetterMatrixes = [];
     // Effects //
     public readonly List<Effect> Effects = [];
     // Public Data //
-    public required string Text = string.Empty;
+    public required string Text 
+    { 
+        get; 
+        set
+        {
+            field = value;
+            BBCodeMatches = Text.ParseBBCode();
+            FormatCache = [.. value.Select((char letter, int index) => GetCacheFormat(index))];
+        }
+    } = string.Empty;
     public required Typeface BaseTypeface = BaseTypeface;
     public required FlowDirection BaseFlowDirection = BaseFlowDirection;
     public required IBrush Foreground = Foreground;
     public required double TextSize = TextSize;
     public required Color BackgroundColor = Colors.DarkGray;
+    public required Thickness Padding = Padding;
     // Private Data //
-    [field: AllowNull]
-    private MatchCollection BBCodeMatches
-    { 
-        get => field ??= Text.ParseBBCode();
-    }
+    [AllowNull]
+    internal MatchCollection BBCodeMatches;
+    [AllowNull]
+    private FormattedText[] FormatCache;
     // Override Data //
-    public override bool IsAlwaysOnTop => true;
+    public override sealed bool IsAlwaysOnTop => true;
     public override sealed bool AlwaysShows => true;
     // Public Methods //
     public void AddEffect(Effect effect)
@@ -59,16 +72,7 @@ public class Typewriter(
         return Effects.Remove(effect);
     }
     // Private Methods //
-    private FormattedText GetFormat(string text) =>
-        new(
-            text,
-            CultureInfo.CurrentCulture,
-            BaseFlowDirection,
-            BaseTypeface,
-            TextSize,
-            Foreground
-        );
-    private FormattedText GetFormat(int characterIndex)
+    private FormattedText GetCacheFormat(int characterIndex)
     {
         // Conditions //
         if (BBCodeMatches.IsIndexInMatch(characterIndex))
@@ -79,72 +83,30 @@ public class Typewriter(
         }
         // Formatting //
         FormattedText formattedText = GetFormat(Text[characterIndex]);
-        // BBCode Calculations //
-        bool bolded = BBCodeMatches.IsIndexWithin(characterIndex, "b");
-        bool italicized = BBCodeMatches.IsIndexWithin(characterIndex, "i");
-        bool underlined = BBCodeMatches.IsIndexWithin(characterIndex, "u");
-        bool customSize = BBCodeMatches.IsIndexWithin(characterIndex, "size");
-        // BBCode Formatting //
-        if (bolded)
-            formattedText.SetFontWeight(FontWeight.Bold);
-        if (italicized)
-            formattedText.SetFontStyle(FontStyle.Italic);
-        if (underlined)
-            formattedText.SetTextDecorations(TextDecorations.Underline);
-        if (customSize)
-        {
-            Match? closestPreviousMatch = BBCodeMatches.FindClosestPreviousStartingMatch(characterIndex, "size");
-            double fontSize;
-            if (closestPreviousMatch is not null)
-            {
-                string? internalString = closestPreviousMatch.GetInternalString();
-                if (internalString is not null)
-                    fontSize = double.Parse(internalString);
-                else
-                    fontSize = TextSize; // Default to TextSize if no size is found
-            }
-            else
-                fontSize = TextSize; // Default to TextSize if no size is found
-            // Set Font Size //
-            formattedText.SetFontSize(fontSize);
-        }
-        // Success //
-        return formattedText;
-    }
-    private FormattedText GetFormat(int characterIndex, int length)
-    {
-        string text = Text[characterIndex..(characterIndex + length)].RemoveBBCode();
-        FormattedText formattedText = GetFormat(text);
-
-        int letterIndex = 0;
-        for (int index = 0; index < length - 1; index++)
+        // Activate Code //
+        foreach ((string code, var action) in BBCodeService.BBCodeActions)
         {
             // Conditions //
-            if (BBCodeMatches.IsIndexInMatch(characterIndex + index))
-                continue; // Skip if index is in a BBCode match
-            // BBCode Calculations //
-            bool bolded = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "b");
-            bool italicized = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "i");
-            bool underlined = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "u");
-            bool customSize = BBCodeMatches.IsIndexWithin(characterIndex + letterIndex, "size");
-            // BBCode Formatting //
-            if (bolded)
-                formattedText.SetFontWeight(FontWeight.Bold, letterIndex, 1);
-            if (italicized)
-                formattedText.SetFontStyle(FontStyle.Italic, letterIndex, 1);
-            if (underlined)
-                formattedText.SetTextDecorations(TextDecorations.Underline, letterIndex, 1);
-            if (customSize)
-            {
-                double fontSize = double.Parse(BBCodeMatches.FindClosestPreviousStartingMatch(characterIndex, "size")?.GetInternalString() ?? "12");
-                formattedText.SetFontSize(fontSize, letterIndex, 1);
-            }
-            // Increment //
-            letterIndex++;
+            if (!BBCodeMatches.IsIndexWithin(characterIndex, code))
+                continue;
+            Match? closestPreviousMatch = BBCodeMatches.FindClosestPreviousStartingMatch(characterIndex, code);
+            string internalString = closestPreviousMatch?.GetInternalString() ?? string.Empty;
+            // Success //
+            action.Invoke(formattedText, internalString);
         }
+
         // Success //
         return formattedText;
     }
+    private FormattedText GetFormat(string text) => new(
+        text,
+        CultureInfo.CurrentCulture,
+        BaseFlowDirection,
+        BaseTypeface,
+        TextSize,
+        Foreground
+    );
+    private FormattedText GetFormat(int characterIndex) => FormatCache[characterIndex.Clamp0(FormatCache.Length - 1)];
     private FormattedText GetFormat(char character) => GetFormat(character.ToString());
     
     private double GetLineHeight(Range range)
@@ -169,17 +131,32 @@ public class Typewriter(
         // Return Height //
         return biggestHeight;
     }
-
-
-    private void ApplyWordEffects(int index, string word)
+    
+    private void ApplyWordEffects(DrawingContext context, int index, string word)
     {
         foreach (Effect effect in Effects)
-            WordMatrixes.Add(effect.GetWordMatrix(index, word));
+        {
+            DrawingContext.PushedState[]? matrixes = effect.WordMatrix(context, index, word);
+            // Conditions //
+            if (matrixes is null)
+                continue; // Skip if no matrixes are returned
+            // Add Matrixes //
+            WordMatrixes.AddRange(matrixes);
+
+        }
     }
-    private void ApplyLetterEffects(int index, char letter)
+    private void ApplyLetterEffects(DrawingContext context, int index, char letter)
     {
         foreach (Effect effect in Effects)
-            LetterMatrixes.Add(effect.GetLetterMatrix(index, letter));
+        {
+            DrawingContext.PushedState[]? matrixes = effect.LetterMatrix(context, index, letter);
+            // Conditions //
+            if (matrixes is null)
+                continue; // Skip if no matrixes are returned
+            // Add Matrixes //
+            LetterMatrixes.AddRange(matrixes);
+            
+        }
     }
 
     private double GetSpaceWidth(int characterIndex)
@@ -193,7 +170,7 @@ public class Typewriter(
             if (containerMatch is not null && containerMatch.Index + containerMatch.Length < Text.Length)
                 characterIndex2 = containerMatch.Index + containerMatch.Length;
         }
-        
+
         if (BBCodeMatches.IsIndexWithin(characterIndex2, "size"))
         {
             Match? sizeMatch = BBCodeMatches.FindClosestPreviousStartingMatch(characterIndex2, "size");
@@ -208,16 +185,16 @@ public class Typewriter(
             else
                 fontSize = TextSize;
         }
-        else fontSize = TextSize; 
+        else fontSize = TextSize;
 
         return fontSize / 6;
     }
-    private double GetWordWidthIndividualMode(int firstLetterIndex, int wordLength)
+    private double GetWordWidth(int firstLetterIndex, int wordLength)
     {
         // Init //
         double totalWidth = 0;
         // Iterate //
-        for(int index = 0; index < wordLength; index++)
+        for (int index = 0; index < wordLength; index++)
         {
             // Conditions //
             if (BBCodeMatches.IsIndexInMatch(firstLetterIndex + index))
@@ -232,9 +209,7 @@ public class Typewriter(
     private void DrawWord(DrawingContext context, int wordIndex, int firstLetterIndex, string word)
     {
         // Apply Word Effects //
-        ApplyWordEffects(wordIndex, word);
-        // Edit Matrix //
-        var wordTransforms = PushTransform(context, [.. WordMatrixes]);
+        ApplyWordEffects(context, wordIndex, word);
         // Define Letter Spacing //
         double lastCharacterSpacing = 0;
         // Iterate Letters //
@@ -248,19 +223,17 @@ public class Typewriter(
             // Get Formatted Character //
             FormattedText formattedChar = GetFormat(characterIndex);
             // Apply Letter Effects //
-            ApplyLetterEffects(characterIndex, word[index]);
-            // Edit Matrix //
-            var characterTransforms = PushTransform(context, [.. LetterMatrixes]);
+            ApplyLetterEffects(context, characterIndex, word[index]);
             // Render //
             context.DrawText(formattedChar, Position + new Point(lastCharacterSpacing, 0));
             // Additional Offset //
             lastCharacterSpacing += formattedChar.Width;
             // Reset Matrix //
-            PopMatrix(characterTransforms);
+            PopMatrix([.. LetterMatrixes]);
             LetterMatrixes.Clear();
         }
         // Reset Word Matrix //
-        PopMatrix(wordTransforms);
+        PopMatrix([.. WordMatrixes]);
         WordMatrixes.Clear();
     }
     public void DrawBackground(DrawingContext context)
@@ -277,8 +250,8 @@ public class Typewriter(
             brush: fill,
             pen: border,
             rect: Hitbox,
-            radiusX: 10,
-            radiusY: 10
+            radiusX: 0,
+            radiusY: 0
         );
     }
     // Event Methods //
@@ -289,8 +262,8 @@ public class Typewriter(
         string[] words = Text.Trim().Split(' ');
         // Position Data //
         int lineStart = 0;
-        double xOffset = 0;
-        double yOffset = 0;
+        double xOffset = Padding.Left;
+        double yOffset = Padding.Top;
         // Index Data //
         int characterIndex = 0;
         // Iterate through Words //
@@ -301,7 +274,7 @@ public class Typewriter(
             string baseWord = word.RemoveBBCode();
             string nextBaseWord = word.RemoveBBCode();
 
-            double? spaceWidth = wordIndex != words.Length - 1 ? 
+            double? spaceWidth = wordIndex != words.Length - 1 ?
                 GetSpaceWidth(characterIndex + word.Length - 1) : null;
             // Conditions //
             if (word is "" or " ")
@@ -317,13 +290,13 @@ public class Typewriter(
             }
 
             // Word Formatting //
-            double wordWidth = GetWordWidthIndividualMode(characterIndex, word.Length);
+            double wordWidth = GetWordWidth(characterIndex, word.Length);
             // Checks //
-            if (xOffset + wordWidth > Size.Width || (wordIndex > 0 && words[wordIndex - 1].Contains('\n')))
+            if (xOffset + wordWidth > Size.Width - Padding.Right || (wordIndex > 0 && words[wordIndex - 1].Contains('\n')))
             {
                 // New Line //
                 yOffset += GetLineHeight(new Range(lineStart, characterIndex));
-                xOffset = 0;
+                xOffset = Padding.Left;
                 // Set Line Begin //
                 lineStart = characterIndex;
             }

@@ -23,13 +23,11 @@ public class NervousEffect(Typewriter Parent, double EffectLevel) : Effect(Paren
     // Overriden Methods //
     public override DrawingContext.PushedState[] GetLetterMatrix(DrawingContext context, int index, char letter)
     {
+        // Calculations //
         double xOffset = Random.Shared.NextDouble(-EffectLevel / 2, EffectLevel / 2);
         double yOffset = Random.Shared.NextDouble(-EffectLevel / 2, EffectLevel / 2);
-        return 
-        [
-            context.PushTransform(new(1, 0, 0, 1, xOffset, yOffset)),
-            context.PushOpacity(0)
-        ];
+
+        return [context.PushTransform(Matrix.CreateTranslation(xOffset, yOffset))];
     }
 
     public override DrawingContext.PushedState[]? GetWordMatrix(DrawingContext context, int index, string word)

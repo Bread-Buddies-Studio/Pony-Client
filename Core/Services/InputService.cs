@@ -21,10 +21,16 @@ public static class InputService
     public static readonly HashSet<Key> KeysDown = [];
     public static readonly Dictionary<string, Key> Controls = new()
     {
+        // Movement //
         {"left", Key.Left},
         {"right", Key.Right},
         {"up", Key.Up},
-        {"down", Key.Down}
+        {"down", Key.Down},
+        // Special //
+        {"run", Key.LeftShift},
+        {"fly", Key.F},
+        // Interactions //
+        {"interact", Key.Z},
     };
     // Events //
     public static event EventHandler<KeyEventArgs>? KeyDown;

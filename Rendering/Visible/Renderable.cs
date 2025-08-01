@@ -16,7 +16,7 @@ using System.Diagnostics;
 
 namespace Rendering.Visible;
 
-public abstract class Renderable : IPhysical, IComparable<Renderable>
+public abstract class Renderable : IPhysical, IDisposable, IComparable<Renderable>
 {
     // Static Data //
     public static SortedSet<Renderable> Renderables {
@@ -52,7 +52,14 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
     // Base Methods //
     public bool IsSeenByLocalPlayer() => WorldService.CurrentCamera?.IsWithinSight(this) ?? false;
     // Matrix //
-    public void PushTransform(DrawingContext context, Matrix transform) => Matrixes.Add(context.PushTransform(transform));
+    public DrawingContext.PushedState PushTransform(DrawingContext context, Matrix transform)
+    {
+        DrawingContext.PushedState pushedState = context.PushTransform(transform);
+        // Add to Matrix List //
+        Matrixes.Add(pushedState);
+        // Return Action //
+        return pushedState;
+    }
     public DrawingContext.PushedState[] PushTransform(DrawingContext context, Matrix[] transforms)
     {
         // Init Array //
@@ -63,20 +70,30 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
         // Return Array //
         return pushedStates;
     }
-    public void PushOpacity(DrawingContext context, double opacity) => Matrixes.Add(context.PushOpacity(opacity));
+    public DrawingContext.PushedState PushOpacity(DrawingContext context, double opacity)
+    {
+        DrawingContext.PushedState pushedState = context.PushOpacity(opacity);
+        // Add to Matrix List //
+        Matrixes.Add(pushedState);
+        // Return Action //
+        return pushedState;
+    }
     public void PopMatrix()
     {
         foreach (var matrix in Matrixes.Reverse())
             matrix.Dispose();
-
+        
         Matrixes.Clear();
     }
     public void PopMatrix(DrawingContext.PushedState[] pushedStates)
     {
-        foreach (var matrix in Matrixes.Reverse())
+        // Start from last Matrix //
+        pushedStates.Reverse();
+        // Dispose Matrixes //
+        foreach (var matrix in pushedStates)
         {
             // Conditions //
-            if (!pushedStates.Contains(matrix))
+            if (!Matrixes.Contains(matrix))
                 continue;
             // Delete //
             matrix.Dispose();
@@ -113,7 +130,11 @@ public abstract class Renderable : IPhysical, IComparable<Renderable>
     /// <summary>
     /// Removes this <see cref="Renderable"/> from the <see cref="Renderables"/> list
     /// </summary>
-    public virtual void Delete() => Renderables.Remove(this);
+    public virtual void Dispose()
+    {
+        GC.SuppressFinalize(this);
+        Renderables.Remove(this);
+    }
     // Ancestor Methods //
     public int CompareTo(Renderable? renderable)
     {

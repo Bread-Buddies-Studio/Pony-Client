@@ -38,4 +38,6 @@
       <DependentUpon>GuiService.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

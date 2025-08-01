@@ -13,6 +13,12 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
 using Core.Services;
+using System.Diagnostics.CodeAnalysis;
+using Avalonia.Media.Imaging;
+using Rendering.Structs;
+using Avalonia;
+using System.Text.Json.Serialization.Metadata;
+using Core.Extensions;
 
 namespace Rendering.Services;
 
@@ -25,10 +31,11 @@ public class Animator
 {
     private static readonly Uri directoryPath = new("avares://Rendering/Assets/Animations/");
     public static readonly Dictionary<string, Animation> Animations = [];
+    public static readonly Dictionary<string, SheetData> Sheets = [];
     // Play Data //
     private Animation? CurrentAnimation;
     public bool IsPlaying => CurrentAnimation?.IsPlaying ?? false;
-    public bool Looped = false;
+    public bool Looped;
     // Frame Data //
     public int? FrameIndex { get => CurrentAnimation?.FrameIndex; }
     public IImage? Frame { get => CurrentAnimation?.CurrentFrame; }
@@ -46,6 +53,41 @@ public class Animator
         CurrentAnimation = currentAnimation;
         CurrentAnimation.Play();
     }
+    public void Play(string sheetName, int degrees, string animationName)
+    {
+        // Get Animation //
+        if (!Sheets.TryGetValue(sheetName, out SheetData sheetData))
+        {
+            Debug.WriteLine($"Animation Sheet '{sheetName}' not found");
+            return;
+        }
+        // Save Animation
+        Animation? currentAnimation;
+        // Get Split Amount //
+        int directionalAmount = 8; // Animations are 8 directional
+        // Round Degrees //
+        degrees = degrees.RoundToDegrees(directionalAmount);
+        // Get Direction //
+        if (!sheetData.Directions.TryGetValue(degrees, out Animation[]? animations))
+        {
+            Debug.WriteLine($"Animation '{animationName}' not found in sheet '{sheetName}' at {degrees} degrees");
+            return;
+        }
+        // Find Animation //
+        if ((currentAnimation = animations.FirstOrDefault(currentAnimation => currentAnimation.Name == animationName)) is null)
+        {
+            Debug.WriteLine($"Animation '{animationName}' not found in sheet '{sheetName}' at {degrees} degrees");
+            return;
+        }
+        // Conditions //
+        if (currentAnimation == CurrentAnimation)
+            return; // Don't waste time playing something already playing //
+        // Stop Current Animation //
+        Stop();
+        // Play Animation //
+        CurrentAnimation = currentAnimation;
+        CurrentAnimation.Play();
+    }
     public void Stop() => CurrentAnimation?.Stop();
     // Private Base Methods //
     private static void LoadAnimations()
@@ -59,22 +101,12 @@ public class Animator
             });
 
         // Order The Animation Frames Alphabetically & Numerically //
-        IOrderedEnumerable<Uri> frames = AssetLoader.GetAssets(directoryPath, null)
+        IEnumerable<Uri> frames = AssetLoader.GetAssets(directoryPath, null)
             .Where(frame =>
             {
                 string dataPath = frame.AbsoluteUri;
                 // Conditions //
-                return !dataPath.EndsWith(".json");
-            })
-
-            .OrderBy(frame =>
-            {
-                string imagePath = frame.AbsoluteUri;
-                int indexBegin = imagePath.LastIndexOf('-') + 1;
-                int indexEnd = imagePath.LastIndexOf('.');
-                string frameIndex = imagePath[indexBegin..indexEnd];
-                string fileName = imagePath.Replace(frameIndex + ".png", $"{int.Parse(frameIndex):D5}");
-                return fileName;
+                return !dataPath.EndsWith(".json") && !dataPath.Contains("Sheets");
             });
         // Cache Animations //
         foreach (Uri dataPath in animationData)
@@ -87,38 +119,43 @@ public class Animator
     private static void CacheAnimationData(Uri dataPath)
     {
         string pathString = dataPath.AbsolutePath.Replace(directoryPath.AbsolutePath, "");
-        string animationName = pathString[..pathString.IndexOf('/')];
+        string sheetName = pathString[..pathString.IndexOf('/')];
         // Load Data //
         using Stream stream = AssetLoader.Open(dataPath);
         using StreamReader reader = new(stream);
         var json = reader.ReadToEnd();
         // Deserialize //
-        Animation? animation = JsonSerializer.Deserialize<Animation>(json);
-        // Conditions //
-        if (animation is null)
-            return;
-        // Save //
-        Animations[animationName] = animation;
+        SheetData spriteSheet = JsonSerializer.Deserialize<SheetData>(json);
+        // Add Reference //
+        Sheets[sheetName] = spriteSheet;
     }
 
     private static void CacheAnimationFrame(Uri framePath)
     {
         string pathString = framePath.AbsolutePath.Replace(directoryPath.AbsolutePath, "");
-        string animationName = pathString[..pathString.IndexOf('/')];
-        // Does Animation Already Exist? //
-        if (!Animations.TryGetValue(animationName, out Animation? animation))
+        string sheetName = pathString[..pathString.IndexOf('/')];
+        // Is Sheet Missing? //
+        if (!Sheets.TryGetValue(sheetName, out SheetData spriteSheet))
+        {
+            Debug.WriteLine($"Animation Sheet '{sheetName}' not found");
             return;
-        // Load Frame //
-        IImage frame = StorageService.LoadBitmapResource(framePath);
-        // Save //
-        animation.frames = [.. animation.frames, frame];
+        }
+        // Settings //
+        spriteSheet.Path = framePath;
+        // Load Frames //
+        spriteSheet.Load();
     }
 }
 
 public class Animation
 {
+    [AllowNull]
+    public string Name { get; set; }
+    public int StartIndex { get; set; }
+    public int Length { get; set; }
+    public Range FrameRange => StartIndex..(StartIndex+Length);
     // File Data //
-    public IImage[] frames = [];
+    public CroppedBitmap[] frames = [];
     public bool Looped { get; set; }
     public int FPS { get; set; }
     // Properties //
@@ -128,8 +165,9 @@ public class Animation
     // Instance Data //
     private readonly Stopwatch Stopwatch = new();
     private long SkippedMillis = 0;
-    public int FrameIndex => (int)(MillisSincePlay / 1000.0 * FPS) % FrameCount;
+    public virtual int FrameIndex => (int)(MillisSincePlay / 1000.0 * FPS) % FrameCount;
     public IImage CurrentFrame => frames[FrameIndex];
+    // Base Methods //
     public void SetFrame(int frameIndex)
     {
         // Reset to first Frame //
@@ -150,4 +188,46 @@ public class Animation
         SkippedMillis = 0;
     }
     public void Resume() => Stopwatch.Start();
+    // Loading Methods //
+    public void Load(SheetData sheetData, Bitmap Sheet)
+    {
+        Debug.WriteLine("Loading Animation: " + Name);
+        // Allocate Memory //
+        frames = new CroppedBitmap[Length];
+        // Store //
+        for (int frameIndex = StartIndex, iterationIndex = 0; frameIndex < StartIndex + Length; frameIndex++, iterationIndex++)
+        {
+            int column = frameIndex % sheetData.ColumnAmount;
+            int row = frameIndex / sheetData.ColumnAmount;
+
+            PixelSize frameSize = new((int)(sheetData.SizeWithoutPadding.Width / sheetData.ColumnAmount), 
+                (int)((sheetData.SizeWithoutPadding.Height / sheetData.RowAmount)));
+
+            PixelPoint topLeft = new(
+                sheetData.EdgePixelPadding + // Edge Padding //
+                sheetData.FramePixelPadding * column + // Frame Seperator Padding //
+                column * frameSize.Width, // Column Offset //
+
+                sheetData.EdgePixelPadding + // Edge Padding //
+                sheetData.FramePixelPadding * row + // Frame Seperator Padding //
+                row * frameSize.Height // Row Offset //
+                );
+            PixelRect pixelRect = new(topLeft, frameSize);
+            // Extract Frame //
+            CroppedBitmap frame = new(Sheet, pixelRect);
+            // Store it //
+            frames[iterationIndex] = frame;
+        }
+    }
+
+    public void UnLoad()
+    {
+        // Dispose Frames //
+        foreach (CroppedBitmap frame in frames)
+            frame.Dispose();
+        // Clear Frames //
+        frames = [];
+        // Reset State //
+        Stop();
+    }
 }

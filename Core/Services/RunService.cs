@@ -12,21 +12,17 @@ namespace Core.Services;
 public class UpdateEventArgs : EventArgs
 {
     // Private Data //
-    private static long _lastInvoke = GetCurrentMillis();
+    private static long _lastInvoke = RunService.CurrentMillis;
     // Public Data //
     public readonly long DeltaTime;
     // Constructor //
     public UpdateEventArgs() : base()
     {
-        // Data //
-        long currentMillis = GetCurrentMillis();
         // Settings //
-        DeltaTime = currentMillis - _lastInvoke;
+        DeltaTime = RunService.CurrentMillis - _lastInvoke;
         // Reset //
-        _lastInvoke = GetCurrentMillis();
+        _lastInvoke = RunService.CurrentMillis;
     }
-    // Private Methods //
-    static long GetCurrentMillis() => DateTimeOffset.Now.ToUnixTimeMilliseconds();
 }
 // Class //
 public static class RunService

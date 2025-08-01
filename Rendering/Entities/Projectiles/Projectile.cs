@@ -71,8 +71,8 @@ public abstract class Projectile : Renderable, ICollidable
     {
     }
     // Deletion Methods //
-    public override void Delete()
+    public override void Dispose()
     {
-        base.Delete();
+        base.Dispose();
     }
 }

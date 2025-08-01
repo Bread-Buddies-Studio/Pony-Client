@@ -15,9 +15,9 @@ using Rendering.Services;
 using LiteNetLib.Utils;
 using Network.Extensions;
 using System;
-using Core.Structs;
 using Core.Interfaces;
 using Tmds.DBus.Protocol;
+using System.Threading.Tasks;
 
 // Class //
 public class Player : Entity, IStats
@@ -43,12 +43,11 @@ public class Player : Entity, IStats
     public int MaxHealth { get; set; }
     public int MaxMana { get; set; }
     // Movement //
-    public override Point MovementDirection { get; set; }
     public override float Speed { get; set; } = 10;
 
     #region Constructors
     [SetsRequiredMembers]
-    public Player(string Name, Rect Hitbox) : base(Hitbox) 
+    public Player(string Name, Rect Hitbox) : base(Hitbox)
     {
         this.Name = Name;
         this.NameTag = new(this);
@@ -56,7 +55,7 @@ public class Player : Entity, IStats
         // Reference //
         Players.Add(this);
         // Play Animation //
-        AnimController.Play(State.ToString().ToLower());
+        OnMoveDirectionChange(this, (new(), new()));
     }
 
     [SetsRequiredMembers]
@@ -64,14 +63,26 @@ public class Player : Entity, IStats
 
     [SetsRequiredMembers]
     private Player() : this(string.Empty, new(200, 200), new(200, 200)) { }
-
-    static Player()
-    {
-        // Connections //
-        NetworkService.NetworkReceive += OnNetworkReceive;
-    }
+    
+    static Player() => NetworkService.NetworkReceive += OnNetworkReceive;
     #endregion
+    // Private Methods //
+    private void UpdateAnimation()
+    {
+        // Update Animation //
+        Point facingDirection = FacingDirection.ToPoint();
+        // Checks //
+        facingDirection = facingDirection.WithX(Math.Abs(facingDirection.X));
+        // Play Animation //
+        AnimController.Play("redheart", (int)facingDirection.ToDegrees(), State.ToString());
+    }
     // Static Methods //
+    /// <summary>
+    /// Finds a specified <see cref="Player"/> in the <see cref="Players"/> List.
+    /// Creates a new <see cref="Player"/> if not found.
+    /// </summary>
+    /// <param name="accountData"></param>
+    /// <returns></returns>
     public static Player FindFromAccountData(string accountData)
     {
         // Split Data //
@@ -94,7 +105,7 @@ public class Player : Entity, IStats
         // Pre-Conditions //
         if (data.reader.EndOfData)
             return;
-        // Get Packet Type //
+        // Get Packet Type // 
         PacketType packetType = (PacketType)data.reader.PeekByte();
         // Conditions //
         if (packetType is not PacketType.PlayerUpdate)
@@ -110,14 +121,19 @@ public class Player : Entity, IStats
     }
     public override void OnUpdate(long deltaTime)
     {
+        // Update //
         base.OnUpdate(deltaTime);
-
+        // Update Animations //
+        UpdateAnimation();
+        // Conditions //
+        if (!IsCollidable)
+            return;
+        // Collisions //
         foreach (var structure in Structure.Structures)
         {
             // Conditions //
             if (!CollManager.IsCollidingWith(structure))
                 continue;
-            Debug.WriteLine("Collision!");
             // Collision Detected //
             CollManager.Seperate(structure);
         }
@@ -125,13 +141,17 @@ public class Player : Entity, IStats
     public override void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state)
     {
         // Update Animation //
-        AnimController.Play(state.newState.ToString().ToLower());
+        //Debug.WriteLine("Playing Animation!");
+        //AnimController.Play("mare", (int)GetDirection(), state.newState.ToString());
+    }
+    public override void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction)
+    {
     }
     #endregion
     // Disposal Methods //
-    public override void Delete()
+    public override void Dispose()
     {
         Players.Remove(this);
-        base.Delete();
+        base.Dispose();
     }
 }

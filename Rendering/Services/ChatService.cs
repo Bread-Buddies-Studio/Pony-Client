@@ -108,11 +108,11 @@ public class Speech(Entity Speaker, string Message) : OverheadText(Speaker, Mess
         Opacity = alpha;
         // Conditions //
         if (Opacity is 0)
-            Delete(); // Delete //
+            Dispose(); // Delete //
     }
     // Inherited Methods //
-    public override void Delete()
+    public override void Dispose()
     {
-        base.Delete();
+        base.Dispose();
     }
 }

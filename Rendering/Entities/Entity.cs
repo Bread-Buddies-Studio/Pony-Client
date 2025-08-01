@@ -19,7 +19,6 @@ using Core.Extensions;
 using Network.Services;
 using Network;
 using LiteNetLib;
-using Core.Structs;
 using Core.Interfaces;
 
 // Enumerations //
@@ -27,6 +26,8 @@ public enum EntityState
 {
     Idle,
     Moving,
+    Running,
+    Flying
 }
 // Classes //
 public abstract partial class Entity : Renderable, ICollidable, INetSerializable
@@ -53,16 +54,37 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
             // Conditions //
             if (field == value)
                 return;
-            // Invoke Event //
-            StateChanged?.Invoke(this, (field, value));
+            var oldValue = field;
             // Settings //
             field = value;
+            // Invoke Event //
+            StateChanged?.Invoke(this, (oldValue, value));
         }
     } = EntityState.Idle;
     public bool Moving => MovementDirection != new Point();
-    public abstract Point MovementDirection { get; set; }
+    public virtual Point MovementDirection
+    { 
+        get; 
+
+        set 
+        {
+            // Conditions //
+            if (field == value)
+                return;
+            // Data //
+            var oldValue = field;
+            // Settings //
+            field = value;
+            // Checks //
+            if (Moving)
+                FacingDirection = Direction;
+            // Invoke Changed Event //
+            MoveDirectionChanged?.Invoke(this, (oldDirection: oldValue, newDirection: value));
+        }
+    }
     public abstract float Speed { get; set; }
-    public bool Direction { get; set; }
+    public double Direction => MovementDirection.ToDegrees();
+    public double FacingDirection;
     // ICollidable Data //
     public required ICollidable CollManager { get; init; }
     public bool IsCollidable { get; set; }
@@ -70,6 +92,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
 
     // Events //
     public event EventHandler<(EntityState, EntityState)>? StateChanged;
+    public event EventHandler<(Point oldDirection, Point newDirection)>? MoveDirectionChanged;
     // Constructors //
     [SetsRequiredMembers]
     public Entity(Rect Hitbox) : base(Hitbox)
@@ -78,11 +101,13 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
         this.PBL = true;
         this.Hitbox = Hitbox;
         this.CollManager = this;
+        
         // Add Reference //
         Entities.Add(this);
         // Connections //
         RunService.Update += OnUpdate;
         StateChanged += OnStateChange;
+        MoveDirectionChanged += OnMoveDirectionChange;
         // Initialize State //
         StateChanged?.Invoke(this, (State, State));
     }
@@ -113,12 +138,17 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     public Point Translate(float x, float y) => Translate(new(x, y));
     public Point Translate(double x, double y) => Translate(new(x, y));
     public virtual void Speak(string message) => ChatService.AddLog(this, message);
+
+    public double GetDirection()
+    {
+        return Math.Atan2(MovementDirection.Y, MovementDirection.X) * 180.0 / Math.PI;
+    }
     #region Network Methods
     public virtual void Serialize(NetDataWriter writer)
     {
         writer.Put(Name);
         writer.Put((byte)State);
-        writer.Put(Direction);
+        writer.PutArray(MovementDirection.ToDoubleArray());
         writer.PutArray(Position.ToDoubleArray());
         writer.PutArray(Size.ToDoubleArray());
     }
@@ -126,7 +156,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     {
         Name = reader.GetString();
         State = (EntityState)reader.GetByte();
-        Direction = reader.GetBool();
+        MovementDirection = PointExtensions.FromDoubleArray(reader.GetDoubleArray());
         Position = PointExtensions.FromDoubleArray(reader.GetDoubleArray());
         Size = SizeExtensions.FromDoubleArray(reader.GetDoubleArray());
     }
@@ -142,6 +172,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
         Translate(MovementDirection / 20 * deltaTime);
     }
     public abstract void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state);
+    public virtual void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction) {}
     #endregion
 }
 // Animation //
@@ -165,7 +196,7 @@ public abstract partial class Entity
         Point position = Position;
         // Transformations //
         PushTransform(context, AttachedCamera.OffsetMatrix); // Camera Offset //
-        if (!Direction) // Direction Offset //
+        if (FacingDirection is < -90 or > 90) // Direction Offset //
         {
             position = new Point(-position.X, position.Y);
             PushTransform(context, new Matrix(-1, 0, 0, 1, Size.Width, 0));

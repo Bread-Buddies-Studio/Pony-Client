@@ -7,20 +7,39 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Media;
+using Core.Extensions;
+using Core.Services;
 
 namespace Rendering.Effects;
 
 [method: SetsRequiredMembers]
-public class SineEffect(Typewriter Parent, double Speed, double EffectLevel) : Effect(Parent, EffectLevel)
+public class SineEffect(Typewriter Parent) : Effect(Parent)
 {
-    public required double Speed = Speed;
-    public override Matrix GetLetterMatrix(int index, char character)
+    public override DrawingContext.PushedState[]? GetLetterMatrix(DrawingContext context, int index, char character, string? internalString)
     {
-        return new (1, 0, 0, 1, 0, Math.Sin(index + DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() / 1000d * Speed) * EffectLevel);
+        // Conditions //
+        if (internalString is null)
+            return null;
+        // Split Data //
+        string[] internalStrings = internalString.Split(' ');
+        // Checks //
+        if (!double.TryParse(internalStrings[0], out double EffectLevel))
+            Debug.WriteLine("Invalid Internal String: " + internalString);
+        if (!double.TryParse(internalStrings[1], out double Speed))
+            Debug.WriteLine("Invalid Internal String: " + internalString);
+        // Calculations //
+        double xOffset = 0;
+        double yOffset = Math.Sin(index + RunService.CurrentMillis / 1000d * Speed) * EffectLevel;
+        // Return //
+        return
+        [
+            Parent.PushTransform(context, Matrix.CreateTranslation(xOffset, yOffset))
+        ];
     }
 
-    public override Matrix GetWordMatrix(int index, string word)
+    public override DrawingContext.PushedState[]? GetWordMatrix(DrawingContext context, int index, string word, string? internalString)
     {
-        return Matrix.Identity;
+        return null;
     }
 }

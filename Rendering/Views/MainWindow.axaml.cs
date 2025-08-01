@@ -69,6 +69,8 @@ public partial class MainWindow : Window
             if (userName is null)
                 return;
 
+            Debug.WriteLine("Player");
+
             WorldService.LocalPlayer = new(
                 Name: userName,
                 Position: new Point(200, 200),
@@ -79,6 +81,8 @@ public partial class MainWindow : Window
                 PBL = true,
                 IsCollidable = true
             };
+
+            Debug.WriteLine("Player Created");
 
             Debug.WriteLine($"UserName: {WorldService.LocalPlayer.Name}");
 

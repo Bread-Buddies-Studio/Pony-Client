@@ -20,6 +20,7 @@ using Network.Services;
 using Network;
 using LiteNetLib;
 using Core.Interfaces;
+using Avalonia.Media.Imaging;
 
 // Enumerations //
 public enum EntityState
@@ -196,6 +197,7 @@ public abstract partial class Entity
         Point position = Position;
         // Transformations //
         PushTransform(context, AttachedCamera.OffsetMatrix); // Camera Offset //
+        PushRenderOptions(context, new RenderOptions() { BitmapInterpolationMode = BitmapInterpolationMode.None });
         if (FacingDirection is < -90 or > 90) // Direction Offset //
         {
             position = new Point(-position.X, position.Y);

@@ -78,6 +78,14 @@ public abstract class Renderable : IPhysical, IDisposable, IComparable<Renderabl
         // Return Action //
         return pushedState;
     }
+    public DrawingContext.PushedState PushRenderOptions(DrawingContext context, RenderOptions options)
+    {
+        DrawingContext.PushedState pushedState = context.PushRenderOptions(options);
+        // Add to Matrix List //
+        Matrixes.Add(pushedState);
+        // Return Action //
+        return pushedState;
+    }
     public void PopMatrix()
     {
         foreach (var matrix in Matrixes.Reverse())

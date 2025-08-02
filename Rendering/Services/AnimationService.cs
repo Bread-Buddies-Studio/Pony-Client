@@ -151,6 +151,7 @@ public class Animation
 {
     [AllowNull]
     public string Name { get; set; }
+    public bool Pixelart { get; set; } = true;
     public int StartIndex { get; set; }
     public int Length { get; set; }
     public Range FrameRange => StartIndex..(StartIndex+Length);
@@ -218,6 +219,7 @@ public class Animation
             // Store it //
             frames[iterationIndex] = frame;
         }
+        // Fix Blurry Images //
     }
 
     public void UnLoad()

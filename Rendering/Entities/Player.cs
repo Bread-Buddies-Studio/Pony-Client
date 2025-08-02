@@ -18,6 +18,9 @@ using System;
 using Core.Interfaces;
 using Tmds.DBus.Protocol;
 using System.Threading.Tasks;
+using Rendering.Views;
+using Avalonia.Media;
+using Avalonia.Media.Imaging;
 
 // Class //
 public class Player : Entity, IStats

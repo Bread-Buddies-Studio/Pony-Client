@@ -12,6 +12,7 @@ using Rendering.Services;
 using Rendering.Views;
 using Rendering.Visible;
 using Core.Interfaces;
+using Avalonia.Media.Imaging;
 
 namespace Rendering.Entities;
 
@@ -21,61 +22,35 @@ public class Structure : Renderable, ICollidable
     public readonly static List<Structure> Structures = [];
     // Render Data //
     public readonly List<DrawingContext.PushedState> Matrixes = [];
-    // Animation Data //
-    public Animator AnimController = new()
-    {
-        Looped = true
-    };
-    public required string? AnimationName;
+    public Bitmap? Sprite;
     // Collisions //
     public bool IsCollidable { get; set; }
     public bool IsAnchored { get; set; }
-
-    // Conversions //
-    public ICollidable CollManager;
+    public override byte Layer => 0;
     // Constructors //
     [SetsRequiredMembers]
-    public Structure(Rect Hitbox, string? AnimationName = null) : base(Hitbox)
+    public Structure(Bitmap? Sprite, Rect Hitbox) : base(Hitbox)
     {
         // Initialize //
         this.Hitbox = Hitbox;
-        this.AnimationName = AnimationName;
-        this.CollManager = this;
-        // Checks //
-        if (AnimationName is not null)
-            AnimController.Play(AnimationName);
+        this.Sprite = Sprite;
         // Add Reference //
         Structures.Add(this);
     }
 
     [SetsRequiredMembers]
-    public Structure(Point Position, Size Size, string? AnimationName = null) : this(new Rect(), AnimationName)
-    {
-        this.Position = Position;
-        this.Size = Size;
-    }
+    public Structure(Bitmap? Sprite, Point Position, Size Size) : this(Sprite, new Rect(Position, Size)) {}
     // Event Methods //
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
-        // Data //
-        LocalPlayer? localPlayer = WorldService.LocalPlayer;
         // Conditions //
-        if (localPlayer is null)
-            return;
-        if (localPlayer.AttachedCamera is null)
+        if (WorldService.CurrentCamera is null)
             return;
         // Camera Transform //
-        PushTransform(context, localPlayer.AttachedCamera.OffsetMatrix);
+        PushTransform(context, WorldService.CurrentCamera.OffsetMatrix);
         // Draw //
-        if (AnimationName is not null)
-        {
-            IImage? frame = AnimController.Frame;
-            // Condtitions //
-            if (frame is null)
-                return;
-            // Draw //
-            context.DrawImage(frame, Hitbox);
-        }
+        if (Sprite is not null)
+            context.DrawImage(Sprite, Hitbox);
 
         else context.DrawRectangle(Brushes.White, null, Hitbox);
         // Reset Matrix //

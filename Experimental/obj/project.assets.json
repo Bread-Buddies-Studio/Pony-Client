@@ -781,6 +781,15 @@
           }
         }
       },
+      "TiledSharp/1.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/TiledSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/TiledSharp.dll": {}
+        }
+      },
       "Tmds.DBus.Protocol/0.21.2": {
         "type": "package",
         "dependencies": {
@@ -811,10 +820,11 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Audio": "1.0.0",
-          "Avalonia": "11.3.2",
-          "Avalonia.Desktop": "11.3.2",
+          "Avalonia": "11.3.4",
+          "Avalonia.Desktop": "11.3.4",
           "LiteNetLib": "1.3.1",
-          "NAudio": "2.2.1"
+          "NAudio": "2.2.1",
+          "TiledSharp": "1.0.1"
         },
         "compile": {
           "bin/placeholder/Core.dll": {}
@@ -1992,6 +2002,18 @@
         "version.txt"
       ]
     },
+    "TiledSharp/1.0.1": {
+      "sha512": "nY88Ux4Yj4aQ1QEP54KZwQ/QMrXSplGpqOxhab6SgkRminHv0PCrwZ9XBfFj0XSgy9omVFIeFrkig9ldXPKp3g==",
+      "type": "package",
+      "path": "tiledsharp/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/TiledSharp.dll",
+        "tiledsharp.1.0.1.nupkg.sha512",
+        "tiledsharp.nuspec"
+      ]
+    },
     "Tmds.DBus.Protocol/0.21.2": {
       "sha512": "ScSMrUrrw8px4kK1Glh0fZv/HQUlg1078bNXNPfRPKQ3WbRzV9HpsydYEOgSoMK5LWICMf2bMwIFH0pGjxjcMA==",
       "type": "package",
@@ -2121,5 +2143,25 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Avalonia.Desktop from 11.3.4 to 11.3.2. Reference the package directly from the project to select a different version. \r\n Experimental -> Core -> Avalonia.Desktop (>= 11.3.4) \r\n Experimental -> Avalonia.Desktop (>= 11.3.2)",
+      "libraryId": "Avalonia.Desktop",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Error",
+      "message": "Warning As Error: Detected package downgrade: Avalonia from 11.3.4 to 11.3.2. Reference the package directly from the project to select a different version. \r\n Experimental -> Core -> Avalonia (>= 11.3.4) \r\n Experimental -> Avalonia (>= 11.3.2)",
+      "libraryId": "Avalonia",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

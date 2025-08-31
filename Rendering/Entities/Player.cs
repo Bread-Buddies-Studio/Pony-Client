@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Rendering.Views;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Rendering.Entities.Accessories;
 
 // Class //
 public class Player : Entity, IStats
@@ -46,15 +47,16 @@ public class Player : Entity, IStats
     public int MaxHealth { get; set; }
     public int MaxMana { get; set; }
     // Movement //
-    public override float Speed { get; set; } = 10;
-
+    public override float Speed { get; set; }
     #region Constructors
     [SetsRequiredMembers]
     public Player(string Name, Rect Hitbox) : base(Hitbox)
     {
         this.Name = Name;
         this.NameTag = new(this);
-        this.AttachedCamera = WorldService.LocalPlayer?.AttachedCamera;
+        _ = new Accessory(this, "eyes");
+        _ = new Accessory(this, "glamourwings");
+        _ = new Accessory(this, "trixiehat");
         // Reference //
         Players.Add(this);
         // Play Animation //
@@ -77,7 +79,7 @@ public class Player : Entity, IStats
         // Checks //
         facingDirection = facingDirection.WithX(Math.Abs(facingDirection.X));
         // Play Animation //
-        AnimController.Play("redheart", (int)facingDirection.ToDegrees(), State.ToString());
+        AnimController.Play("mare", State.ToString(), (int)facingDirection.ToDegrees());
     }
     // Static Methods //
     /// <summary>
@@ -132,22 +134,16 @@ public class Player : Entity, IStats
         if (!IsCollidable)
             return;
         // Collisions //
-        foreach (var structure in Structure.Structures)
+        foreach (ICollidable structure in Structure.Structures)
         {
             // Conditions //
-            if (!CollManager.IsCollidingWith(structure))
+            if (!structure.IsCollidingWith(this))
                 continue;
             // Collision Detected //
             CollManager.Seperate(structure);
         }
     }
-    public override void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state)
-    {
-        // Update Animation //
-        //Debug.WriteLine("Playing Animation!");
-        //AnimController.Play("mare", (int)GetDirection(), state.newState.ToString());
-    }
-    public override void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction)
+    public override void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction) 
     {
     }
     #endregion
@@ -156,5 +152,9 @@ public class Player : Entity, IStats
     {
         Players.Remove(this);
         base.Dispose();
+    }
+
+    public override void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state)
+    {
     }
 }

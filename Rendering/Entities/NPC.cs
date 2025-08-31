@@ -22,10 +22,8 @@ public class NPC : Entity
     public required double InteractRange = 200;
     public readonly NameTag NameTag;
     // Ancestor Data //
-    public override Point MovementDirection { get; set; }
-    public override float Speed { get; set; }
+    public override float Speed { get; set; } = 5;
     // Prompt Data //
-    private readonly Point promptOffset = new(0, -5);
     private readonly InteractPrompt interactPrompt;
     // Events //
     public event EventHandler<EventArgs>? ReachedTarget;
@@ -52,7 +50,8 @@ public class NPC : Entity
         if (TargetPosition is null)
             return;
         // Calculations //
-        Point direction = Position.ToDirectional((Point)TargetPosition);
+        float distance = ((float)Position.DistanceFrom((Point)TargetPosition));
+        Point direction = Position.ToDirectional((Point)TargetPosition).SetMagnitude(Speed.Clamp0(distance));
         // Settings //
         MovementDirection = direction;
     }
@@ -66,6 +65,7 @@ public class NPC : Entity
     {
         return Player.Players.MinBy(player => Position.DistanceFrom(player.Position));
     }
+    private void UpdateState() => State = Moving ? EntityState.Moving : EntityState.Idle;
     private void UpdateAnimation()
     {
         // Update Animation //
@@ -73,7 +73,7 @@ public class NPC : Entity
         // Checks //
         facingDirection = facingDirection.WithX(Math.Abs(facingDirection.X));
         // Play Animation //
-        AnimController.Play(Name.ToLower(), (int)facingDirection.ToDegrees(), State.ToString());
+        AnimController.Play(Name.ToLower(), State.ToString(), (int)facingDirection.ToDegrees());
     }
     #endregion
     #region Event Methods
@@ -87,49 +87,33 @@ public class NPC : Entity
     }
     public override void OnUpdate(long deltaTime)
     {
+        if (WorldService.LocalPlayer?.Position != TargetPosition)
+            TargetPosition = WorldService.LocalPlayer?.Position;
+
+        UpdateMoveDirection();
+        UpdateState();
+
         if (interactPrompt.IsVisible && WorldService.LocalPlayer is not null)
         {
             // Update Facing Direction //
-            FacingDirection = 
-                Hitbox.Center.ToDirectional(WorldService.LocalPlayer.Hitbox.Center)
+            FacingDirection = Hitbox.Center
+                .ToDirectional(WorldService.LocalPlayer.Hitbox.Center)
                 .ToDegrees();
             // Update Animation for Degrees //
             UpdateAnimation();
         }
-        UpdateMoveDirection();
         // Move //
         base.OnUpdate(deltaTime);
     }
     public override void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state)
     {
+
     }
     public override void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction)
     {
         UpdateAnimation();
         // Activate Ancestor Method //
         base.OnMoveDirectionChange(entity, direction);
-    }
-    public override void OnRender(GuiService guiservice, DrawingContext context)
-    {
-        IImage? frame = AnimController.Frame;
-        // Condtitions //
-        if (frame is null)
-            return;
-        if (WorldService.CurrentCamera is null)
-            return;
-        // Data //
-        Point position = Position;
-        // Transformations //
-        PushTransform(context, WorldService.CurrentCamera.OffsetMatrix); // Camera Offset //
-        if (FacingDirection is < -90 or > 90) // Direction Offset //
-        {
-            position = new Point(-position.X, position.Y);
-            PushTransform(context, new Matrix(-1, 0, 0, 1, Size.Width, 0));
-        }
-        // Draw Image //
-        context.DrawImage(frame, new(position.X, position.Y, Size.Width, Size.Height));
-        // Reset Matrix //
-        PopMatrix();
     }
     #endregion
 }

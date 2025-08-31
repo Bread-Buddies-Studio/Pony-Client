@@ -26,12 +26,12 @@ public static class WorldService
     // Constructor //
     static WorldService()
     {
-
-        _ = new NPC("Pinkamena", new(400, 0), new(200, 200))
-        {
-            Layer = 1,
-            PBL = true
-        };
+        var map = new Tilemap("TestMap");
+        //_ = new NPC("Pinkamena", new(400, 0), new(200, 200))
+        //{
+        //    Layer = 1,
+        //    PBL = true
+        //};
 
 
         //_ = new Structure(new(100, 100, 100, 100))
@@ -50,6 +50,6 @@ public static class WorldService
         //    };
         //}
 
-        //Debug.WriteLine(DialogueService.Writer);
+        Debug.WriteLine(DialogueService.Writer);
     }
 }

@@ -1,26 +1,16 @@
-﻿using Avalonia;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
+using Core.Extensions;
 using Core.Services;
 using Rendering.Entities;
 using Rendering.Services;
 using Rendering.Visible;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using Tmds.DBus.Protocol;
 
 namespace Rendering.Views;
 // Service //
@@ -38,6 +28,8 @@ public partial class GuiService : UserControl
         InputService.KeyDown += OnKeyDown;
         // Reference //
         Window = this;
+        //
+        RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.None);
     }
     // Static Methods //
     public static void ClearFocus()
@@ -50,6 +42,7 @@ public partial class GuiService : UserControl
         Window.Focus();
         Window.Focusable = false;
     }
+    public static WriteableBitmap CropBitmap(Bitmap source, PixelRect cropRect) => source.CopyPixels(cropRect);
     // Event Methods //
     public async void OnKeyDown(object? sender, KeyEventArgs eventData)
     {
@@ -116,11 +109,8 @@ public partial class GuiService : UserControl
         // Invoke //
         RunService.InvokeRender(this, context);
         // Get Camera //
-        LocalPlayer? localPlayer = WorldService.LocalPlayer;
-        Camera? localCamera = WorldService.LocalPlayer?.AttachedCamera;
+        Camera? localCamera = WorldService.CurrentCamera;
         // Conditions //
-        if (localPlayer is null)
-            return;
         if (localCamera is null)
             return;
         // Invoke Events //
@@ -131,6 +121,8 @@ public partial class GuiService : UserControl
                 continue;
             if (!renderable.IsVisible)
                 continue;
+            // Debug //
+            //Debug.WriteLine($"Rendering at {renderable.Position} on layer {renderable.Layer}");
             // Render //
             renderable.OnRender(this, context);
         }

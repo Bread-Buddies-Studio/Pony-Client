@@ -18,7 +18,6 @@ public abstract class OverheadText : Renderable
 {
     // Lists //
     public List<OverheadText> OverheadTexts => Speaker.OverheadTexts;
-    public Camera? AttachedCamera => Speaker.AttachedCamera;
     // Required Data //
     public required Entity Speaker;
     public required string Message;

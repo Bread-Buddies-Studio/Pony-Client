@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Input;
 using Avalonia.Media;
 using Core.Extensions;
 using Core.Services;
@@ -35,12 +36,14 @@ public static class DialogueService
     static DialogueService()
     {
         RunService.Update += OnUpdate;
-       
+        InputService.KeyDown += OnKeyDown;
+
         _ = new NervousEffect(Writer);
         _ = new FlickerEffect(Writer);
         _ = new SineEffect(Writer);
         
         Writer.Text = "the [sine=1 5][nervous=1][b][color=red]blood[\\color][\\b][\\nervous][\\sine] runs thick...";/*Name of Character![\\size]\n" +
+                                                                                                                     * 
             " Dialogue!";*/
     }
     // Base Methods //
@@ -109,5 +112,14 @@ public static class DialogueService
         Writer.Position = Writer.Position
             .WithX(windowSize.Width / 3)
             .WithY(windowSize.Height * .75);
+    }
+
+    private static void OnKeyDown(object? _, KeyEventArgs eventData)
+    {
+        // Conditions //
+        if (eventData.Key != InputService.Controls["toggledialoguebox"])
+            return; // If the dialogue is hidden, do not toggle visibility //
+        // Checks //
+        Writer.IsVisible = !Writer.IsVisible;
     }
 }

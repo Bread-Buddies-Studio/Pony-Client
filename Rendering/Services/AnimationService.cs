@@ -30,30 +30,25 @@ public static class AnimationService
 public class Animator
 {
     private static readonly Uri directoryPath = new("avares://Rendering/Assets/Animations/");
-    public static readonly Dictionary<string, Animation> Animations = [];
     public static readonly Dictionary<string, SheetData> Sheets = [];
     // Play Data //
-    private Animation? CurrentAnimation;
+    [MemberNotNullWhen(true, nameof(Frame), nameof(CurrentAnimation), nameof(FrameIndex))]
     public bool IsPlaying => CurrentAnimation?.IsPlaying ?? false;
-    public bool Looped;
+    private Animation? CurrentAnimation;
     // Frame Data //
-    public int? FrameIndex { get => CurrentAnimation?.FrameIndex; }
-    public IImage? Frame { get => CurrentAnimation?.CurrentFrame; }
+    [DisallowNull]
+    public int? FrameIndex
+    {
+        get => CurrentAnimation?.FrameIndex;
+        set => CurrentAnimation?.SetFrame((int)value);
+    }
+    public IImage? Frame => CurrentAnimation?.CurrentFrame;
+    public byte? Layer => CurrentAnimation?.Layer;
     // Constructor //
     public Animator() => AnimationService.Animators.Add(this);
     static Animator() => LoadAnimations();
     // Base Methods //
-    public void Play(string animationName)
-    {
-        Stop();
-        // Get Animation //
-        if (!Animations.TryGetValue(animationName, out Animation? currentAnimation))
-            return;
-        // Play Animation //
-        CurrentAnimation = currentAnimation;
-        CurrentAnimation.Play();
-    }
-    public void Play(string sheetName, int degrees, string animationName)
+    public void Play(string sheetName, string animationName, int degrees = 0)
     {
         // Get Animation //
         if (!Sheets.TryGetValue(sheetName, out SheetData sheetData))
@@ -82,6 +77,8 @@ public class Animator
         // Conditions //
         if (currentAnimation == CurrentAnimation)
             return; // Don't waste time playing something already playing //
+        // Debug // 
+        //Debug.WriteLine("Playing: " + animationName + " | " + degrees + " degrees");
         // Stop Current Animation //
         Stop();
         // Play Animation //
@@ -106,7 +103,7 @@ public class Animator
             {
                 string dataPath = frame.AbsoluteUri;
                 // Conditions //
-                return !dataPath.EndsWith(".json") && !dataPath.Contains("Sheets");
+                return !dataPath.EndsWith(".json");
             });
         // Cache Animations //
         foreach (Uri dataPath in animationData)
@@ -152,11 +149,12 @@ public class Animation
     [AllowNull]
     public string Name { get; set; }
     public bool Pixelart { get; set; } = true;
+    public byte Layer { get; set; }
     public int StartIndex { get; set; }
     public int Length { get; set; }
     public Range FrameRange => StartIndex..(StartIndex+Length);
     // File Data //
-    public CroppedBitmap[] frames = [];
+    public WriteableBitmap[] frames = [];
     public bool Looped { get; set; }
     public int FPS { get; set; }
     // Properties //
@@ -194,15 +192,15 @@ public class Animation
     {
         Debug.WriteLine("Loading Animation: " + Name);
         // Allocate Memory //
-        frames = new CroppedBitmap[Length];
+        frames = new WriteableBitmap[Length];
         // Store //
         for (int frameIndex = StartIndex, iterationIndex = 0; frameIndex < StartIndex + Length; frameIndex++, iterationIndex++)
         {
             int column = frameIndex % sheetData.ColumnAmount;
             int row = frameIndex / sheetData.ColumnAmount;
-
-            PixelSize frameSize = new((int)(sheetData.SizeWithoutPadding.Width / sheetData.ColumnAmount), 
-                (int)((sheetData.SizeWithoutPadding.Height / sheetData.RowAmount)));
+            
+            PixelSize frameSize = new(sheetData.SizeWithoutPadding.Width / sheetData.ColumnAmount, 
+                sheetData.SizeWithoutPadding.Height / sheetData.RowAmount);
 
             PixelPoint topLeft = new(
                 sheetData.EdgePixelPadding + // Edge Padding //
@@ -215,7 +213,7 @@ public class Animation
                 );
             PixelRect pixelRect = new(topLeft, frameSize);
             // Extract Frame //
-            CroppedBitmap frame = new(Sheet, pixelRect);
+            WriteableBitmap frame = GuiService.CropBitmap(Sheet, pixelRect);
             // Store it //
             frames[iterationIndex] = frame;
         }
@@ -225,7 +223,7 @@ public class Animation
     public void UnLoad()
     {
         // Dispose Frames //
-        foreach (CroppedBitmap frame in frames)
+        foreach (WriteableBitmap frame in frames)
             frame.Dispose();
         // Clear Frames //
         frames = [];

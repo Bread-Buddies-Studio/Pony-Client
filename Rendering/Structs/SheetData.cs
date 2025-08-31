@@ -16,14 +16,13 @@ namespace Rendering.Structs;
 public struct SheetData()
 {
     public Dictionary<int, Animation[]> Directions { get; init; } = [];
-    
-    [field: AllowNull]
+
     public Animation[] Animations
     {
         get
         {
             // Conditions //
-            if (field is not null)
+            if (field.Length > 0)
                 return field;
             // Initialize Field //
             field = [];
@@ -33,7 +32,7 @@ public struct SheetData()
             // Return Field //
             return field;
         }
-    }
+    } = [];
     public Bitmap? Sheet { get; set; }
     public readonly Size SizeWithoutPadding
     {
@@ -52,7 +51,7 @@ public struct SheetData()
     [AllowNull]
     public Uri Path { get; set; }
     public readonly string PathString => Path.AbsolutePath;
-    bool IsLoaded = false;
+    public bool IsLoaded { get; private set; } = false;
 
     public int EdgePixelPadding { get; set; }
     public int FramePixelPadding { get; set; }
@@ -70,7 +69,8 @@ public struct SheetData()
         Debug.WriteLine("Row Amount: " + this.RowAmount);
         foreach (Animation animation in Animations)
             animation.Load(this, Sheet);
-        
+
+        Sheet.Dispose();
         // Save State //
         IsLoaded = true;
     }

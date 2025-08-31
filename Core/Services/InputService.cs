@@ -31,13 +31,22 @@ public static class InputService
         {"fly", Key.F},
         // Interactions //
         {"interact", Key.Z},
+        // Gui //
+        {"toggledialoguebox", Key.Space}
     };
     // Events //
     public static event EventHandler<KeyEventArgs>? KeyDown;
     public static event EventHandler<KeyEventArgs>? KeyUp;
     // Base Methods //
     public static bool IsKeyDown(Key key) => KeysDown.Contains(key);
-    public static bool IsKeyDown(string key) => IsKeyDown(Controls[key]);
+    public static bool IsKeyDown(string key)
+    {
+        // Conditions //
+        if (!Controls.TryGetValue(key, out Key controlKey))
+            throw new KeyNotFoundException($"Specified control \"{key}\" doesn't exist");
+        // Check //
+        return IsKeyDown(controlKey);
+    }
     public static int GetAxis(InputAxis axisType)
     {
         // Initialize Axis //

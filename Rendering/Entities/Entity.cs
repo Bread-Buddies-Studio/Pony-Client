@@ -21,6 +21,8 @@ using Network;
 using LiteNetLib;
 using Core.Interfaces;
 using Avalonia.Media.Imaging;
+using Avalonia.Automation.Provider;
+using Rendering.Entities.Accessories;
 
 // Enumerations //
 public enum EntityState
@@ -37,9 +39,32 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     public static readonly HashSet<Entity> Entities = [];
     // Instance Data //
     public required string Name = string.Empty;
+    // Arrays //
     public readonly List<OverheadText> OverheadTexts = [];
-    public Camera? AttachedCamera;
-    public readonly List<DrawingContext.PushedState> Matrixes = [];
+    public readonly HashSet<Accessory> Accessories = [];
+    // Rendering //
+    public override byte Layer => 1;
+    public Matrix RenderMatrix
+    {
+        get
+        {
+            // Condtitions //
+            if (AnimController.IsPlaying is false)
+                return Matrix.Identity;
+            if (WorldService.CurrentCamera is null)
+                return Matrix.Identity;
+            // Data //
+            Matrix matrix = WorldService.CurrentCamera.OffsetMatrix;
+            // Transformations //
+            if (FacingDirection is < -90 or > 90) // Direction Offset //
+                matrix = matrix.Prepend(Matrix.CreateScale(-1, 1))
+                    .Append(Matrix.CreateTranslation(Size.Width, 0));
+            // Add Position //
+            matrix = matrix.Append(Matrix.CreateTranslation(Position));
+            // Return //
+            return matrix;
+        }
+    }
     // Dialogue //
     public Dictionary<char, int> CharacterDelays = new()
     { 
@@ -67,7 +92,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     { 
         get; 
 
-        set 
+        set
         {
             // Conditions //
             if (field == value)
@@ -100,6 +125,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     {
         // Settings //
         this.PBL = true;
+        this.Layer = 0;
         this.Hitbox = Hitbox;
         this.CollManager = this;
         
@@ -180,10 +206,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
 public abstract partial class Entity
 {
     // Controller //
-    public readonly Animator AnimController = new()
-    {
-        Looped = true
-    };
+    public readonly Animator AnimController = new();
     // Event Methods //
     public override void OnRender(GuiService guiservice, DrawingContext context)
     {
@@ -191,22 +214,13 @@ public abstract partial class Entity
         // Condtitions //
         if (frame is null)
             return;
-        if (AttachedCamera is null)
+        if (WorldService.CurrentCamera is null)
             return;
-        // Data //
-        Point position = Position;
         // Transformations //
-        PushTransform(context, AttachedCamera.OffsetMatrix); // Camera Offset //
-        PushRenderOptions(context, new RenderOptions() { BitmapInterpolationMode = BitmapInterpolationMode.None });
-        if (FacingDirection is < -90 or > 90) // Direction Offset //
-        {
-            position = new Point(-position.X, position.Y);
-            PushTransform(context, new Matrix(-1, 0, 0, 1, Size.Width, 0));
-        }
+        PushTransform(context, RenderMatrix); // Camera Offset //
         // Draw Image //
-        context.DrawImage(frame, new(position.X, position.Y, Size.Width, Size.Height));
+        context.DrawImage(frame, new(0, 0, Size.Width, Size.Height));
         // Reset Matrix //
         PopMatrix();
     }
 }
-// Other //

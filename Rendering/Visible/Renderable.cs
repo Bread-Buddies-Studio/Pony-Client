@@ -39,10 +39,24 @@ public abstract class Renderable : IPhysical, IDisposable, IComparable<Renderabl
         set => Hitbox = new(Position, value);
     }
     // Render Data //
-    public virtual bool IsAlwaysOnTop { get; set; } = false; // If true, this will be rendered on top of other renderables
-    public virtual bool AlwaysShows { get; set; } = false; // If true, this will always be rendered, even if not within sight
+    /// <summary>
+    /// If true, this will be rendered on top of other renderables
+    /// </summary>
+    public virtual bool IsAlwaysOnTop { get; set; } = false;
+    /// <summary>
+    /// If true, this will always be rendered, even if not within sight
+    /// </summary>
+    public virtual bool AlwaysShows { get; set; } = false;
     public bool IsVisible { get; set; } = true;
-    public byte Layer { get; set; }
+    public virtual byte Layer
+    {
+        get;
+        set
+        {
+            field = value;
+            Renderables.UpdateElement(this);
+        }
+    }
     /// <summary> Position Based Layering </summary>
     public bool PBL = false;
     // Constructor //
@@ -113,11 +127,8 @@ public abstract class Renderable : IPhysical, IDisposable, IComparable<Renderabl
     private static void OnUpdateStatic(object? sender, UpdateEventArgs eventData)
     {
         // Get Camera //
-        LocalPlayer? localPlayer = WorldService.LocalPlayer;
-        Camera? localCamera = WorldService.LocalPlayer?.AttachedCamera;
+        Camera? localCamera = WorldService.CurrentCamera;
         // Conditions //
-        if (localPlayer is null)
-            return;
         if (localCamera is null)
             return;
         // Update //
@@ -131,7 +142,6 @@ public abstract class Renderable : IPhysical, IDisposable, IComparable<Renderabl
             // Render //
             Renderables.UpdateElement(renderable);
         }
-        //Renderables.Update();
     }
     public abstract void OnRender(GuiService guiService, DrawingContext context);
     // Deletion Methods //
@@ -159,16 +169,16 @@ public abstract class Renderable : IPhysical, IDisposable, IComparable<Renderabl
             return -1;
 
         // PBL //
-        if (PBL)
+        if (PBL && renderable.PBL && Layer != renderable.Layer)
+            return Layer < renderable.Layer ? -1 : 1;
+        else if (PBL || renderable.PBL)
             return renderable.Hitbox.Bottom > Hitbox.Bottom ? -1 : 1;
-        else if (renderable.PBL)
-            return renderable.Hitbox.Bottom < Hitbox.Bottom ? -1 : 1;
 
         // Post-Conditions //
         if (renderable.Layer == Layer) // Now depends on load in time //
             return -1;
         
-        // Return //
-        return renderable.Layer < Layer ? -1 : 1;
+        // Normal Layer Ordering //
+        return Layer < renderable.Layer ? -1 : 1;
     }
 }

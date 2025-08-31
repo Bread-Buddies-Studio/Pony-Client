@@ -127,11 +127,11 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "LiteNetLib": {
               "target": "Package",
@@ -140,6 +140,10 @@
             "NAudio": {
               "target": "Package",
               "version": "[2.2.1, )"
+            },
+            "TiledSharp": {
+              "target": "Package",
+              "version": "[1.0.1, )"
             }
           },
           "imports": [

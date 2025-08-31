@@ -12,6 +12,7 @@ using Rendering.Services;
 using Core.Extensions;
 using Rendering.Views;
 using System.Diagnostics;
+using Core.Interfaces;
 
 namespace Rendering.Visible;
 
@@ -48,7 +49,7 @@ public class Camera
         //
         return sight.Intersects(otherObject);
     }
-    public bool IsWithinSight(Renderable otherObject) => IsWithinSight(otherObject.Hitbox);
+    public bool IsWithinSight(IPhysical otherObject) => IsWithinSight(otherObject.Hitbox);
     public void ApplyCamera(DrawingContext context) => Subject?.PushTransform(context, OffsetMatrix);
     // Conversion Methods //
     public Point GlobalToLocal(Point globalPosition)

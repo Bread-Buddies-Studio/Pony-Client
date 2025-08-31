@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Network.Enums;
 using System.ComponentModel.Design;
+using Rendering.Visible;
 
 namespace Rendering.Entities;
 
@@ -22,6 +23,19 @@ namespace Rendering.Entities;
 /// </summary>
 public class LocalPlayer : Player
 {
+    // Data //
+    public required Camera AttachedCamera;
+    // Override Data //
+    public override float Speed
+    {
+        get => State switch
+        {
+            EntityState.Running => field * 1.25f,
+            EntityState.Flying => field * 1.5f,
+            _ => field
+        };
+        set => field = value;
+    } = 10;
     #region Constructors
     [SetsRequiredMembers]
     public LocalPlayer(string Name, Rect Hitbox) : base(Name, Hitbox)
@@ -30,30 +44,20 @@ public class LocalPlayer : Player
         this.AttachedCamera = new(this);
         this.Name = Name;
     }
+
     [SetsRequiredMembers]
     public LocalPlayer(string Name, Point Position, Size Size) : this(Name, new Rect(Position, Size)) {}
     #endregion
-    #region Base Methods
-    public override void Speak(string message)
-    {
-        // Add Log //
-        base.Speak(message);
-        // Send Network Message //
-        PacketService.SendPacket(PacketType.Message, message);
-    }
-    public void UpdateMovement(double deltaTime)
+    #region Private Methods
+    private void UpdateMovement()
     {
         // Set MovementDirection to the Controls // e.g Arrow Keys
         MovementDirection = new Point(
             InputService.GetAxis(InputAxis.Horizontal),
             InputService.GetAxis(InputAxis.Vertical))
             .SetMagnitude(Speed);
-        // Set Magnitude to prevent faster diagonal speeds //
-        MovementDirection = MovementDirection.SetMagnitude(Speed);
     }
-    #endregion
-    #region Event Methods
-    public override void OnUpdate(long deltaTime)
+    private void UpdateState()
     {
         if (Moving)
         {
@@ -66,8 +70,24 @@ public class LocalPlayer : Player
         }
 
         else State = EntityState.Idle;
+    }
+    #endregion
+    #region Base Methods
+    public override void Speak(string message)
+    {
+        // Add Log //
+        base.Speak(message);
+        // Send Network Message //
+        PacketService.SendPacket(PacketType.Message, message);
+    }
+    #endregion
+    #region Event Methods
+    public override void OnUpdate(long deltaTime)
+    {
+
         // Local Player Update //
-        UpdateMovement(deltaTime);
+        UpdateState();
+        UpdateMovement();
         // Regular Update //
         base.OnUpdate(deltaTime);
         // Send Network Packet //

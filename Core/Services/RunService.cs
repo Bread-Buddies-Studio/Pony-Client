@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,4 +71,36 @@ public static class RunService
         // Disconnect //
         Update -= OnUpdate;
     }
+}
+public class Watch(TimeSpan StartOffset = new()) : Stopwatch()
+{
+    // Data //
+    public TimeSpan StartOffset = StartOffset;
+    // Methods //
+    /// <summary>
+    /// Skips the elapsed time by the specified <paramref name="offset"/>
+    /// </summary>
+    /// <param name="offset"></param>
+    public void Skip(TimeSpan offset) => StartOffset += offset;
+    /// <inheritdoc cref="Skip(TimeSpan)"/>
+    public void Skip(long millisOffset) => StartOffset += TimeSpan.FromMilliseconds(millisOffset);
+    /// <inheritdoc cref="Stopwatch.Restart"/>
+    public new void Restart()
+    {
+        StartOffset = TimeSpan.Zero;
+        base.Restart();
+    }
+    /// <inheritdoc cref="Stopwatch.Reset"/>
+    public new void Reset()
+    {
+        StartOffset = TimeSpan.Zero;
+        base.Reset();
+    }
+    // Overrides //
+    /// <inheritdoc cref="Stopwatch.ElapsedMilliseconds"/>
+    public new long ElapsedMilliseconds => base.ElapsedMilliseconds + (long)StartOffset.TotalMilliseconds;
+    /// <inheritdoc cref="Stopwatch.ElapsedTicks"/>
+    public new long ElapsedTicks => base.ElapsedTicks + StartOffset.Ticks;
+    /// <inheritdoc cref="Stopwatch.Elapsed"/>
+    public new TimeSpan Elapsed => base.Elapsed + StartOffset;
 }

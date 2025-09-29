@@ -107,30 +107,32 @@ public class Animator
             });
         // Cache Animations //
         foreach (Uri dataPath in animationData)
-            CacheAnimationData(dataPath);
+            CacheSheetData(dataPath);
         // Store Frames //
         foreach (Uri imagePath in frames)
-            CacheAnimationFrame(imagePath);
+            CacheSpriteSheet(imagePath);
     }
 
-    private static void CacheAnimationData(Uri dataPath)
+    private static void CacheSheetData(Uri dataPath)
     {
         string pathString = dataPath.AbsolutePath.Replace(directoryPath.AbsolutePath, "");
-        string sheetName = pathString[..pathString.IndexOf('/')];
+        string sheetName = pathString[..pathString.LastIndexOf('/')];
         // Load Data //
         using Stream stream = AssetLoader.Open(dataPath);
         using StreamReader reader = new(stream);
         var json = reader.ReadToEnd();
         // Deserialize //
         SheetData spriteSheet = JsonSerializer.Deserialize<SheetData>(json);
+        // Debug //
+        //Debug.WriteLine("Loaded Animation: " + sheetName);
         // Add Reference //
         Sheets[sheetName] = spriteSheet;
     }
 
-    private static void CacheAnimationFrame(Uri framePath)
+    private static void CacheSpriteSheet(Uri framePath)
     {
         string pathString = framePath.AbsolutePath.Replace(directoryPath.AbsolutePath, "");
-        string sheetName = pathString[..pathString.IndexOf('/')];
+        string sheetName = pathString[..pathString.LastIndexOf('/')];
         // Is Sheet Missing? //
         if (!Sheets.TryGetValue(sheetName, out SheetData spriteSheet))
         {
@@ -148,11 +150,9 @@ public class Animation
 {
     [AllowNull]
     public string Name { get; set; }
-    public bool Pixelart { get; set; } = true;
     public byte Layer { get; set; }
     public int StartIndex { get; set; }
     public int Length { get; set; }
-    public Range FrameRange => StartIndex..(StartIndex+Length);
     // File Data //
     public WriteableBitmap[] frames = [];
     public bool Looped { get; set; }
@@ -231,3 +231,95 @@ public class Animation
         Stop();
     }
 }
+
+//public class AnimationV2
+//{
+//    [AllowNull]
+//    public string Name
+//    {
+//        get
+//        {
+//            return field is null ? throw new ArgumentNullException() : (field);
+//        }
+
+//        set;
+//    }
+//    public byte Layer { get; set; }
+//    public int StartIndex { get; set; }
+//    public int Length { get; set; }
+//    // File Data //
+//    public WriteableBitmap[][] frameParts = [];
+//    public WriteableBitmap[] frames = [];
+//    public bool Looped { get; set; }
+//    public int FPS { get; set; }
+//    // Properties //
+//    public bool IsPlaying => Stopwatch.IsRunning;
+//    public int FrameCount => frames.Length;
+//    private long MillisSincePlay => Stopwatch.ElapsedMilliseconds + SkippedMillis;
+//    // Instance Data //
+//    private readonly Watch Stopwatch = new();
+//    public virtual int FrameIndex => (int)(MillisSincePlay / 1000.0 * FPS) % FrameCount;
+//    public IImage CurrentFrame => frames[FrameIndex];
+//    // Base Methods //
+//    public void SetFrame(int frameIndex)
+//    {
+//        // Reset to first Frame //
+//        Stop();
+//        // Skip to desired frame //
+//        AdvanceFrame(frameIndex);
+//    }
+//    public void AdvanceFrame(int advanceAmount = 1) => Stopwatch.Skip((long)(1000 * advanceAmount / 1000.0) * FPS);
+//    public void Play()
+//    {
+//        Stopwatch.Restart();
+//    }
+//    public void Pause() => Stopwatch.Stop();
+//    public void Stop()
+//    {
+//        Stopwatch.Reset();
+//        SkippedMillis = 0;
+//    }
+//    public void Resume() => Stopwatch.Start();
+//    // Loading Methods //
+//    public void Load(SheetData sheetData, Bitmap Sheet)
+//    {
+//        Debug.WriteLine("Loading Animation: " + Name);
+//        // Allocate Memory //
+//        frames = new WriteableBitmap[Length];
+//        // Store //
+//        for (int frameIndex = StartIndex, iterationIndex = 0; frameIndex < StartIndex + Length; frameIndex++, iterationIndex++)
+//        {
+//            int column = frameIndex % sheetData.ColumnAmount;
+//            int row = frameIndex / sheetData.ColumnAmount;
+
+//            PixelSize frameSize = new(sheetData.SizeWithoutPadding.Width / sheetData.ColumnAmount,
+//                sheetData.SizeWithoutPadding.Height / sheetData.RowAmount);
+
+//            PixelPoint topLeft = new(
+//                sheetData.EdgePixelPadding + // Edge Padding //
+//                sheetData.FramePixelPadding * column + // Frame Seperator Padding //
+//                column * frameSize.Width, // Column Offset //
+
+//                sheetData.EdgePixelPadding + // Edge Padding //
+//                sheetData.FramePixelPadding * row + // Frame Seperator Padding //
+//                row * frameSize.Height // Row Offset //
+//                );
+//            PixelRect pixelRect = new(topLeft, frameSize);
+//            // Extract Frame //
+//            WriteableBitmap frame = GuiService.CropBitmap(Sheet, pixelRect);
+//            // Store it //
+//            frames[iterationIndex] = frame;
+//        }
+//        // Fix Blurry Images //
+//    }
+//    public void UnLoad()
+//    {
+//        // Dispose Frames //
+//        foreach (WriteableBitmap frame in frames)
+//            frame.Dispose();
+//        // Clear Frames //
+//        frames = [];
+//        // Reset State //
+//        Stop();
+//    }
+//}

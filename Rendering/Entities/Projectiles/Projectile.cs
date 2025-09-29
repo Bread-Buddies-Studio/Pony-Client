@@ -1,5 +1,5 @@
 ﻿// Directory //
-namespace Rendering.Entities.Tools;
+namespace Rendering.Entities.Projectiles;
 // Imports //
 using System;
 using System.Collections.Generic;

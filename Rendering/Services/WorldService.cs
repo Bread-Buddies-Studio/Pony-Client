@@ -26,13 +26,21 @@ public static class WorldService
     // Constructor //
     static WorldService()
     {
-        var map = new Tilemap("TestMap");
-        //_ = new NPC("Pinkamena", new(400, 0), new(200, 200))
-        //{
-        //    Layer = 1,
-        //    PBL = true
-        //};
+        foreach ((string directoryName, Uri[] assets) in StorageService.GetAssets(new("avares://Rendering/Assets/")))
+        {
+            Debug.WriteLine($"{directoryName}: ");
+            foreach (Uri asset in assets)
+                Debug.WriteLine($"\t{asset.OriginalString}");
+            Debug.WriteLine("");
+        }
 
+        var map = new Tilemap("TestMap", Position: new(-500, -500));
+        
+        _ = new NPC("Pinkamena", new(400, 0), new(200, 200))
+        {
+            Layer = 1,
+            PBL = true
+        };
 
         //_ = new Structure(new(100, 100, 100, 100))
         //{ 
@@ -50,6 +58,6 @@ public static class WorldService
         //    };
         //}
 
-        Debug.WriteLine(DialogueService.Writer);
+        //Debug.WriteLine(DialogueService.Writer);
     }
 }

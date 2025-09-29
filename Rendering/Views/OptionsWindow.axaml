@@ -10,9 +10,13 @@
 		<Label FontSize="65" HorizontalAlignment="Center">Options</Label>
 		<StackPanel>
 			<CheckBox>Full Screen</CheckBox>
+			
 			<ComboBox Name="ThemeSelection" SelectedIndex="0">
 				<ComboBoxItem>Dark</ComboBoxItem>
 				<ComboBoxItem>Light</ComboBoxItem>
+			</ComboBox>
+			
+			<ComboBox Name="SpeechFont" SelectedIndex="0">
 			</ComboBox>
 		</StackPanel>
 	</StackPanel>

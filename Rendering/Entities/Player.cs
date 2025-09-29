@@ -46,28 +46,23 @@ public class Player : Entity, IStats
 
     public int MaxHealth { get; set; }
     public int MaxMana { get; set; }
-    // Movement //
-    public override float Speed { get; set; }
+    public override float DesiredSpeed { get; set; }
     #region Constructors
     [SetsRequiredMembers]
-    public Player(string Name, Rect Hitbox) : base(Hitbox)
+    public Player(string Name, Rect Hitbox, params string[] accessoryNames) : base(Hitbox, accessoryNames)
     {
         this.Name = Name;
         this.NameTag = new(this);
-        _ = new Accessory(this, "eyes");
-        _ = new Accessory(this, "glamourwings");
-        _ = new Accessory(this, "trixiehat");
         // Reference //
         Players.Add(this);
         // Play Animation //
-        OnMoveDirectionChange(this, (new(), new()));
     }
 
     [SetsRequiredMembers]
     public Player(string Name, Point Position, Size Size) : this(Name, new Rect(Position, Size)) {}
 
     [SetsRequiredMembers]
-    private Player() : this(string.Empty, new(200, 200), new(200, 200)) { }
+    private Player() : this(string.Empty, new Point(200, 200), new Size(200, 200)) { }
     
     static Player() => NetworkService.NetworkReceive += OnNetworkReceive;
     #endregion
@@ -142,9 +137,6 @@ public class Player : Entity, IStats
             // Collision Detected //
             CollManager.Seperate(structure);
         }
-    }
-    public override void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction) 
-    {
     }
     #endregion
     // Disposal Methods //

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj": {}
+    "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
+    "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj",
+        "projectUniqueName": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj",
         "projectName": "Audio",
-        "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj",
+        "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj",
         "packagesPath": "C:\\Users\\Bread\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\obj\\",
+        "outputPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -71,18 +71,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
+    "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj",
+        "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\Bread\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\obj\\",
+        "outputPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -103,8 +103,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj"
+              "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
+                "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj"
               }
             }
           }
@@ -119,7 +119,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -162,18 +162,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj": {
+    "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj",
+        "projectUniqueName": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj",
         "projectName": "Experimental",
-        "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj",
+        "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Experimental\\Experimental.csproj",
         "packagesPath": "C:\\Users\\Bread\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Experimental\\obj\\",
+        "outputPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Experimental\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -194,11 +194,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj"
+              "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj"
               },
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj"
+              "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj": {
+                "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj"
               }
             }
           }
@@ -213,7 +213,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -244,18 +244,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj": {
+    "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj",
+        "projectUniqueName": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj",
         "projectName": "Network",
-        "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj",
+        "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj",
         "packagesPath": "C:\\Users\\Bread\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Network\\obj\\",
+        "outputPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Network\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -275,11 +275,7 @@
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
-            "projectReferences": {
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -292,20 +288,12 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Avalonia": {
-              "target": "Package",
-              "version": "[11.3.2, )"
-            },
-            "Avalonia.Desktop": {
-              "target": "Package",
-              "version": "[11.3.2, )"
-            },
             "LiteNetLib": {
               "target": "Package",
               "version": "[1.3.1, )"
@@ -327,18 +315,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj": {
+    "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj",
+        "projectUniqueName": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj",
         "projectName": "Rendering",
-        "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj",
+        "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Rendering\\Rendering.csproj",
         "packagesPath": "C:\\Users\\Bread\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Rendering\\obj\\",
+        "outputPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Rendering\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -359,14 +347,14 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj"
+              "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
+                "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj"
               },
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj"
+              "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj"
               },
-              "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj": {
-                "projectPath": "C:\\Users\\Bread\\OneDrive\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj"
+              "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj": {
+                "projectPath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Network\\Network.csproj"
               }
             }
           }
@@ -381,7 +369,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -389,23 +377,23 @@
           "dependencies": {
             "Avalonia": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "Avalonia.Desktop": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "Avalonia.Diagnostics": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "Avalonia.Fonts.Inter": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "Avalonia.Themes.Fluent": {
               "target": "Package",
-              "version": "[11.3.2, )"
+              "version": "[11.3.4, )"
             },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
@@ -428,7 +416,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

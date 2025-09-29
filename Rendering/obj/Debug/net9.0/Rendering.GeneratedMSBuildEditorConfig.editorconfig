@@ -20,29 +20,29 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Rendering
-build_property.ProjectDir = C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Rendering\
+build_property.ProjectDir = C:\Users\Bread\Documents\GitHub\Pony-Client\Rendering\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/App.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/AccountWindow.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/Views/AccountWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/CreditsWindow.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/Views/CreditsWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/DialogueBox.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/Views/DialogueBox.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/GuiService.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/Views/GuiService.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/MainWindow.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Bread/OneDrive/Documents/GitHub/Pony-Client/Rendering/Views/OptionsWindow.axaml]
+[C:/Users/Bread/Documents/GitHub/Pony-Client/Rendering/Views/OptionsWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

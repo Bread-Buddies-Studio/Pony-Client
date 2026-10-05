@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\Animations\eyes\colt\type2\" />
+    <Folder Include="Assets\Animations\eyes\colt\type3\" />
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**\*" />
   </ItemGroup>

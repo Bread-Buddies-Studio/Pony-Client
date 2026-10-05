@@ -48,9 +48,6 @@ public static class ChatService
     } = [];
     // Events //
     public static event EventHandler<ChatEventArgs>? Chatted;
-    #region Private Methods
-    
-    #endregion
     // Base Methods //
     public static void AddLog(Entity speaker, string message)
     {
@@ -91,6 +88,8 @@ public class Speech(Entity Speaker, string Message) : OverheadText(Speaker, Mess
 {
     // Public Data //
     public double FadeTime = 5_000;
+    // Overriden Data //
+    public override bool IsAlwaysOnTop => true;
     // Private Data //
     private long lifeTime = 0;
     // Event Methods //

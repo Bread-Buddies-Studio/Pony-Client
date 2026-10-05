@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net9.0": {
       "Avalonia/11.3.4": {
@@ -1789,7 +1789,6 @@
       },
       "frameworks": {
         "net9.0": {
-          "framework": "net9.0",
           "targetAlias": "net9.0",
           "projectReferences": {
             "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj": {
@@ -1808,11 +1807,10 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.400"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net9.0": {
-        "framework": "net9.0",
         "targetAlias": "net9.0",
         "dependencies": {
           "Avalonia": {
@@ -1852,7 +1850,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

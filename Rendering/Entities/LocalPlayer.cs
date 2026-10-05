@@ -26,7 +26,7 @@ public class LocalPlayer : Player
     // Data //
     public required Camera AttachedCamera;
     // Override Data //
-    public override float Speed
+    public override float DesiredSpeed
     {
         get => State switch
         {
@@ -38,7 +38,7 @@ public class LocalPlayer : Player
     } = 10;
     #region Constructors
     [SetsRequiredMembers]
-    public LocalPlayer(string Name, Rect Hitbox) : base(Name, Hitbox)
+    public LocalPlayer(string Name, Rect Hitbox, params string[] accessoryNames) : base(Name, Hitbox, accessoryNames)
     {
         // Initialize //
         this.AttachedCamera = new(this);
@@ -46,7 +46,7 @@ public class LocalPlayer : Player
     }
 
     [SetsRequiredMembers]
-    public LocalPlayer(string Name, Point Position, Size Size) : this(Name, new Rect(Position, Size)) {}
+    public LocalPlayer(string Name, Point Position, Size Size, params string[] accessoryNames) : this(Name, new Rect(Position, Size), accessoryNames) {}
     #endregion
     #region Private Methods
     private void UpdateMovement()
@@ -55,7 +55,7 @@ public class LocalPlayer : Player
         MovementDirection = new Point(
             InputService.GetAxis(InputAxis.Horizontal),
             InputService.GetAxis(InputAxis.Vertical))
-            .SetMagnitude(Speed);
+            .SetMagnitude(DesiredSpeed);
     }
     private void UpdateState()
     {
@@ -65,8 +65,8 @@ public class LocalPlayer : Player
                 State = EntityState.Flying;
             else if (InputService.IsKeyDown("run"))
                 State = EntityState.Running;
-            else
-                State = EntityState.Moving;
+
+            else State = EntityState.Moving;
         }
 
         else State = EntityState.Idle;

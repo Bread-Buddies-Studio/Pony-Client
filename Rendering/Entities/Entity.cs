@@ -30,8 +30,9 @@ public enum EntityState
     Idle,
     Moving,
     Running,
-    Flying
+    Flying,
 }
+
 // Classes //
 public abstract class Entity : Renderable, ICollidable, INetSerializable
 {
@@ -92,7 +93,7 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
     public bool Moving => MovementDirection != new Point();
     public virtual Point MovementDirection
     { 
-        get; 
+        get;
 
         set
         {
@@ -110,7 +111,8 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
             MoveDirectionChanged?.Invoke(this, (oldDirection: oldValue, newDirection: value));
         }
     }
-    public abstract float Speed { get; set; }
+    public abstract float DesiredSpeed { get; set; }
+    public float Speed { get; private set; }
     public double Direction => MovementDirection.ToDegrees();
     public double FacingDirection;
     // ICollidable Data //
@@ -123,7 +125,7 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
     public event EventHandler<(Point oldDirection, Point newDirection)>? MoveDirectionChanged;
     // Constructors //
     [SetsRequiredMembers]
-    public Entity(Rect Hitbox) : base(Hitbox)
+    public Entity(Rect Hitbox, params string[] accessoryNames) : base(Hitbox)
     {
         // Settings //
         this.PBL = true;
@@ -133,16 +135,22 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
         
         // Add Reference //
         Entities.Add(this);
+
         // Connections //
         RunService.Update += OnUpdate;
         StateChanged += OnStateChange;
         MoveDirectionChanged += OnMoveDirectionChange;
+        
+        // Add Accessories //
+        foreach (string accessoryName in accessoryNames)
+            Accessories.Add(new Accessory(this, accessoryName));
+
         // Initialize State //
         StateChanged?.Invoke(this, (State, State));
     }
 
     [SetsRequiredMembers]
-    public Entity(Point Position, Size Size) : this(new Rect())
+    public Entity(Point Position, Size Size, params string[] accessoryNames) : this(new Rect(), accessoryNames)
     {
         this.Position = Position;
         this.Size = Size;
@@ -172,7 +180,7 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
     {
         writer.Put(Name);
         writer.Put((byte)State);
-        writer.PutArray(MovementDirection.ToDoubleArray());
+        writer.Put(FacingDirection);
         writer.PutArray(Position.ToDoubleArray());
         writer.PutArray(Size.ToDoubleArray());
     }
@@ -180,7 +188,7 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
     {
         Name = reader.GetString();
         State = (EntityState)reader.GetByte();
-        MovementDirection = PointExtensions.FromDoubleArray(reader.GetDoubleArray());
+        FacingDirection = reader.GetDouble();
         Position = PointExtensions.FromDoubleArray(reader.GetDoubleArray());
         Size = SizeExtensions.FromDoubleArray(reader.GetDoubleArray());
     }
@@ -192,8 +200,12 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
         // Conditions //
         if (deltaTime is 0)
             return;
-        // Movement //
-        Translate(MovementDirection / 20 * deltaTime);
+        // Handle Speed //
+        Speed = Speed.Lerp(State is EntityState.Idle ? 0 : DesiredSpeed, .1f);
+        // Offset Character //
+        Translate(MovementDirection.SetMagnitude(Speed) / 20 * deltaTime);
+        // Debug //
+        //Debug.WriteLine($"Speed: {Speed}\nState: {State}\nDesired Speed: {DesiredSpeed}\n");
     }
     public abstract void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state);
     public virtual void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction) {}

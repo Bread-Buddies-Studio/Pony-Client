@@ -22,7 +22,8 @@ public class NPC : Entity
     public required double InteractRange = 200;
     public readonly NameTag NameTag;
     // Ancestor Data //
-    public override float Speed { get; set; } = 5;
+    public override float DesiredSpeed { get; set; } = 5;
+
     // Prompt Data //
     private readonly InteractPrompt interactPrompt;
     // Events //

@@ -15,21 +15,23 @@ using Rendering.Services;
 using System.Diagnostics;
 using Rendering.Entities;
 using Avalonia.Controls;
+using System.Reflection.Metadata.Ecma335;
+using Core.Interfaces;
 
 namespace Rendering.Visible;
 
-public class Tilemap : Renderable
+public class Tilemap : IPhysical
 {
     // Arrays //
     private readonly Structure[] wallArray = [];
     // Override //
-    public override Rect Hitbox
+    public Rect Hitbox
     {
         get => new(Position, Size);
         set => Position = value.Position;
     }
-    public override Point Position { get; set; } = new();
-    public override Size Size => new(ResourceFile.Width, ResourceFile.Height);
+    public Point Position { get; set; }
+    public Size Size => new(ResourceFile.Width, ResourceFile.Height);
     // Render Options //
     public Matrix RenderMatrix
     {
@@ -45,8 +47,6 @@ public class Tilemap : Renderable
             return matrix;
         }
     }
-    public override bool AlwaysShows => true;
-    public override bool IsAlwaysOnTop => false;
     // Public Data //
     public required Uri ResourcePath;
     public required TmxMap ResourceFile;
@@ -58,17 +58,19 @@ public class Tilemap : Renderable
     public required int RowAmount { get; init; }
     // Private Data //
     private readonly WriteableBitmap[] tileCache;
-    // Constructor //
+    // Constructors //
     [SetsRequiredMembers]
-    public Tilemap(string mapName)
+    public Tilemap(string mapName, Point Position = new())
     {
         // Init //
         this.ResourcePath = new Uri(TilemapService.Directory + mapName + ".tmx");
         this.ResourceFile = StorageService.LoadTilemapResource(TilemapService.Directory + mapName + ".tmx");
         this.Tileset = StorageService.LoadBitmapResource(TilemapService.Directory + ResourceFile.Tilesets[0].Name + ".png");
         //
-        TileWidth = ResourceFile.TileWidth;
-        TileHeight = ResourceFile.TileHeight;
+        this.TileWidth = ResourceFile.TileWidth;
+        this.TileHeight = ResourceFile.TileHeight;
+
+        this.Position = Position;
 
         ColumnAmount = Tileset.PixelSize.Width / TileWidth;
         RowAmount = Tileset.PixelSize.Height / TileHeight;
@@ -88,65 +90,38 @@ public class Tilemap : Renderable
             );
         }
         // Go Through Layers //
-        foreach (TmxLayer layer in ResourceFile.Layers)
+        foreach (TmxLayer layer in ResourceFile.Layers.Reverse())
         {
-            // Check //
+            // Check for Collision //
             bool isWallLayer = layer.Name.ToLower() is "walls";
 
             foreach ((int index, TmxLayerTile tile) in layer.Tiles
-                .Where(static tile => tile.Gid is not 0)
                 .Index())
             {
-                Debug.WriteLine("Graphical ID: " + tile.Gid + '\n');
-                
+                // Conditions //
+                if (tile.Gid is 0)
+                    continue;
+                // Data //
                 int frameIndex = tile.Gid - 1; // Tiled uses 1-based indexing for tiles
-
                 float x = (index % ResourceFile.Width) * ResourceFile.TileWidth;
                 float y = (float)Math.Floor(index / (double)ResourceFile.Width) * ResourceFile.TileHeight;
-
-                //_ = new Structure(
-                //    tileCache[frameIndex],
-
-                //    new Rect(
-                //        new Point(x, y),
-                //        new Size(TileWidth, TileHeight)
-                //    )
-                //)
-
-                //{
-                //    IsCollidable = isWallLayer,
-                //    IsAnchored = true,
-                //};
-            }
-        }
-    }
-    // Event Methods //
-    public override void OnRender(GuiService guiService, DrawingContext context)
-    {
-        // Offset //
-        PushTransform(context, RenderMatrix);
-        // Draw Each Layer //
-        foreach (TmxLayer layer in ResourceFile.Layers)
-        {
-            foreach ((int index, TmxLayerTile tile) in layer.Tiles
-                .Where(static tile => tile.Gid is not 0)
-                .Index())
-            {
-                int frameIndex = tile.Gid - 1; // Tiled uses 1-based indexing for tiles
-
-                float x = (index % ResourceFile.Width) * ResourceFile.TileWidth;
-                float y = (float)Math.Floor(index / (double)ResourceFile.Width) * ResourceFile.TileHeight;
-
-                context.DrawImage(
+                // Collisions //
+                //Debug.WriteLine("X: " + this.Position.X);
+                //Debug.WriteLine("Y: " + this.Position.Y);
+                _ = new Structure(
                     tileCache[frameIndex],
+
                     new Rect(
-                        new Point(x, y),
+                        new Point(x + this.Position.X, y + this.Position.Y),
                         new Size(TileWidth, TileHeight)
                     )
-                );
+                )
+
+                {
+                    IsCollidable = isWallLayer,
+                    IsAnchored = true,
+                };
             }
         }
-        // Reset Offset Matrix //
-        PopMatrix();
     }
 }

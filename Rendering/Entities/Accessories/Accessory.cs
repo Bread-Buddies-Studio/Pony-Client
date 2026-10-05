@@ -48,7 +48,6 @@ public class Accessory : Renderable
         RunService.Update += OnUpdate;
     }
 
-
     // Event Methods //
     private void UpdateAnimation()
     {
@@ -59,11 +58,7 @@ public class Accessory : Renderable
         // Play Animation //
         Animator.Play(Name.ToLower(), Parent.State.ToString(), (int)facingDirection.ToDegrees());
     }
-    private void OnUpdate(object? sender, UpdateEventArgs _)
-    {
-        //Debug.WriteLine("Update!");
-        UpdateAnimation();
-    }
+    private void OnUpdate(object? sender, UpdateEventArgs _) => UpdateAnimation();
     public override void OnRender(GuiService guiService, DrawingContext context)
     {
         IImage? frame = Animator.Frame;

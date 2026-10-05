@@ -74,7 +74,8 @@ public partial class MainWindow : Window
             WorldService.LocalPlayer = new(
                 Name: userName,
                 Position: new Point(200, 200),
-                Size: new Size(200, 200)
+                Size: new Size(200, 200),
+                accessoryNames: [@"eyes/mare/type1", "trixiehat"]
             )
             {
                 Layer = 2,

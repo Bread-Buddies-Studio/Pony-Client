@@ -9,6 +9,8 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Diagnostics;
+using Avalonia.Controls;
+using SkiaSharp;
 
 namespace Core.Extensions;
 
@@ -76,5 +78,27 @@ public static class WritableBitmapExtensions
         }
         // Convert to Array //
         return [.. colors];
+    }
+
+    public static WriteableBitmap Overlay(this WriteableBitmap source, 
+        SKEncodedImageFormat imageFormat = SKEncodedImageFormat.Png, 
+        params Span<WriteableBitmap> overlays)
+    {
+        // Convert Source to SKBitmap //
+        using SKBitmap sourceSK = (SKBitmap)source.Lock();
+        // Add Overlays to Source //
+        foreach (WriteableBitmap overlay in overlays)
+        {
+            // Convert to Skia //
+            using SKBitmap overlaySK = (SKBitmap)overlay.Lock();
+            // Overlay onto source //
+            overlaySK.CopyTo(sourceSK);
+        }
+        // Encode Data //
+        SKData encodeData = sourceSK.Encode(imageFormat, quality: 100);
+        // Connect to Data //
+        using Stream stream = encodeData.AsStream();
+        // Convert Stream to Writeable Bitmap //
+        return WriteableBitmap.Decode(stream);
     }
 }

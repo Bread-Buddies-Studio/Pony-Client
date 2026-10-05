@@ -11,3 +11,16 @@ C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Ne
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\refint\Network.dll
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.pdb
 C:\Users\Bread\OneDrive\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\ref\Network.dll
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\bin\Debug\net9.0\Network.deps.json
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\bin\Debug\net9.0\Network.dll
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\bin\Debug\net9.0\Network.pdb
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.csproj.AssemblyReference.cache
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.AssemblyInfoInputs.cache
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.AssemblyInfo.cs
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.csproj.CoreCompileInputs.cache
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.sourcelink.json
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.dll
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\refint\Network.dll
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\Network.pdb
+C:\Users\Bread\Documents\GitHub\Pony-Client\Network\obj\Debug\net9.0\ref\Network.dll

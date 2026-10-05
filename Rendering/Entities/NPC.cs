@@ -50,7 +50,7 @@ public class NPC : Entity
         if (TargetPosition is null)
             return;
         // Calculations //
-        float distance = ((float)Position.DistanceFrom((Point)TargetPosition));
+        float distance = (float)Position.DistanceFrom((Point)TargetPosition);
         Point direction = Position.ToDirectional((Point)TargetPosition).SetMagnitude(Speed.Clamp0(distance));
         // Settings //
         MovementDirection = direction;

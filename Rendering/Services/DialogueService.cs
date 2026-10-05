@@ -22,7 +22,7 @@ public static class DialogueService
     public static readonly Dictionary<char, int> CharacterDelays = new() // (ms) //
     {
         ['\0'] = 10, // Default //
-        ['.'] = 750
+        ['.'] = 750 // End of Sentences //
     };
     // Data //
     public static readonly Typewriter Writer = new(
@@ -42,7 +42,7 @@ public static class DialogueService
         _ = new FlickerEffect(Writer);
         _ = new SineEffect(Writer);
         
-        Writer.Text = "the [sine=1 5][nervous=1][b][color=red]blood[\\color][\\b][\\nervous][\\sine] runs thick...";/*Name of Character![\\size]\n" +
+        Writer.Text = "life is a [sine=1 5][nervous=1][b][color=red]party!!![\\color][\\b][\\nervous][\\sine]";/*Name of Character![\\size]\n" +
                                                                                                                      * 
             " Dialogue!";*/
     }

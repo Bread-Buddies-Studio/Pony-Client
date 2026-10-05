@@ -75,7 +75,7 @@ public class Animator
             return;
         }
         // Conditions //
-        if (currentAnimation == CurrentAnimation)
+        if (currentAnimation.Equals(CurrentAnimation))
             return; // Don't waste time playing something already playing //
         // Debug // 
         //Debug.WriteLine("Playing: " + animationName + " | " + degrees + " degrees");
@@ -144,7 +144,7 @@ public class Animator
     }
 }
 
-public class Animation
+public class Animation()
 {
     [AllowNull]
     public string Name { get; set; }
@@ -164,7 +164,7 @@ public class Animation
     // Instance Data //
     private readonly Stopwatch Stopwatch = new();
     private long SkippedMillis = 0;
-    public virtual int FrameIndex => (int)(MillisSincePlay / 1000.0 * FPS) % FrameCount;
+    public int FrameIndex => (int)(MillisSincePlay / 1000.0 * FPS) % FrameCount;
     public IImage CurrentFrame => frames[FrameIndex];
     // Base Methods //
     public void SetFrame(int frameIndex)
@@ -188,7 +188,7 @@ public class Animation
     }
     public void Resume() => Stopwatch.Start();
     // Loading Methods //
-    public void Load(SheetData sheetData, Bitmap Sheet)
+    public void Load(in SheetData sheetData, Bitmap Sheet)
     {
         Debug.WriteLine("Loading Animation: " + Name);
         // Allocate Memory //
@@ -218,6 +218,7 @@ public class Animation
             frames[iterationIndex] = frame;
         }
         // Fix Blurry Images //
+        Debug.WriteLine(frames.Length);
     }
 
     public void UnLoad()

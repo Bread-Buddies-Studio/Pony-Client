@@ -17,7 +17,6 @@ public static class MatchExtensions
             return null;
         // Success //
         return match.Value[(match.Value.IndexOf('=') + 1)..^1];
-        
     }
 
     public static string GetCode(this Match match)

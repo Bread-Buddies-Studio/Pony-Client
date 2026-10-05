@@ -20,7 +20,7 @@ public static class INetSerializableExtensions
         // Initialize Writer //
         NetDataWriter writer = new();
         // Add Data to Writer //
-        currentSerializable.Serialize(writer);
+        //currentSerializable.Serialize(writer.Data);
         // Create Reader from Writer //
         NetDataReader reader = new(writer);
         otherSerializable.Deserialize(reader);

@@ -34,7 +34,7 @@ public class Typewriter(
     // Public Data //
     public required string Text 
     { 
-        get; 
+        get;
         set
         {
             field = value;

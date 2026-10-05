@@ -16,8 +16,6 @@ public static class PacketService
     // Constructor //
     static PacketService()
     {
-        // Register Packets //
-        // Register Packets //
     }
     // Base Methods //
     /// <summary>

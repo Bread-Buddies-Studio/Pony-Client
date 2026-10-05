@@ -33,7 +33,7 @@ public enum EntityState
     Flying
 }
 // Classes //
-public abstract partial class Entity : Renderable, ICollidable, INetSerializable
+public abstract class Entity : Renderable, ICollidable, INetSerializable
 {
     // Static Data //
     public static readonly HashSet<Entity> Entities = [];
@@ -43,6 +43,7 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     public readonly List<OverheadText> OverheadTexts = [];
     public readonly HashSet<Accessory> Accessories = [];
     // Rendering //
+    public readonly Animator AnimController = new();
     public override byte Layer => 1;
     public Matrix RenderMatrix
     {
@@ -68,7 +69,8 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     // Dialogue //
     public Dictionary<char, int> CharacterDelays = new()
     { 
-        {' ', 50} 
+        {' ', 50},
+        {'.', 100 }
     };
     // Movement //
     public EntityState State
@@ -165,11 +167,6 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     public Point Translate(float x, float y) => Translate(new(x, y));
     public Point Translate(double x, double y) => Translate(new(x, y));
     public virtual void Speak(string message) => ChatService.AddLog(this, message);
-
-    public double GetDirection()
-    {
-        return Math.Atan2(MovementDirection.Y, MovementDirection.X) * 180.0 / Math.PI;
-    }
     #region Network Methods
     public virtual void Serialize(NetDataWriter writer)
     {
@@ -200,14 +197,6 @@ public abstract partial class Entity : Renderable, ICollidable, INetSerializable
     }
     public abstract void OnStateChange(object? entity, (EntityState oldState, EntityState newState) state);
     public virtual void OnMoveDirectionChange(object? entity, (Point oldDirection, Point newDirection) direction) {}
-    #endregion
-}
-// Animation //
-public abstract partial class Entity
-{
-    // Controller //
-    public readonly Animator AnimController = new();
-    // Event Methods //
     public override void OnRender(GuiService guiservice, DrawingContext context)
     {
         IImage? frame = AnimController.Frame;
@@ -223,4 +212,5 @@ public abstract partial class Entity
         // Reset Matrix //
         PopMatrix();
     }
+    #endregion
 }

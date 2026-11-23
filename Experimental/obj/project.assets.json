@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net9.0": {
       "Avalonia/11.3.2": {
@@ -107,11 +107,11 @@
           "buildTransitive/Avalonia.BuildServices.targets": {}
         }
       },
-      "Avalonia.Controls.ColorPicker/11.3.4": {
+      "Avalonia.Controls.ColorPicker/11.3.23": {
         "type": "package",
         "dependencies": {
-          "Avalonia": "11.3.4",
-          "Avalonia.Remote.Protocol": "11.3.4"
+          "Avalonia": "11.3.23",
+          "Avalonia.Remote.Protocol": "11.3.23"
         },
         "compile": {
           "lib/net8.0/Avalonia.Controls.ColorPicker.dll": {
@@ -144,12 +144,12 @@
           }
         }
       },
-      "Avalonia.Diagnostics/11.3.4": {
+      "Avalonia.Diagnostics/11.3.23": {
         "type": "package",
         "dependencies": {
-          "Avalonia": "11.3.4",
-          "Avalonia.Controls.ColorPicker": "11.3.4",
-          "Avalonia.Themes.Simple": "11.3.4"
+          "Avalonia": "11.3.23",
+          "Avalonia.Controls.ColorPicker": "11.3.23",
+          "Avalonia.Themes.Simple": "11.3.23"
         },
         "compile": {
           "lib/net8.0/Avalonia.Diagnostics.dll": {
@@ -217,7 +217,7 @@
           }
         }
       },
-      "Avalonia.Remote.Protocol/11.3.4": {
+      "Avalonia.Remote.Protocol/11.3.23": {
         "type": "package",
         "compile": {
           "lib/net8.0/Avalonia.Remote.Protocol.dll": {
@@ -268,10 +268,10 @@
           }
         }
       },
-      "Avalonia.Themes.Simple/11.3.4": {
+      "Avalonia.Themes.Simple/11.3.23": {
         "type": "package",
         "dependencies": {
-          "Avalonia": "11.3.4"
+          "Avalonia": "11.3.23"
         },
         "compile": {
           "lib/net8.0/Avalonia.Themes.Simple.dll": {
@@ -820,8 +820,8 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Audio": "1.0.0",
-          "Avalonia": "11.3.4",
-          "Avalonia.Desktop": "11.3.4",
+          "Avalonia": "12.1.6",
+          "Avalonia.Desktop": "12.1.6",
           "LiteNetLib": "1.3.1",
           "NAudio": "2.2.1",
           "TiledSharp": "1.0.1"
@@ -851,9 +851,9 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Audio": "1.0.0",
-          "Avalonia": "11.3.4",
-          "Avalonia.Desktop": "11.3.4",
-          "Avalonia.Diagnostics": "11.3.4",
+          "Avalonia": "12.1.6",
+          "Avalonia.Desktop": "12.1.6",
+          "Avalonia.Diagnostics": "11.3.23",
           "Avalonia.Fonts.Inter": "11.3.4",
           "Avalonia.Themes.Fluent": "11.3.4",
           "CommunityToolkit.Mvvm": "8.4.0",
@@ -1073,15 +1073,15 @@
         "tools/netstandard2.0/runtimeconfig.json"
       ]
     },
-    "Avalonia.Controls.ColorPicker/11.3.4": {
-      "sha512": "9ZDFgEPLKGTvsyVgqcExSN1XzvRDqfzHILC3tQU08QL0o3p62w1PR008+D5YvbVPiZIlp2ugcT14dF1/n2+Eug==",
+    "Avalonia.Controls.ColorPicker/11.3.23": {
+      "sha512": "jmWC3uogt2GDaMWtggVOXxPZcXImrZYfb72qtYWKlPrSmJPlOO/PjziAk1Mmw8ov6/GuQgTkyd3Lyhij1/TD3A==",
       "type": "package",
-      "path": "avalonia.controls.colorpicker/11.3.4",
+      "path": "avalonia.controls.colorpicker/11.3.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "avalonia.controls.colorpicker.11.3.4.nupkg.sha512",
+        "avalonia.controls.colorpicker.11.3.23.nupkg.sha512",
         "avalonia.controls.colorpicker.nuspec",
         "lib/net6.0/Avalonia.Controls.ColorPicker.dll",
         "lib/net6.0/Avalonia.Controls.ColorPicker.xml",
@@ -1109,15 +1109,15 @@
         "lib/netstandard2.0/Avalonia.Desktop.xml"
       ]
     },
-    "Avalonia.Diagnostics/11.3.4": {
-      "sha512": "7agu3YsJ3VjSKlGehh3CBMHm6wkMTMmXj4rqYt0Lc08ZVaziurezP8R2Hudsn0I9jS28X3WvpNBFuny7KCCWPw==",
+    "Avalonia.Diagnostics/11.3.23": {
+      "sha512": "a7/fOKMqKoWfmTd92Wl1J+T6kkHtXJ1zUk7qFPMNTYJE3+eC8zECujVTNhVKPZhRpiHdPvkLauYDMmeKDnwiJA==",
       "type": "package",
-      "path": "avalonia.diagnostics/11.3.4",
+      "path": "avalonia.diagnostics/11.3.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "avalonia.diagnostics.11.3.4.nupkg.sha512",
+        "avalonia.diagnostics.11.3.23.nupkg.sha512",
         "avalonia.diagnostics.nuspec",
         "lib/net6.0/Avalonia.Diagnostics.dll",
         "lib/net6.0/Avalonia.Diagnostics.xml",
@@ -1182,15 +1182,15 @@
         "runtimes/osx/native/libAvaloniaNative.dylib"
       ]
     },
-    "Avalonia.Remote.Protocol/11.3.4": {
-      "sha512": "WEb44B/h8uaqsFlHFHbJIUYcOJF1P6fWoVKFmTSpG8oxywl5+oNjJ1K51jL6FYhmzYapWoVq2INaaXMc7qngDA==",
+    "Avalonia.Remote.Protocol/11.3.23": {
+      "sha512": "XISBABqYGt6NVBFPCPlz/+FWiNADz1+f33e1yWk5Q/yMVMXVcnluSKy9XHIkEgSHMaY/fI2oo4l3MYYYzQHr5A==",
       "type": "package",
-      "path": "avalonia.remote.protocol/11.3.4",
+      "path": "avalonia.remote.protocol/11.3.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "avalonia.remote.protocol.11.3.4.nupkg.sha512",
+        "avalonia.remote.protocol.11.3.23.nupkg.sha512",
         "avalonia.remote.protocol.nuspec",
         "lib/net6.0/Avalonia.Remote.Protocol.dll",
         "lib/net6.0/Avalonia.Remote.Protocol.xml",
@@ -1236,15 +1236,15 @@
         "lib/netstandard2.0/Avalonia.Themes.Fluent.xml"
       ]
     },
-    "Avalonia.Themes.Simple/11.3.4": {
-      "sha512": "JIR/uTlyFD1EX2WoxD/8O1fwNbOimKYxzlaK+lZiW1ZG+5fcqEfG12Ve4/a/q54dWAAEISgLRjSgpCEywPqFuw==",
+    "Avalonia.Themes.Simple/11.3.23": {
+      "sha512": "tD+7ApS95Z9CofTTmqhcwBjtpaz5AGD1XG3h+KO8/KIWo0t63/D5pUUiud5uKldhjSh/imrPUiHqc1hgD8PIJw==",
       "type": "package",
-      "path": "avalonia.themes.simple/11.3.4",
+      "path": "avalonia.themes.simple/11.3.23",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
-        "avalonia.themes.simple.11.3.4.nupkg.sha512",
+        "avalonia.themes.simple.11.3.23.nupkg.sha512",
         "avalonia.themes.simple.nuspec",
         "lib/net6.0/Avalonia.Themes.Simple.dll",
         "lib/net6.0/Avalonia.Themes.Simple.xml",
@@ -2085,6 +2085,7 @@
       },
       "frameworks": {
         "net9.0": {
+          "framework": "net9.0",
           "targetAlias": "net9.0",
           "projectReferences": {
             "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Core\\Core.csproj": {
@@ -2106,10 +2107,11 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "11.0.100"
     },
     "frameworks": {
       "net9.0": {
+        "framework": "net9.0",
         "targetAlias": "net9.0",
         "dependencies": {
           "Avalonia": {
@@ -2137,7 +2139,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\11.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -2145,7 +2147,7 @@
     {
       "code": "NU1605",
       "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Avalonia.Desktop from 11.3.4 to 11.3.2. Reference the package directly from the project to select a different version. \r\n Experimental -> Rendering -> Avalonia.Desktop (>= 11.3.4) \r\n Experimental -> Avalonia.Desktop (>= 11.3.2)",
+      "message": "Warning As Error: Detected package downgrade: Avalonia.Desktop from 12.1.6 to 11.3.2. Reference the package directly from the project to select a different version. \r\n Experimental -> Rendering -> Avalonia.Desktop (>= 12.1.6) \r\n Experimental -> Avalonia.Desktop (>= 11.3.2)",
       "libraryId": "Avalonia.Desktop",
       "targetGraphs": [
         "net9.0"
@@ -2154,7 +2156,7 @@
     {
       "code": "NU1605",
       "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Avalonia from 11.3.4 to 11.3.2. Reference the package directly from the project to select a different version. \r\n Experimental -> Rendering -> Avalonia (>= 11.3.4) \r\n Experimental -> Avalonia (>= 11.3.2)",
+      "message": "Warning As Error: Detected package downgrade: Avalonia from 12.1.6 to 11.3.2. Reference the package directly from the project to select a different version. \r\n Experimental -> Rendering -> Avalonia (>= 12.1.6) \r\n Experimental -> Avalonia (>= 11.3.2)",
       "libraryId": "Avalonia",
       "targetGraphs": [
         "net9.0"

@@ -34,7 +34,7 @@ public static class WorldService
             Debug.WriteLine("");
         }
 
-        var map = new Tilemap("TestMap", Position: new(-500, -500));
+        //var map = new Tilemap("TestMap", Position: new(-500, -500));
         
         _ = new NPC("Pinkamena", new(400, 0), new(200, 200))
         {

@@ -1,7 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Dialogs.Internal;
 using Avalonia.Media;
-using Core.Extensions; 
+using Core.Extensions;
+using Rendering.Entities.Accessories;
 using Rendering.Services;
 using Rendering.Views;
 using Rendering.Visible;
@@ -30,7 +31,7 @@ public class NPC : Entity
     public event EventHandler<EventArgs>? ReachedTarget;
     // Constructor //
     [SetsRequiredMembers]
-    public NPC(string Name, Point Position, Size Size) : base(Position, Size) 
+    public NPC(string Name, Point Position, Size Size, params string[] accessoryNames) : base(Position, Size, accessoryNames) 
     {
         // Initialize //
         this.Name = Name;
@@ -80,11 +81,32 @@ public class NPC : Entity
     #region Event Methods
     public void OnInteract(object? sender, EventArgs eventData)
     {
-        _ = DialogueService.Typewrite(
-                string.Concat([
-                    $"[size=30][b]{Name}[\\b][\\size]\n ",
-                    "Hello... I've got my [sine=1 10][nervous=1][b][color=red]eyes[\\color][\\b][\\nervous][\\sine] on [color=red]you[\\color]"
-                ]));
+        // Convert //
+        LocalPlayer? player = sender as LocalPlayer;
+        // Conditions //
+        if (player is null) // How?
+            return;
+        // Init Message //
+        string message = "[sine=1 10]Wore [\\sine]";
+        // Settings //
+        foreach ((int index, Accessory accessory) in this.Accessories.Index())
+        {
+            // Padding //
+            if (index is not 0)
+                message += ", ";
+            // Print Accessory Name //
+            message += accessory.Name;
+            // Wear //
+            player.Accessories.Add(new Accessory(accessory.Name));
+        }
+
+        _ = DialogueService.Typewrite(message);
+
+        //_ = DialogueService.Typewrite(
+        //        string.Concat([
+        //            $"[size=30][b]{Name}[\\b][\\size]\n ",
+        //            "Hello... I've got my [sine=1 10][nervous=1][b][color=red]eyes[\\color][\\b][\\nervous][\\sine] on [color=red]you[\\color]"
+        //        ]));
     }
     public override void OnUpdate(long deltaTime)
     {

@@ -140,10 +140,10 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
         RunService.Update += OnUpdate;
         StateChanged += OnStateChange;
         MoveDirectionChanged += OnMoveDirectionChange;
-        
+
         // Add Accessories //
         foreach (string accessoryName in accessoryNames)
-            Accessories.Add(new Accessory(this, accessoryName));
+            Wear(accessoryName);
 
         // Initialize State //
         StateChanged?.Invoke(this, (State, State));
@@ -174,7 +174,13 @@ public abstract class Entity : Renderable, ICollidable, INetSerializable
     }
     public Point Translate(float x, float y) => Translate(new(x, y));
     public Point Translate(double x, double y) => Translate(new(x, y));
+
     public virtual void Speak(string message) => ChatService.AddLog(this, message);
+    public void Wear(string accessory_name)
+    {
+        Accessory accessory = new(accessory_name) { Parent = this };
+        Accessories.Add(accessory);
+    }
     #region Network Methods
     public virtual void Serialize(NetDataWriter writer)
     {

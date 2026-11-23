@@ -18,7 +18,7 @@ namespace Rendering.Entities.Accessories;
 public class Accessory : Renderable
 {
     // Data //
-    public required Entity Parent;
+    public required Entity? Parent;
     public required string Name;
     public Animator Animator = new();
     public override Rect Hitbox => Parent is null ? new() : Parent.Hitbox;
@@ -35,15 +35,12 @@ public class Accessory : Renderable
     }
     // Constructor //
     [SetsRequiredMembers]
-    public Accessory(Entity Parent, string Name) : base()
+    public Accessory(string Name) : base()
     {
+        
         // Init //
-        this.Parent = Parent;
-        this.Layer = (byte)(Parent.Layer + 1); // Accessories are always one layer above the parent entity
         this.Name = Name;
         this.PBL = true;
-        // Add Reference //
-        Parent.Accessories.Add(this);
         // Play //
         RunService.Update += OnUpdate;
     }
@@ -51,6 +48,9 @@ public class Accessory : Renderable
     // Event Methods //
     private void UpdateAnimation()
     {
+        // Conditions //
+        if (Parent is null)
+            return;
         // Update Animation //
         Point facingDirection = Parent.FacingDirection.ToPoint();
         // Checks //
@@ -63,6 +63,8 @@ public class Accessory : Renderable
     {
         IImage? frame = Animator.Frame;
         // Condtitions //
+        if (Parent is null)
+            return;
         if (frame is null)
             return;
         if (WorldService.CurrentCamera is null)

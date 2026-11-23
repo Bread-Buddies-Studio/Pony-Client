@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156
+# Visual Studio Version 18
+VisualStudioVersion = 18.12.12405.243 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rendering", "Rendering\Rendering.csproj", "{A0617BC4-2C21-4480-9CF6-E1C3F618B6D6}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network", "Network\Network.csproj", "{4E481651-8DB4-4081-B202-0FE4F8095C6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audio", "Audio\Audio.csproj", "{04E9C6BB-DEE5-4C66-B7CB-C9A8350DF053}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimental", "Experimental\Experimental.csproj", "{4EE73564-9440-0492-0A48-D987834E3F6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{04E9C6BB-DEE5-4C66-B7CB-C9A8350DF053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E9C6BB-DEE5-4C66-B7CB-C9A8350DF053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E9C6BB-DEE5-4C66-B7CB-C9A8350DF053}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4EE73564-9440-0492-0A48-D987834E3F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EE73564-9440-0492-0A48-D987834E3F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EE73564-9440-0492-0A48-D987834E3F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EE73564-9440-0492-0A48-D987834E3F6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

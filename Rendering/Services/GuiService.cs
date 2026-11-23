@@ -28,7 +28,7 @@ public partial class GuiService : UserControl
         InputService.KeyDown += OnKeyDown;
         // Reference //
         Window = this;
-        //
+        // Fixes Pixel Art //
         RenderOptions.SetBitmapInterpolationMode(this, BitmapInterpolationMode.None);
     }
     // Static Methods //
@@ -98,8 +98,8 @@ public partial class GuiService : UserControl
         // Checks //
         if (VisualRoot is not null)
         {   // Update Size //
-            Width = VisualRoot.ClientSize.Width;
-            Height = VisualRoot.ClientSize.Height;
+            Width = VisualRoot.Bounds.Width;
+            Height = VisualRoot.Bounds.Height;
         }
     }
     public override void Render(DrawingContext context)

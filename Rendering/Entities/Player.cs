@@ -24,28 +24,13 @@ using Avalonia.Media.Imaging;
 using Rendering.Entities.Accessories;
 
 // Class //
-public class Player : Entity, IStats
+public class Player : Entity
 {
     // Static Data //
     public readonly static HashSet<Player> Players = [];
     // Required //
     public required byte TagLine;
     public required NameTag NameTag;
-    // Vitality //
-    public int Health
-    {
-        get => field;
-        set => field = value.Clamp0(MaxHealth);
-    }
-
-    public int Mana
-    {
-        get => field;
-        set => field = value.Clamp0(MaxMana);
-    }
-
-    public int MaxHealth { get; set; }
-    public int MaxMana { get; set; }
     public override float DesiredSpeed { get; set; }
     #region Constructors
     [SetsRequiredMembers]

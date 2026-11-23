@@ -26,3 +26,4 @@ C:\Users\Bread\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.dll
 C:\Users\Bread\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\refint\Audio.dll
 C:\Users\Bread\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.pdb
 C:\Users\Bread\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\ref\Audio.dll
+C:\Users\Bread\Documents\GitHub\Pony-Client\Audio\obj\Debug\net9.0\Audio.csproj.Up2Date

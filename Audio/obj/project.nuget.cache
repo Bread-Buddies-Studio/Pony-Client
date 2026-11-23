@@ -1,19 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "9rIxFTBXn38=",
+  "dgSpecHash": "ZMl2D9SPGwA=",
   "success": true,
   "projectFilePath": "C:\\Users\\Bread\\Documents\\GitHub\\Pony-Client\\Audio\\Audio.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Bread\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\naudio\\2.2.1\\naudio.2.2.1.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\naudio.asio\\2.2.1\\naudio.asio.2.2.1.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\naudio.core\\2.2.1\\naudio.core.2.2.1.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\naudio.midi\\2.2.1\\naudio.midi.2.2.1.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\naudio.wasapi\\2.2.1\\naudio.wasapi.2.2.1.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\naudio.winmm\\2.2.1\\naudio.winmm.2.2.1.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
-    "C:\\Users\\Bread\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
+    "C:\\Users\\Bread\\.nuget\\packages\\naudio\\3.3.0\\naudio.3.3.0.nupkg.sha512",
+    "C:\\Users\\Bread\\.nuget\\packages\\naudio.core\\3.3.0\\naudio.core.3.3.0.nupkg.sha512",
+    "C:\\Users\\Bread\\.nuget\\packages\\naudio.midi\\3.3.0\\naudio.midi.3.3.0.nupkg.sha512",
+    "C:\\Users\\Bread\\.nuget\\packages\\naudio.wasapi\\3.3.0\\naudio.wasapi.3.3.0.nupkg.sha512",
+    "C:\\Users\\Bread\\.nuget\\packages\\naudio.winmm\\3.3.0\\naudio.winmm.3.3.0.nupkg.sha512",
+    "C:\\Users\\Bread\\.nuget\\packages\\system.numerics.tensors\\9.0.0\\system.numerics.tensors.9.0.0.nupkg.sha512"
   ],
   "logs": []
 }

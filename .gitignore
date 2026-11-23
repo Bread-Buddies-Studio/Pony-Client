@@ -1,0 +1,41 @@
+# ---- Visual Studio ----
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.slnLaunch.user
+*.rsuser
+*.vsidx
+*.VC.db
+*.VC.opendb
+
+# ---- Build output ----
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+publish/
+*.pdb
+
+# ---- NuGet ----
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+project.lock.json
+
+# ---- Tests and logs ----
+TestResults/
+*.log
+
+# ---- Other editors and tools ----
+.idea/
+*.und/
+.vscode/
+
+# ---- OS files ----
+.DS_Store
+Thumbs.db
